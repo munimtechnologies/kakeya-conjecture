@@ -7,6 +7,13 @@ finite-field facts), a dated record of the dimension bounds, and a tested, depen
 companion (`kakeya.py`) that checks Kakeya sets in AG(*n*, *q*), builds the two explicit
 constructions below, and computes every finite-field bound quoted here.
 
+**New in version 1.2:** explicit Kakeya sets in **F**₃^*n* with base below 2. Cut a point of
+**F**₃^3*m* into three blocks of length *m*; the set of points in which one block is a 0/1 vector
+with at most *m*/3 ones and each of the other two blocks misses one of the three symbols is a
+Kakeya set. This gives *K*(*n*, 3) ≤ 189 · 432^(*n*/9) ≈ 189 · 1.9626^*n*, where the explicit
+constructions quoted in the literature have base 2 (section 7, last part; proofs in
+[`TRIPLES.md`](TRIPLES.md), code and tests in `triples.py` and `test_triples.py`).
+
 **New in version 1.1:** the first exact finite-field Kakeya number in dimension three over a field
 with more than two elements. The smallest Kakeya set in **F**₃³ has exactly **13** points
 (section 7), proved by an exhaustive search that runs in seconds with no solver. The release also
@@ -18,7 +25,7 @@ MV2's name. Every statement below is either proved here or cited to a source; se
 what is proved from what is open, and section 12 lists what is new here. Corrections are welcome by
 issue or pull request.
 
-Version 1.1, 2026-10-14. Text and data CC BY 4.0, code Apache-2.0.
+Version 1.2, 2026-10-14. Text and data CC BY 4.0, code Apache-2.0.
 
 Related problem record: Justin Sun Prize JSP-000015, "Kakeya dimension conjecture (general
 dimension)" (MathDB #315983).
@@ -338,6 +345,38 @@ runs of each solver and a `certificate`, the smallest set found as a list of coo
 **Open, as far as we can tell:** every other exact value with *n* ≥ 3 and *q* ≥ 3. The smallest
 open cases are *K*(4, 3) ∈ [18, 27] and *K*(3, 4) ∈ [21, 28].
 
+**Growth over F₃: explicit sets below base 2 (new in version 1.2).** For fixed *q* = 3 and
+growing *n*, the limit β = lim *K*(*n*, 3)^(1/*n*) exists, and Kopparty, Lev, Saraf and Sudan
+(arXiv 1003.3736) showed 1.8 ≤ β ≤ 3/2^(2/3) ≈ 1.890. Their upper bound uses randomly chosen
+linear maps; the explicit constructions they and later papers give for *q* = 3 have base 2 (the
+Smyth set above, 2^(*n*+1) − 1, and 3 · 2^*n*). Here is an explicit one with base below 2.
+
+Let *W* ⊂ **F**₃^*m* be the vectors that use at most two of the three symbols, and *B* the 0/1
+vectors with at most *m*/3 ones.
+
+**Theorem (new).** The set *K_m* = (*W* × *W* × *B*) ∪ (*W* × *B* × *W*) ∪ (*B* × *W* × *W*) ⊂ **F**₃^3*m*
+is a Kakeya set. Consequently *K*(*n*, 3) ≤ 189 · 432^(*n*/9) for every *n*, and
+432^(1/9) = 2^(4/9) · 3^(1/3) ≈ 1.96262.
+
+*Proof.* First, for every *d* ∈ **F**₃^*m* there is *a* with *a* ∈ *W*, *a* + *d* ∈ *W* and
+*a* + 2*d* ∈ *B*: let *j* be a least frequent symbol of *d* (it occurs at most *m*/3 times), let
+*e* be the 0/1 vector with ones where *d_i* = *j*, and put *a* = *d* + *e*. Then *a* uses only
+*j* + 1 and *j* + 2; *a* + *d* = 2*d* + *e* uses only 2*j* + 1 and 2*j* + 2; and
+*a* + 2*d* = *e* ∈ *B*. Now take a direction *d* = (*d*₁, *d*₂, *d*₃) of **F**₃^3*m*, let *a_i*
+be as above for *d_i*, and put *x* = (*a*₁, *a*₂ + *d*₂, *a*₃ + 2*d*₃). Then *x* ∈ *W* × *W* × *B*,
+*x* + *d* = (*a*₁ + *d*₁, *a*₂ + 2*d*₂, *a*₃) ∈ *W* × *B* × *W* and
+*x* + 2*d* = (*a*₁ + 2*d*₁, *a*₂, *a*₃ + *d*₃) ∈ *B* × *W* × *W*. For the size, |*W*| = 3 · 2^*m* − 3
+and |*B*| ≤ 2^(*m* h(1/3)) = (27/4)^(*m*/3) (the binomial tail bound, h the binary entropy), so
+|*K_m*| ≤ 3 · 9 · 4^*m* · (27/4)^(*m*/3) = 27 · 432^(*m*/3). Other *n* follow by products with
+*K*(1, 3) = 3 and *K*(2, 3) = 7. ∎
+
+The exact size is |*K_m*| = 3*w*²*b* − 3*wb*² + *b*³ with *w* = |*W*|, *b* = |*B*|, because *B* lies
+inside *W*. It first beats the Smyth set at *m* = 17 (*n* = 51), and the clean bound beats it for
+every *n* = 3*m* ≥ 138. The construction does **not** improve the probabilistic 1.890; it is, as far
+as we found, the first explicit one below 2. [`TRIPLES.md`](TRIPLES.md) puts it in a general
+framework ("rainbow triples": the growth base equals the best base of a single small triple), with
+the tripling lemma, an energy lemma, the exact plane values and the open targets in **F**₃³.
+
 ## 8. Variants that are open or recently settled
 
 - **Z/NZ and p-adic rings.** Over the rings **Z**/*N***Z** the analogue of Dvir's theorem was
@@ -364,7 +403,9 @@ individual unrefereed claims.
 - All *n*: Hausdorff dimension ≥ max((*n* + 2)/2, (2 − √2)(*n* − 4) + 3) and the Katz-Tao Minkowski
   bound; in **R**⁴, at least 3.059 (Katz-Zahl, published) and 3.0738 (2026 preprint).
 - Finite fields: |*K*| ≥ *q^n*/(2 − 1/*q*)^(*n*−1), sharp to first order; the plane exactly; *q* = 2
-  exactly for *n* ≤ 6; *K*(3, 3) = 13 (new here, by exhaustive computation that anyone can rerun).
+  exactly for *n* ≤ 6; *K*(3, 3) = 13 (new here, by exhaustive computation that anyone can rerun);
+  for *q* = 3, 1.8 ≤ β ≤ 1.890 (KLSS, the upper bound probabilistic) and explicit sets with
+  *K*(*n*, 3) ≤ 189 · 1.9627^*n* (new here, section 7).
 
 **Open.**
 - The Kakeya set conjecture for every *n* ≥ 4 (this is the open content of JSP-000015).
@@ -372,6 +413,7 @@ individual unrefereed claims.
 - The restriction and Bochner-Riesz conjectures for *n* ≥ 3.
 - Exact finite-field values *K*(*n*, *q*) for *n* ≥ 3, *q* ≥ 3 other than *K*(3, 3); the
   second-order term in *K*(*n*, *q*).
+- The growth base β for *q* = 3, and an explicit construction matching the random 1.890.
 
 ## 11. Why this matters beyond the problem
 
@@ -383,6 +425,10 @@ combinatorics, which went on to the joints theorem and the cap-set bound.
 
 ## 12. What is original here
 
+- **Explicit Kakeya sets in F₃^*n* with base below 2** (section 7, last part): *K*(*n*, 3) ≤
+  189 · 432^(*n*/9), base 1.9626, from a two-symbol "rainbow triple" and a tripling lemma
+  (`TRIPLES.md`). As far as we found, the explicit constructions in the literature for *q* = 3
+  have base 2, and the best bound, 1.890, is probabilistic.
 - **The exact value *K*(3, 3) = 13** (section 7), with a solver-free proof that reruns in seconds,
   an explicit 13-point set and a table of its 13 lines. As far as we found, it is the first exact
   finite-field Kakeya number in dimension at least 3 over a field with more than two elements.
@@ -413,22 +459,35 @@ combinatorics, which went on to the joints theorem and the cap-set bound.
     python kakeya.py records          # the exact values and bounds of section 7
     python -m unittest -v test_kakeya
 
+`triples.py` (Python 3.8+, no packages) holds the rainbow-triple tools of `TRIPLES.md`:
+
+    python triples.py wwb 40          # sizes and bases of the two-symbol construction, m = 1..40
+    python triples.py plane           # the exhaustive F_3^2 table behind tau(2) = 64
+    python triples.py energy 3 512    # size patterns in F_3^3 that the energy lemma leaves open
+    python -m unittest -v test_triples
+
 Fields supported: **F**_*p* for primes *p*, and **F**₄, **F**₈, **F**₉, **F**₁₆. The tests check the
 field axioms, the line structure of AG(*n*, *q*), the plane minima for *q* ≤ 5 by brute force and
 by the exhaustive search, *K*(3, 2) = 5 and *K*(4, 2) = 6 by exhaustion, the equivalence (c) on all
 256 subsets of **F**₂³, both constructions in every case used in section 7 (line by line, with
 their exact sizes), the product lemma, the exhaustive search against a slow independent check,
 *K*(3, 3) = 13, and every one of the 18 solver certificates in `data/kakeya-min-v1/results.json`.
+`test_triples` checks the two-symbol theorem exhaustively for *m* ≤ 5, the Kakeya property of
+*K_m* line by line for *n* = 3*m* ≤ 9 and on random directions up to *n* = 60, and every size
+quoted above.
 
 `solve.py` (needs `ortools`, `scipy` and `numpy`, see `requirements-solve.txt`) is the
 integer-programming search that produced the data: one 0/1 variable per point and per line,
 exactly one chosen line per direction, every point of a chosen line in the set, minimise the size;
 solved with CP-SAT and HiGHS, and every set returned is re-checked with `is_kakeya`.
+`search_s3.py` and `anneal.py` (CP-SAT and simulated annealing) search for small rainbow triples in
+**F**₃³ and beyond.
 
 ## Sources
 
 - Z. Dvir, "On the size of Kakeya sets in finite fields", J. Amer. Math. Soc. 22 (2009) 1093-1097; arXiv 0803.2336.
 - Z. Dvir, S. Kopparty, S. Saraf, M. Sudan, "Extensions to the method of multiplicities, with applications to Kakeya sets and mergers", SIAM J. Comput. 42 (2013).
+- S. Kopparty, V. F. Lev, S. Saraf, M. Sudan, "Kakeya-type sets in finite vector spaces", J. Algebraic Combin. 34 (2011) 337-355; arXiv 1003.3736.
 - G. Kyureghyan, P. Müller, Q. Wang, "On the size of Kakeya sets in finite vector spaces", Electron. J. Combin. 20(3) (2013) #P36; arXiv 1302.5591.
 - B. Bukh, T.-W. Chao, "Sharp density bounds on the finite field Kakeya problem", Discrete Analysis 2021:26; arXiv 2108.00074.
 - A. Blokhuis, F. Mazzocca, "The finite field Kakeya problem", in Building Bridges, Bolyai Soc. Math. Stud. 19 (2008); arXiv 0911.4370.
@@ -467,5 +526,5 @@ solved with CP-SAT and HiGHS, and every set returned is re-checked with `is_kake
 ## Licence
 
 Text and data (`data/`): CC BY 4.0. Code: Apache-2.0 (see LICENSE). Cite as: MV2 (Munim, Inc.),
-"The Kakeya conjecture in October 2026", version 1.1,
+"The Kakeya conjecture in October 2026", version 1.2,
 https://github.com/munimtechnologies/kakeya-conjecture.
