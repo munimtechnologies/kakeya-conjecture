@@ -3,8 +3,9 @@
 A Kakeya set in F_q^n is a set of points containing a full line {b + t*d : t in F_q} in every
 direction d. This module builds the finite field F_q (q prime or q in {4, 8, 9, 16}), the points,
 directions and lines of AG(n, q), checks the Kakeya property, builds the parabola construction and
-product sets, computes the classical lower bounds, and finds the minimum size of a Kakeya set by
-brute force when the search space is small.
+product sets, computes the classical lower bounds, finds the minimum size of a Kakeya set by
+brute force when the search space is small, and decides by exhaustive search whether a Kakeya set
+of a given size exists (this proves K(3, 3) = 13).
 
 Points are encoded as integers: the point (c_0, ..., c_{n-1}) is sum c_i * q**i.
 
@@ -13,13 +14,16 @@ Points are encoded as integers: the point (c_0, ..., c_{n-1}) is sum c_i * q**i.
     python kakeya.py parabola N Q       print the parabola Kakeya set in AG(N, Q), Q odd
     python kakeya.py smyth N Q          print the set (F*)^N plus the 0/1 vectors in AG(N, Q)
     python kakeya.py brute N Q          exact minimum by brute force (small cases only)
+    python kakeya.py exhaust N Q K      is there a Kakeya set of at most K points? (small cases only)
+    python kakeya.py records            the exact values and bounds computed by MV2 (section 7)
 
 By MV2 of Munim, Inc. Made with AI agents working in MV2's name. Apache-2.0 licence.
 """
 
+import json
 import sys
 from fractions import Fraction
-from itertools import product
+from itertools import combinations, product
 from math import comb
 
 # Monic irreducible polynomials for the non-prime fields, lowest coefficient first.
@@ -34,6 +38,17 @@ IRREDUCIBLE = {
 # group C_2^n (see is_difference_cover_f2); these are the difference sizes computed by Banakh and
 # Gavrylkiv, Acta Sci. Math. (Szeged) 85 (2019), Tables 1 and 3.
 KNOWN_F2 = {1: 2, 2: 3, 3: 5, 4: 6, 5: 10, 6: 14}
+
+# MV2's computation kakeya-min-v1 (October 2026), raw output in data/kakeya-min-v1/results.json:
+# (n, q) -> (best lower bound, smallest Kakeya set found). The lower bounds are Bukh-Chao except
+# (3, 3), where kakeya_sets_through_axis proves 13 with no solver; every upper bound is a set in
+# that file, re-checked line by line by the tests.
+COMPUTED = {(3, 3): (13, 13), (4, 3): (18, 27), (5, 3): (32, 56), (3, 4): (21, 28),
+            (4, 4): (48, 64), (3, 5): (39, 53), (3, 7): (100, 128)}
+
+# A 13-point Kakeya set in F_3^3, coordinates (c_0, c_1, c_2); it is the smallest possible.
+K33 = [(0, 0, 0), (1, 0, 0), (2, 0, 0), (1, 1, 0), (0, 0, 1), (2, 0, 1), (0, 1, 1), (1, 1, 1),
+       (0, 2, 1), (2, 2, 1), (0, 0, 2), (2, 1, 2), (0, 2, 2)]
 
 
 def is_prime(m):
@@ -200,6 +215,49 @@ def brute_force_minimum(space, allowed=None):
     return best, sorted(best_choice)
 
 
+def line_masks(space):
+    """Every direction's lines as bitmasks over the encoded points (bit p stands for point p)."""
+    return [[sum(1 << p for p in L) for L in lines] for lines in space.lines]
+
+
+def mask_points(mask):
+    """The encoded points of a bitmask, in increasing order."""
+    return [p for p in range(mask.bit_length()) if mask >> p & 1]
+
+
+def kakeya_sets_through_axis(space, size):
+    """Yield, as bitmasks, every Kakeya set of exactly `size` points that contains span(e1).
+
+    Exhaustive and solver-free. Every Kakeya set has a translate containing span(e1) (move its
+    line in direction e1 there), and adding points to a Kakeya set keeps it Kakeya, so AG(n, q)
+    has a Kakeya set of at most `size` points if and only if this yields at least one set. It
+    tries binom(q^n - q, size - q) sets, so it is practical only for small cases: proving
+    K(3, 3) > 12 takes binom(24, 9) = 1,307,504 sets.
+    """
+    if size < space.q or size > space.size:
+        return
+    axis = space.line((0,) * space.n, space.unit(0))
+    base = sum(1 << p for p in axis)
+    rest = [1 << p for p in range(space.size) if p not in axis]
+    e1 = space.directions.index(space.unit(0))
+    checks = [lines for i, lines in enumerate(line_masks(space)) if i != e1]
+    for combo in combinations(rest, size - space.q):
+        s = base | sum(combo)
+        for lines in checks:
+            for L in lines:
+                if (s & L) == L:
+                    break
+            else:
+                break
+        else:
+            yield s
+
+
+def has_kakeya_set_of_size(space, size):
+    """True if AG(n, q) has a Kakeya set of at most `size` points (exhaustive; small cases only)."""
+    return next(kakeya_sets_through_axis(space, size), None) is not None
+
+
 def parabola_kakeya(n, q):
     """The parabola Kakeya set in AG(n, q), q odd. Returns (space, sorted encoded points).
 
@@ -282,6 +340,21 @@ def bukh_chao_bound(n, q):
     return -((-v.numerator) // v.denominator)
 
 
+def load_certificates(path):
+    """Read a solver results file (data/kakeya-min-v1/results.json).
+
+    Returns a list of (n, q, best_found, encoded points of the smallest set found).
+    """
+    with open(path) as f:
+        cases = json.load(f)
+    out = []
+    for case in cases:
+        n, q = case["n"], case["q"]
+        pts = [sum(x * q ** j for j, x in enumerate(c)) for c in case["certificate"]]
+        out.append((n, q, case["best_found"], pts))
+    return out
+
+
 def read_points(path, space):
     pts = []
     with open(path) as f:
@@ -297,7 +370,12 @@ def read_points(path, space):
 
 
 def main(argv):
-    if len(argv) < 3 or argv[0] not in ("check", "bounds", "parabola", "smyth", "brute"):
+    if argv[:1] == ["records"]:
+        print("(n, q)   lower  upper  (MV2 computation kakeya-min-v1; see README section 7)")
+        for (n, q), (lo, hi) in sorted(COMPUTED.items()):
+            print("(%d, %d)   %5d  %5d%s" % (n, q, lo, hi, "  exact" if lo == hi else ""))
+        return 0
+    if len(argv) < 3 or argv[0] not in ("check", "bounds", "parabola", "smyth", "brute", "exhaust"):
         print(__doc__)
         return 2
     cmd, n, q = argv[0], int(argv[1]), int(argv[2])
@@ -313,6 +391,9 @@ def main(argv):
             print("known minimum    %d" % plane_minimum(q))
         if q == 2 and n in KNOWN_F2:
             print("known minimum    %d" % KNOWN_F2[n])
+        if (n, q) in COMPUTED:
+            lo, hi = COMPUTED[(n, q)]
+            print("MV2 computation  %d..%d" % (lo, hi))
         return 0
     if cmd in ("parabola", "smyth"):
         S, pts = parabola_kakeya(n, q) if cmd == "parabola" else smyth_kakeya(n, q)
@@ -324,6 +405,16 @@ def main(argv):
         best, pts = brute_force_minimum(S, symmetry_lines(S) if n >= 2 else None)
         print("minimum %d" % best)
         for p in pts:
+            print(" ".join(str(x) for x in S.coords[p]))
+        return 0
+    if cmd == "exhaust":
+        k = int(argv[3])
+        s = next(kakeya_sets_through_axis(S, k), None)
+        if s is None:
+            print("no Kakeya set of at most %d points in AG(%d,%d)" % (k, n, q))
+            return 1
+        print("a Kakeya set of %d points in AG(%d,%d):" % (k, n, q))
+        for p in mask_points(s):
             print(" ".join(str(x) for x in S.coords[p]))
         return 0
     pts = read_points(argv[3], S)

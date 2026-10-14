@@ -5,10 +5,15 @@ import tempfile
 import unittest
 from itertools import combinations
 
-from kakeya import (GF, KNOWN_F2, AffineSpace, brute_force_minimum, bukh_chao_bound,
-                    counting_bound, dvir_bound, is_difference_cover_f2, is_kakeya, main,
-                    missing_directions, parabola_kakeya, parabola_size, plane_minimum,
-                    product_set, smyth_kakeya, smyth_size, symmetry_lines)
+from kakeya import (COMPUTED, GF, K33, KNOWN_F2, AffineSpace, brute_force_minimum,
+                    bukh_chao_bound, counting_bound, dvir_bound, has_kakeya_set_of_size,
+                    is_difference_cover_f2, is_kakeya, kakeya_sets_through_axis, line_masks,
+                    load_certificates, main, mask_points, missing_directions, parabola_kakeya,
+                    parabola_size, plane_minimum, product_set, smyth_kakeya, smyth_size,
+                    symmetry_lines)
+
+RESULTS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "kakeya-min-v1",
+                       "results.json")
 
 
 class FieldTests(unittest.TestCase):
@@ -94,6 +99,15 @@ class GeometryTests(unittest.TestCase):
                     self.assertIn(L, S.lines[i])
             self.assertIn(0, fixed[0][0])
 
+    def test_masks(self):
+        S = AffineSpace(2, 3)
+        masks = line_masks(S)
+        for lines, mlines in zip(S.lines, masks):
+            for L, m in zip(lines, mlines):
+                self.assertEqual(mask_points(m), sorted(L))
+        self.assertEqual(mask_points(0), [])
+        self.assertEqual(mask_points(0b1011), [0, 1, 3])
+
 
 class MinimumTests(unittest.TestCase):
     def test_plane_formula(self):
@@ -157,29 +171,88 @@ class MinimumTests(unittest.TestCase):
         self.assertEqual(counting_bound(2, 5), 12)
 
 
-class BinaryTests(unittest.TestCase):
-    def test_difference_cover_equals_kakeya_in_the_cube(self):
-        S = AffineSpace(3, 2)
-        for mask in range(256):
-            pts = [i for i in range(8) if mask >> i & 1]
-            self.assertEqual(is_kakeya(pts, S), is_difference_cover_f2(pts, 3), pts)
+class ExhaustiveTests(unittest.TestCase):
+    def test_axis_search_matches_a_slow_check(self):
+        # Every set the fast bitmask search yields, and nothing else, is a Kakeya set of that
+        # size containing span(e1), checked with the slow frozenset code.
+        for n, q, k in ((2, 3, 6), (2, 3, 7), (2, 4, 10), (3, 2, 4), (3, 2, 5), (4, 2, 6)):
+            S = AffineSpace(n, q)
+            axis = S.line((0,) * n, S.unit(0))
+            fast = set(kakeya_sets_through_axis(S, k))
+            slow = {sum(1 << p for p in pts) for pts in combinations(range(S.size), k)
+                    if axis <= set(pts) and is_kakeya(pts, S)}
+            self.assertEqual(fast, slow, (n, q, k))
+            for s in fast:
+                self.assertEqual(len(mask_points(s)), k)
 
-    def test_four_dimensional_binary_minimum_is_six(self):
-        S = AffineSpace(4, 2)
-        for pts in combinations(range(16), 5):
-            self.assertFalse(is_kakeya(pts, S))
-            self.assertFalse(is_difference_cover_f2(pts, 4))
-        found = 0
-        for pts in combinations(range(16), 6):
-            k = is_kakeya(pts, S)
-            self.assertEqual(k, is_difference_cover_f2(pts, 4))
-            found += k
-        self.assertGreater(found, 0)
-        # {0, e1, e2, e3, e4, e1+e2+e3+e4}: its 15 pairwise sums are the 15 nonzero vectors.
-        sidon = [0, 1, 2, 4, 8, 15]
-        self.assertTrue(is_kakeya(sidon, S))
-        self.assertEqual(len({a ^ b for a, b in combinations(sidon, 2)}), 15)
-        self.assertEqual(KNOWN_F2[4], 6)
+    def test_axis_search_reproduces_known_minima(self):
+        for q in (2, 3, 4, 5):
+            S = AffineSpace(2, q)
+            self.assertFalse(has_kakeya_set_of_size(S, plane_minimum(q) - 1), q)
+            self.assertTrue(has_kakeya_set_of_size(S, plane_minimum(q)), q)
+        for n in (2, 3, 4):
+            S = AffineSpace(n, 2)
+            self.assertFalse(has_kakeya_set_of_size(S, KNOWN_F2[n] - 1), n)
+            self.assertTrue(has_kakeya_set_of_size(S, KNOWN_F2[n]), n)
+        S = AffineSpace(2, 3)
+        self.assertFalse(has_kakeya_set_of_size(S, 2))
+        self.assertTrue(has_kakeya_set_of_size(S, 9))
+        self.assertFalse(has_kakeya_set_of_size(S, 10))
+
+    def test_k33_is_thirteen(self):
+        # The new exact value: the smallest Kakeya set in F_3^3 has 13 points. The lower bound
+        # checks all binom(24, 9) = 1,307,504 sets of 12 points through span(e1); no solver.
+        S = AffineSpace(3, 3)
+        pts = [S.encode(c) for c in K33]
+        self.assertEqual(len(set(pts)), 13)
+        self.assertTrue(is_kakeya(pts, S))
+        self.assertEqual(missing_directions(pts, S), [])
+        for p in pts:
+            self.assertFalse(is_kakeya([x for x in pts if x != p], S), p)
+        self.assertFalse(has_kakeya_set_of_size(S, 12))
+        self.assertTrue(has_kakeya_set_of_size(S, 13))
+        self.assertEqual(COMPUTED[(3, 3)], (13, 13))
+        # It beats both explicit constructions and sits 3 above the classical lower bounds.
+        self.assertLess(13, smyth_size(3, 3))
+        self.assertLess(13, parabola_size(3, 3))
+        self.assertEqual(max(dvir_bound(3, 3), bukh_chao_bound(3, 3), counting_bound(3, 3)), 10)
+        # Its slices by the last coordinate have 4, 6 and 3 points.
+        self.assertEqual([sum(1 for c in K33 if c[2] == h) for h in range(3)], [4, 6, 3])
+
+
+class CertificateTests(unittest.TestCase):
+    def test_every_certificate_is_a_kakeya_set(self):
+        certs = load_certificates(RESULTS)
+        self.assertEqual(len(certs), 18)
+        seen = set()
+        for n, q, best, pts in certs:
+            S = AffineSpace(n, q)
+            self.assertEqual(len(set(pts)), best, (n, q))
+            self.assertTrue(all(0 <= p < S.size for p in pts), (n, q))
+            self.assertTrue(is_kakeya(pts, S), (n, q))
+            self.assertGreaterEqual(best, bukh_chao_bound(n, q), (n, q))
+            if n == 2:
+                self.assertEqual(best, plane_minimum(q), q)
+            if q == 2:
+                self.assertEqual(best, KNOWN_F2[n], n)
+            if (n, q) in COMPUTED:
+                self.assertEqual(best, COMPUTED[(n, q)][1], (n, q))
+            seen.add((n, q))
+        self.assertTrue(set(COMPUTED) <= seen)
+
+    def test_recorded_bounds(self):
+        for (n, q), (lo, hi) in COMPUTED.items():
+            self.assertLessEqual(lo, hi)
+            if (n, q) != (3, 3):
+                self.assertEqual(lo, bukh_chao_bound(n, q), (n, q))
+            # Every new upper bound beats the explicit constructions the README compares with.
+            self.assertLess(hi, smyth_size(n, q), (n, q))
+            if q % 2:
+                self.assertLess(hi, parabola_size(n, q), (n, q))
+        self.assertEqual([COMPUTED[k][1] for k in ((4, 3), (5, 3), (3, 4), (4, 4))],
+                         [27, 56, 28, 64])
+        self.assertEqual([smyth_size(4, 3), smyth_size(5, 3), smyth_size(3, 4), smyth_size(4, 4)],
+                         [31, 63, 34, 96])
 
 
 class ConstructionTests(unittest.TestCase):
@@ -237,9 +310,21 @@ class CommandLineTests(unittest.TestCase):
         self.assertEqual(code, 0)
         self.assertIn("Dvir bound       10", text)
         self.assertIn("parabola set     17", text)
+        self.assertIn("MV2 computation  13..13", text)
         code, text = self.run_main(["parabola", "2", "3"])
         self.assertEqual(code, 0)
         self.assertEqual(len(text.strip().splitlines()), 7)
+
+    def test_exhaust_and_records(self):
+        code, text = self.run_main(["exhaust", "2", "3", "6"])
+        self.assertEqual(code, 1)
+        self.assertIn("no Kakeya set of at most 6 points", text)
+        code, text = self.run_main(["exhaust", "2", "3", "7"])
+        self.assertEqual(code, 0)
+        self.assertEqual(len(text.strip().splitlines()), 8)
+        code, text = self.run_main(["records"])
+        self.assertEqual(code, 0)
+        self.assertIn("(3, 3)      13     13  exact", text)
 
     def test_check(self):
         S, pts = parabola_kakeya(2, 5)

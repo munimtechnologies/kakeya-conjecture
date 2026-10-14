@@ -1,0 +1,5331 @@
+[
+ {
+  "n": 2,
+  "q": 2,
+  "points": 4,
+  "directions": 3,
+  "lines": 6,
+  "dvir_bound": 3,
+  "bukh_chao_bound": 3,
+  "plane_known_minimum": 3,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "OPTIMAL",
+    "seconds": 0.01,
+    "time_limit": 60,
+    "value": 3,
+    "lower_bound": 3,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2
+    ]
+   },
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": false,
+    "status": "OPTIMAL",
+    "seconds": 0.0,
+    "time_limit": 60,
+    "value": 3,
+    "lower_bound": 3,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "seconds": 0.0,
+    "time_limit": 60,
+    "value": 3,
+    "lower_bound": 3,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2
+    ]
+   }
+  ],
+  "best_found": 3,
+  "best_lower_bound": 3,
+  "proved_minimum": 3,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    0,
+    1
+   ]
+  ]
+ },
+ {
+  "n": 2,
+  "q": 3,
+  "points": 9,
+  "directions": 4,
+  "lines": 12,
+  "dvir_bound": 6,
+  "bukh_chao_bound": 6,
+  "plane_known_minimum": 7,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "OPTIMAL",
+    "seconds": 0.0,
+    "time_limit": 60,
+    "value": 7,
+    "lower_bound": 7,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     5,
+     6,
+     7
+    ]
+   },
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": false,
+    "status": "OPTIMAL",
+    "seconds": 0.0,
+    "time_limit": 60,
+    "value": 7,
+    "lower_bound": 7,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "seconds": 0.01,
+    "time_limit": 60,
+    "value": 7,
+    "lower_bound": 7,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     5,
+     6,
+     8
+    ]
+   }
+  ],
+  "best_found": 7,
+  "best_lower_bound": 7,
+  "proved_minimum": 7,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    2,
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    0,
+    2
+   ],
+   [
+    1,
+    2
+   ]
+  ]
+ },
+ {
+  "n": 2,
+  "q": 4,
+  "points": 16,
+  "directions": 5,
+  "lines": 20,
+  "dvir_bound": 10,
+  "bukh_chao_bound": 10,
+  "plane_known_minimum": 10,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "OPTIMAL",
+    "seconds": 0.01,
+    "time_limit": 60,
+    "value": 10,
+    "lower_bound": 10,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     8,
+     11,
+     12,
+     14
+    ]
+   },
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": false,
+    "status": "OPTIMAL",
+    "seconds": 0.0,
+    "time_limit": 60,
+    "value": 10,
+    "lower_bound": 10,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     10,
+     13,
+     14
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "seconds": 0.01,
+    "time_limit": 60,
+    "value": 10,
+    "lower_bound": 10,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     7,
+     8,
+     10,
+     12,
+     13
+    ]
+   }
+  ],
+  "best_found": 10,
+  "best_lower_bound": 10,
+  "proved_minimum": 10,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    2,
+    0
+   ],
+   [
+    3,
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    1
+   ],
+   [
+    0,
+    2
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    0,
+    3
+   ],
+   [
+    2,
+    3
+   ]
+  ]
+ },
+ {
+  "n": 2,
+  "q": 5,
+  "points": 25,
+  "directions": 6,
+  "lines": 30,
+  "dvir_bound": 15,
+  "bukh_chao_bound": 14,
+  "plane_known_minimum": 17,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "OPTIMAL",
+    "seconds": 0.01,
+    "time_limit": 60,
+    "value": 17,
+    "lower_bound": 17,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     7,
+     10,
+     11,
+     12,
+     13,
+     15,
+     16,
+     19,
+     20,
+     21,
+     24
+    ]
+   },
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": false,
+    "status": "OPTIMAL",
+    "seconds": 0.01,
+    "time_limit": 60,
+    "value": 17,
+    "lower_bound": 17,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     1,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11,
+     12,
+     13,
+     15,
+     16,
+     19,
+     20,
+     21,
+     22,
+     23
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "seconds": 0.08,
+    "time_limit": 60,
+    "value": 17,
+    "lower_bound": 17,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     8,
+     9,
+     10,
+     11,
+     14,
+     15,
+     18,
+     19,
+     20,
+     21,
+     22
+    ]
+   }
+  ],
+  "best_found": 17,
+  "best_lower_bound": 17,
+  "proved_minimum": 17,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    2,
+    0
+   ],
+   [
+    3,
+    0
+   ],
+   [
+    4,
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    0,
+    2
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    0,
+    3
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    0,
+    4
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    4,
+    4
+   ]
+  ]
+ },
+ {
+  "n": 2,
+  "q": 7,
+  "points": 49,
+  "directions": 8,
+  "lines": 56,
+  "dvir_bound": 28,
+  "bukh_chao_bound": 27,
+  "plane_known_minimum": 31,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "OPTIMAL",
+    "seconds": 0.03,
+    "time_limit": 60,
+    "value": 31,
+    "lower_bound": 31,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     14,
+     17,
+     20,
+     21,
+     24,
+     25,
+     26,
+     27,
+     28,
+     30,
+     33,
+     35,
+     37,
+     39,
+     40,
+     41,
+     42,
+     43,
+     45,
+     46,
+     47
+    ]
+   },
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": false,
+    "status": "OPTIMAL",
+    "seconds": 0.14,
+    "time_limit": 60,
+    "value": 31,
+    "lower_bound": 31,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     2,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     15,
+     16,
+     18,
+     19,
+     21,
+     22,
+     23,
+     24,
+     26,
+     30,
+     32,
+     33,
+     34,
+     35,
+     36,
+     37,
+     38,
+     42,
+     43,
+     44,
+     45
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "seconds": 0.95,
+    "time_limit": 60,
+    "value": 31,
+    "lower_bound": 31,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     14,
+     15,
+     17,
+     18,
+     20,
+     21,
+     24,
+     26,
+     27,
+     28,
+     30,
+     32,
+     34,
+     35,
+     37,
+     39,
+     40,
+     42,
+     43,
+     46
+    ]
+   }
+  ],
+  "best_found": 31,
+  "best_lower_bound": 31,
+  "proved_minimum": 31,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    2,
+    0
+   ],
+   [
+    3,
+    0
+   ],
+   [
+    4,
+    0
+   ],
+   [
+    5,
+    0
+   ],
+   [
+    6,
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    0,
+    2
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    0,
+    3
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    5,
+    3
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    0,
+    4
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    0,
+    5
+   ],
+   [
+    2,
+    5
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    6,
+    5
+   ],
+   [
+    0,
+    6
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    3,
+    6
+   ],
+   [
+    4,
+    6
+   ],
+   [
+    5,
+    6
+   ]
+  ]
+ },
+ {
+  "n": 2,
+  "q": 8,
+  "points": 64,
+  "directions": 9,
+  "lines": 72,
+  "dvir_bound": 36,
+  "bukh_chao_bound": 35,
+  "plane_known_minimum": 36,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "OPTIMAL",
+    "seconds": 0.02,
+    "time_limit": 60,
+    "value": 36,
+    "lower_bound": 36,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     12,
+     15,
+     16,
+     18,
+     19,
+     22,
+     24,
+     25,
+     26,
+     30,
+     32,
+     34,
+     35,
+     37,
+     40,
+     44,
+     45,
+     47,
+     48,
+     49,
+     53,
+     55,
+     56,
+     59,
+     60,
+     62
+    ]
+   },
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": false,
+    "status": "OPTIMAL",
+    "seconds": 0.3,
+    "time_limit": 60,
+    "value": 36,
+    "lower_bound": 36,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     17,
+     18,
+     20,
+     22,
+     24,
+     26,
+     27,
+     28,
+     32,
+     33,
+     34,
+     36,
+     42,
+     43,
+     45,
+     47,
+     50,
+     51,
+     53,
+     54,
+     58,
+     61,
+     62,
+     63
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "seconds": 1.7,
+    "time_limit": 60,
+    "value": 36,
+    "lower_bound": 36,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     12,
+     15,
+     16,
+     17,
+     19,
+     21,
+     24,
+     26,
+     27,
+     28,
+     32,
+     37,
+     38,
+     39,
+     40,
+     41,
+     43,
+     44,
+     48,
+     50,
+     54,
+     55,
+     56,
+     58,
+     61,
+     62
+    ]
+   }
+  ],
+  "best_found": 36,
+  "best_lower_bound": 36,
+  "proved_minimum": 36,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    2,
+    0
+   ],
+   [
+    3,
+    0
+   ],
+   [
+    4,
+    0
+   ],
+   [
+    5,
+    0
+   ],
+   [
+    6,
+    0
+   ],
+   [
+    7,
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    1
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    7,
+    1
+   ],
+   [
+    0,
+    2
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    6,
+    2
+   ],
+   [
+    0,
+    3
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    6,
+    3
+   ],
+   [
+    0,
+    4
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    3,
+    4
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    0,
+    5
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    5,
+    5
+   ],
+   [
+    7,
+    5
+   ],
+   [
+    0,
+    6
+   ],
+   [
+    1,
+    6
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    7,
+    6
+   ],
+   [
+    0,
+    7
+   ],
+   [
+    3,
+    7
+   ],
+   [
+    4,
+    7
+   ],
+   [
+    6,
+    7
+   ]
+  ]
+ },
+ {
+  "n": 2,
+  "q": 9,
+  "points": 81,
+  "directions": 10,
+  "lines": 90,
+  "dvir_bound": 45,
+  "bukh_chao_bound": 43,
+  "plane_known_minimum": 49,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "OPTIMAL",
+    "seconds": 1.14,
+    "time_limit": 60,
+    "value": 49,
+    "lower_bound": 49,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11,
+     14,
+     15,
+     18,
+     19,
+     21,
+     22,
+     23,
+     27,
+     28,
+     30,
+     31,
+     34,
+     36,
+     37,
+     38,
+     41,
+     43,
+     44,
+     45,
+     46,
+     48,
+     49,
+     53,
+     54,
+     56,
+     60,
+     61,
+     63,
+     67,
+     68,
+     70,
+     71,
+     72,
+     75,
+     77,
+     78,
+     79,
+     80
+    ]
+   },
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": false,
+    "status": "FEASIBLE",
+    "seconds": 60.02,
+    "time_limit": 60,
+    "value": 49,
+    "lower_bound": 48,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     4,
+     5,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     23,
+     24,
+     25,
+     27,
+     29,
+     30,
+     32,
+     33,
+     36,
+     37,
+     38,
+     41,
+     43,
+     44,
+     46,
+     50,
+     52,
+     53,
+     55,
+     56,
+     57,
+     58,
+     59,
+     63,
+     65,
+     66,
+     67,
+     68,
+     69,
+     76,
+     77,
+     78,
+     79
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "seconds": 21.29,
+    "time_limit": 60,
+    "value": 49,
+    "lower_bound": 49,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     14,
+     15,
+     16,
+     18,
+     19,
+     21,
+     22,
+     23,
+     26,
+     27,
+     28,
+     29,
+     31,
+     34,
+     36,
+     37,
+     39,
+     41,
+     44,
+     45,
+     49,
+     50,
+     51,
+     53,
+     54,
+     55,
+     56,
+     57,
+     60,
+     63,
+     65,
+     69,
+     70,
+     72,
+     74,
+     75,
+     76
+    ]
+   }
+  ],
+  "best_found": 49,
+  "best_lower_bound": 49,
+  "proved_minimum": 49,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    2,
+    0
+   ],
+   [
+    3,
+    0
+   ],
+   [
+    4,
+    0
+   ],
+   [
+    5,
+    0
+   ],
+   [
+    6,
+    0
+   ],
+   [
+    7,
+    0
+   ],
+   [
+    8,
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    2,
+    1
+   ],
+   [
+    5,
+    1
+   ],
+   [
+    6,
+    1
+   ],
+   [
+    0,
+    2
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    2
+   ],
+   [
+    4,
+    2
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    0,
+    3
+   ],
+   [
+    1,
+    3
+   ],
+   [
+    3,
+    3
+   ],
+   [
+    4,
+    3
+   ],
+   [
+    7,
+    3
+   ],
+   [
+    0,
+    4
+   ],
+   [
+    1,
+    4
+   ],
+   [
+    2,
+    4
+   ],
+   [
+    5,
+    4
+   ],
+   [
+    7,
+    4
+   ],
+   [
+    8,
+    4
+   ],
+   [
+    0,
+    5
+   ],
+   [
+    1,
+    5
+   ],
+   [
+    3,
+    5
+   ],
+   [
+    4,
+    5
+   ],
+   [
+    8,
+    5
+   ],
+   [
+    0,
+    6
+   ],
+   [
+    2,
+    6
+   ],
+   [
+    6,
+    6
+   ],
+   [
+    7,
+    6
+   ],
+   [
+    0,
+    7
+   ],
+   [
+    4,
+    7
+   ],
+   [
+    5,
+    7
+   ],
+   [
+    7,
+    7
+   ],
+   [
+    8,
+    7
+   ],
+   [
+    0,
+    8
+   ],
+   [
+    3,
+    8
+   ],
+   [
+    5,
+    8
+   ],
+   [
+    6,
+    8
+   ],
+   [
+    7,
+    8
+   ],
+   [
+    8,
+    8
+   ]
+  ]
+ },
+ {
+  "n": 3,
+  "q": 2,
+  "points": 8,
+  "directions": 7,
+  "lines": 28,
+  "dvir_bound": 4,
+  "bukh_chao_bound": 4,
+  "plane_known_minimum": null,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "OPTIMAL",
+    "seconds": 0.0,
+    "time_limit": 120,
+    "value": 5,
+    "lower_bound": 5,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     4,
+     6,
+     7
+    ]
+   },
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": false,
+    "status": "OPTIMAL",
+    "seconds": 0.0,
+    "time_limit": 120,
+    "value": 5,
+    "lower_bound": 5,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     1,
+     2,
+     3,
+     4,
+     7
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "seconds": 0.01,
+    "time_limit": 120,
+    "value": 5,
+    "lower_bound": 5,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     4,
+     6
+    ]
+   }
+  ],
+  "best_found": 5,
+  "best_lower_bound": 5,
+  "proved_minimum": 5,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    1
+   ]
+  ]
+ },
+ {
+  "n": 4,
+  "q": 2,
+  "points": 16,
+  "directions": 15,
+  "lines": 120,
+  "dvir_bound": 5,
+  "bukh_chao_bound": 5,
+  "plane_known_minimum": null,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "OPTIMAL",
+    "seconds": 0.01,
+    "time_limit": 120,
+    "value": 6,
+    "lower_bound": 6,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     5,
+     9,
+     15
+    ]
+   },
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": false,
+    "status": "OPTIMAL",
+    "seconds": 0.01,
+    "time_limit": 120,
+    "value": 6,
+    "lower_bound": 6,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     7,
+     8,
+     12
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "seconds": 0.21,
+    "time_limit": 120,
+    "value": 6,
+    "lower_bound": 6,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     7,
+     9,
+     13
+    ]
+   }
+  ],
+  "best_found": 6,
+  "best_lower_bound": 6,
+  "proved_minimum": 6,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    1,
+    0
+   ],
+   [
+    1,
+    0,
+    0,
+    1
+   ],
+   [
+    1,
+    1,
+    1,
+    1
+   ]
+  ]
+ },
+ {
+  "n": 5,
+  "q": 2,
+  "points": 32,
+  "directions": 31,
+  "lines": 496,
+  "dvir_bound": 6,
+  "bukh_chao_bound": 7,
+  "plane_known_minimum": null,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "OPTIMAL",
+    "seconds": 1.01,
+    "time_limit": 300,
+    "value": 10,
+    "lower_bound": 10,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     5,
+     9,
+     11,
+     12,
+     14,
+     17,
+     23
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "seconds": 14.13,
+    "time_limit": 300,
+    "value": 10,
+    "lower_bound": 10,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     8,
+     12,
+     13,
+     14,
+     26,
+     29
+    ]
+   }
+  ],
+  "best_found": 10,
+  "best_lower_bound": 10,
+  "proved_minimum": 10,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    0,
+    1,
+    0
+   ],
+   [
+    1,
+    1,
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    0,
+    1,
+    1,
+    0
+   ],
+   [
+    0,
+    1,
+    1,
+    1,
+    0
+   ],
+   [
+    1,
+    0,
+    0,
+    0,
+    1
+   ],
+   [
+    1,
+    1,
+    1,
+    0,
+    1
+   ]
+  ]
+ },
+ {
+  "n": 3,
+  "q": 3,
+  "points": 27,
+  "directions": 13,
+  "lines": 117,
+  "dvir_bound": 10,
+  "bukh_chao_bound": 10,
+  "plane_known_minimum": null,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "OPTIMAL",
+    "seconds": 0.04,
+    "time_limit": 600,
+    "value": 13,
+    "lower_bound": 13,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     4,
+     9,
+     11,
+     12,
+     13,
+     15,
+     17,
+     18,
+     23,
+     24
+    ]
+   },
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": false,
+    "status": "OPTIMAL",
+    "seconds": 0.03,
+    "time_limit": 600,
+    "value": 13,
+    "lower_bound": 13,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     5,
+     6,
+     8,
+     9,
+     10,
+     15,
+     20,
+     21,
+     22,
+     24
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "seconds": 1.92,
+    "time_limit": 600,
+    "value": 13,
+    "lower_bound": 13,
+    "proved_optimal": true,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     5,
+     6,
+     10,
+     12,
+     16,
+     17,
+     18,
+     20,
+     21
+    ]
+   }
+  ],
+  "best_found": 13,
+  "best_lower_bound": 13,
+  "proved_minimum": 13,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    2,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    2,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    1
+   ],
+   [
+    0,
+    2,
+    1
+   ],
+   [
+    2,
+    2,
+    1
+   ],
+   [
+    0,
+    0,
+    2
+   ],
+   [
+    2,
+    1,
+    2
+   ],
+   [
+    0,
+    2,
+    2
+   ]
+  ]
+ },
+ {
+  "n": 3,
+  "q": 4,
+  "points": 64,
+  "directions": 21,
+  "lines": 336,
+  "dvir_bound": 20,
+  "bukh_chao_bound": 21,
+  "plane_known_minimum": null,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "FEASIBLE",
+    "seconds": 1200.09,
+    "time_limit": 1200,
+    "value": 28,
+    "lower_bound": 24,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     10,
+     11,
+     16,
+     19,
+     20,
+     21,
+     24,
+     26,
+     28,
+     29,
+     30,
+     31,
+     36,
+     37,
+     38,
+     39,
+     41,
+     42,
+     56,
+     57,
+     58,
+     59,
+     61,
+     63
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "seconds": 600.03,
+    "time_limit": 600,
+    "value": 28,
+    "lower_bound": 19,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     8,
+     11,
+     12,
+     14,
+     16,
+     19,
+     21,
+     25,
+     26,
+     31,
+     32,
+     34,
+     35,
+     39,
+     41,
+     42,
+     48,
+     49,
+     56,
+     59,
+     61,
+     63
+    ]
+   }
+  ],
+  "best_found": 28,
+  "best_lower_bound": 24,
+  "proved_minimum": null,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    2,
+    0,
+    0
+   ],
+   [
+    3,
+    0,
+    0
+   ],
+   [
+    2,
+    2,
+    0
+   ],
+   [
+    3,
+    2,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    3,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    1
+   ],
+   [
+    0,
+    2,
+    1
+   ],
+   [
+    2,
+    2,
+    1
+   ],
+   [
+    0,
+    3,
+    1
+   ],
+   [
+    1,
+    3,
+    1
+   ],
+   [
+    2,
+    3,
+    1
+   ],
+   [
+    3,
+    3,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    1,
+    1,
+    2
+   ],
+   [
+    2,
+    1,
+    2
+   ],
+   [
+    3,
+    1,
+    2
+   ],
+   [
+    1,
+    2,
+    2
+   ],
+   [
+    2,
+    2,
+    2
+   ],
+   [
+    0,
+    2,
+    3
+   ],
+   [
+    1,
+    2,
+    3
+   ],
+   [
+    2,
+    2,
+    3
+   ],
+   [
+    3,
+    2,
+    3
+   ],
+   [
+    1,
+    3,
+    3
+   ],
+   [
+    3,
+    3,
+    3
+   ]
+  ]
+ },
+ {
+  "n": 4,
+  "q": 3,
+  "points": 81,
+  "directions": 40,
+  "lines": 1080,
+  "dvir_bound": 15,
+  "bukh_chao_bound": 18,
+  "plane_known_minimum": null,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "FEASIBLE",
+    "seconds": 1500.04,
+    "time_limit": 1500,
+    "value": 27,
+    "lower_bound": 18,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     8,
+     9,
+     10,
+     12,
+     13,
+     15,
+     17,
+     18,
+     21,
+     25,
+     34,
+     37,
+     39,
+     43,
+     45,
+     50,
+     56,
+     57,
+     60,
+     64,
+     65,
+     70,
+     75,
+     77
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "seconds": 600.01,
+    "time_limit": 600,
+    "value": 29,
+    "lower_bound": 12,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     6,
+     8,
+     10,
+     11,
+     14,
+     15,
+     16,
+     20,
+     23,
+     27,
+     35,
+     39,
+     41,
+     52,
+     53,
+     56,
+     57,
+     58,
+     60,
+     61,
+     62,
+     64,
+     67,
+     71,
+     79
+    ]
+   }
+  ],
+  "best_found": 27,
+  "best_lower_bound": 18,
+  "proved_minimum": null,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    0,
+    0
+   ],
+   [
+    2,
+    0,
+    0,
+    0
+   ],
+   [
+    2,
+    2,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1,
+    0
+   ],
+   [
+    1,
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    1,
+    1,
+    0
+   ],
+   [
+    1,
+    1,
+    1,
+    0
+   ],
+   [
+    0,
+    2,
+    1,
+    0
+   ],
+   [
+    2,
+    2,
+    1,
+    0
+   ],
+   [
+    0,
+    0,
+    2,
+    0
+   ],
+   [
+    0,
+    1,
+    2,
+    0
+   ],
+   [
+    1,
+    2,
+    2,
+    0
+   ],
+   [
+    1,
+    2,
+    0,
+    1
+   ],
+   [
+    1,
+    0,
+    1,
+    1
+   ],
+   [
+    0,
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    2,
+    1,
+    1
+   ],
+   [
+    0,
+    0,
+    2,
+    1
+   ],
+   [
+    2,
+    1,
+    2,
+    1
+   ],
+   [
+    2,
+    0,
+    0,
+    2
+   ],
+   [
+    0,
+    1,
+    0,
+    2
+   ],
+   [
+    0,
+    2,
+    0,
+    2
+   ],
+   [
+    1,
+    0,
+    1,
+    2
+   ],
+   [
+    2,
+    0,
+    1,
+    2
+   ],
+   [
+    1,
+    2,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    2
+   ],
+   [
+    2,
+    1,
+    2,
+    2
+   ]
+  ]
+ },
+ {
+  "n": 3,
+  "q": 5,
+  "points": 125,
+  "directions": 31,
+  "lines": 775,
+  "dvir_bound": 35,
+  "bukh_chao_bound": 39,
+  "plane_known_minimum": null,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "FEASIBLE",
+    "seconds": 1500.01,
+    "time_limit": 1500,
+    "value": 53,
+    "lower_bound": 31,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     10,
+     14,
+     22,
+     24,
+     25,
+     27,
+     30,
+     34,
+     35,
+     36,
+     37,
+     40,
+     43,
+     45,
+     47,
+     49,
+     50,
+     51,
+     62,
+     63,
+     65,
+     69,
+     70,
+     71,
+     72,
+     75,
+     77,
+     79,
+     80,
+     81,
+     83,
+     84,
+     85,
+     86,
+     92,
+     94,
+     97,
+     98,
+     100,
+     104,
+     105,
+     107,
+     108,
+     116,
+     119,
+     120,
+     121,
+     123
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "seconds": 600.01,
+    "time_limit": 600,
+    "value": 58,
+    "lower_bound": 17,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     10,
+     11,
+     13,
+     15,
+     17,
+     19,
+     20,
+     22,
+     23,
+     25,
+     26,
+     28,
+     32,
+     35,
+     37,
+     38,
+     41,
+     42,
+     49,
+     50,
+     54,
+     57,
+     59,
+     60,
+     61,
+     63,
+     67,
+     68,
+     70,
+     71,
+     72,
+     77,
+     80,
+     84,
+     85,
+     89,
+     90,
+     92,
+     93,
+     97,
+     99,
+     104,
+     106,
+     108,
+     110,
+     112,
+     114,
+     116,
+     117,
+     121,
+     124
+    ]
+   }
+  ],
+  "best_found": 53,
+  "best_lower_bound": 39,
+  "proved_minimum": null,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    2,
+    0,
+    0
+   ],
+   [
+    3,
+    0,
+    0
+   ],
+   [
+    4,
+    0,
+    0
+   ],
+   [
+    0,
+    2,
+    0
+   ],
+   [
+    4,
+    2,
+    0
+   ],
+   [
+    2,
+    4,
+    0
+   ],
+   [
+    4,
+    4,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    2,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    1
+   ],
+   [
+    4,
+    1,
+    1
+   ],
+   [
+    0,
+    2,
+    1
+   ],
+   [
+    1,
+    2,
+    1
+   ],
+   [
+    2,
+    2,
+    1
+   ],
+   [
+    0,
+    3,
+    1
+   ],
+   [
+    3,
+    3,
+    1
+   ],
+   [
+    0,
+    4,
+    1
+   ],
+   [
+    2,
+    4,
+    1
+   ],
+   [
+    4,
+    4,
+    1
+   ],
+   [
+    0,
+    0,
+    2
+   ],
+   [
+    1,
+    0,
+    2
+   ],
+   [
+    2,
+    2,
+    2
+   ],
+   [
+    3,
+    2,
+    2
+   ],
+   [
+    0,
+    3,
+    2
+   ],
+   [
+    4,
+    3,
+    2
+   ],
+   [
+    0,
+    4,
+    2
+   ],
+   [
+    1,
+    4,
+    2
+   ],
+   [
+    2,
+    4,
+    2
+   ],
+   [
+    0,
+    0,
+    3
+   ],
+   [
+    2,
+    0,
+    3
+   ],
+   [
+    4,
+    0,
+    3
+   ],
+   [
+    0,
+    1,
+    3
+   ],
+   [
+    1,
+    1,
+    3
+   ],
+   [
+    3,
+    1,
+    3
+   ],
+   [
+    4,
+    1,
+    3
+   ],
+   [
+    0,
+    2,
+    3
+   ],
+   [
+    1,
+    2,
+    3
+   ],
+   [
+    2,
+    3,
+    3
+   ],
+   [
+    4,
+    3,
+    3
+   ],
+   [
+    2,
+    4,
+    3
+   ],
+   [
+    3,
+    4,
+    3
+   ],
+   [
+    0,
+    0,
+    4
+   ],
+   [
+    4,
+    0,
+    4
+   ],
+   [
+    0,
+    1,
+    4
+   ],
+   [
+    2,
+    1,
+    4
+   ],
+   [
+    3,
+    1,
+    4
+   ],
+   [
+    1,
+    3,
+    4
+   ],
+   [
+    4,
+    3,
+    4
+   ],
+   [
+    0,
+    4,
+    4
+   ],
+   [
+    1,
+    4,
+    4
+   ],
+   [
+    3,
+    4,
+    4
+   ]
+  ]
+ },
+ {
+  "n": 6,
+  "q": 2,
+  "points": 64,
+  "directions": 63,
+  "lines": 2016,
+  "dvir_bound": 7,
+  "bukh_chao_bound": 9,
+  "plane_known_minimum": null,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "FEASIBLE",
+    "seconds": 300.02,
+    "time_limit": 300,
+    "value": 14,
+    "lower_bound": 12,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     3,
+     4,
+     6,
+     31,
+     37,
+     40,
+     46,
+     49,
+     55,
+     56,
+     61,
+     63
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "seconds": 300.01,
+    "time_limit": 300,
+    "value": 14,
+    "lower_bound": 9,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     9,
+     11,
+     13,
+     15,
+     18,
+     19,
+     35,
+     36,
+     38,
+     50,
+     51
+    ]
+   }
+  ],
+  "best_found": 14,
+  "best_lower_bound": 12,
+  "proved_minimum": null,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    1,
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    1,
+    1,
+    1,
+    0
+   ],
+   [
+    1,
+    0,
+    1,
+    0,
+    0,
+    1
+   ],
+   [
+    0,
+    0,
+    0,
+    1,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    1,
+    1,
+    0,
+    1
+   ],
+   [
+    1,
+    0,
+    0,
+    0,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    1,
+    0,
+    1,
+    1
+   ],
+   [
+    0,
+    0,
+    0,
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    0,
+    1,
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  ]
+ },
+ {
+  "n": 4,
+  "q": 4,
+  "points": 256,
+  "directions": 85,
+  "lines": 5440,
+  "dvir_bound": 35,
+  "bukh_chao_bound": 48,
+  "plane_known_minimum": null,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "FEASIBLE",
+    "seconds": 900.03,
+    "time_limit": 900,
+    "value": 64,
+    "lower_bound": 23,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     8,
+     11,
+     12,
+     14,
+     17,
+     19,
+     25,
+     34,
+     35,
+     38,
+     39,
+     48,
+     51,
+     63,
+     65,
+     75,
+     76,
+     81,
+     88,
+     93,
+     94,
+     100,
+     103,
+     104,
+     112,
+     117,
+     123,
+     126,
+     128,
+     133,
+     139,
+     142,
+     147,
+     149,
+     156,
+     163,
+     164,
+     166,
+     174,
+     176,
+     184,
+     186,
+     194,
+     196,
+     203,
+     216,
+     217,
+     220,
+     221,
+     226,
+     229,
+     232,
+     240,
+     245,
+     250,
+     251,
+     254,
+     255
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "seconds": 629.22,
+    "time_limit": 600,
+    "value": 133,
+    "lower_bound": 13,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     11,
+     12,
+     15,
+     16,
+     20,
+     21,
+     23,
+     24,
+     25,
+     27,
+     28,
+     29,
+     32,
+     33,
+     37,
+     38,
+     40,
+     41,
+     42,
+     45,
+     46,
+     47,
+     48,
+     49,
+     51,
+     55,
+     57,
+     59,
+     60,
+     61,
+     63,
+     64,
+     65,
+     67,
+     69,
+     70,
+     71,
+     72,
+     74,
+     75,
+     76,
+     77,
+     83,
+     86,
+     87,
+     88,
+     90,
+     91,
+     93,
+     95,
+     100,
+     102,
+     104,
+     107,
+     110,
+     111,
+     112,
+     114,
+     115,
+     117,
+     121,
+     122,
+     123,
+     127,
+     128,
+     129,
+     133,
+     138,
+     139,
+     140,
+     141,
+     142,
+     143,
+     145,
+     147,
+     149,
+     153,
+     154,
+     157,
+     158,
+     167,
+     169,
+     176,
+     177,
+     178,
+     180,
+     181,
+     182,
+     183,
+     186,
+     187,
+     189,
+     190,
+     193,
+     197,
+     198,
+     199,
+     200,
+     205,
+     208,
+     210,
+     211,
+     213,
+     214,
+     218,
+     220,
+     222,
+     223,
+     224,
+     226,
+     227,
+     230,
+     235,
+     236,
+     237,
+     239,
+     241,
+     242,
+     245,
+     246,
+     247,
+     248,
+     251,
+     255
+    ]
+   }
+  ],
+  "best_found": 64,
+  "best_lower_bound": 48,
+  "proved_minimum": null,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    0,
+    0
+   ],
+   [
+    2,
+    0,
+    0,
+    0
+   ],
+   [
+    3,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    2,
+    0,
+    0
+   ],
+   [
+    3,
+    2,
+    0,
+    0
+   ],
+   [
+    0,
+    3,
+    0,
+    0
+   ],
+   [
+    2,
+    3,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    1,
+    0
+   ],
+   [
+    3,
+    0,
+    1,
+    0
+   ],
+   [
+    1,
+    2,
+    1,
+    0
+   ],
+   [
+    2,
+    0,
+    2,
+    0
+   ],
+   [
+    3,
+    0,
+    2,
+    0
+   ],
+   [
+    2,
+    1,
+    2,
+    0
+   ],
+   [
+    3,
+    1,
+    2,
+    0
+   ],
+   [
+    0,
+    0,
+    3,
+    0
+   ],
+   [
+    3,
+    0,
+    3,
+    0
+   ],
+   [
+    3,
+    3,
+    3,
+    0
+   ],
+   [
+    1,
+    0,
+    0,
+    1
+   ],
+   [
+    3,
+    2,
+    0,
+    1
+   ],
+   [
+    0,
+    3,
+    0,
+    1
+   ],
+   [
+    1,
+    0,
+    1,
+    1
+   ],
+   [
+    0,
+    2,
+    1,
+    1
+   ],
+   [
+    1,
+    3,
+    1,
+    1
+   ],
+   [
+    2,
+    3,
+    1,
+    1
+   ],
+   [
+    0,
+    1,
+    2,
+    1
+   ],
+   [
+    3,
+    1,
+    2,
+    1
+   ],
+   [
+    0,
+    2,
+    2,
+    1
+   ],
+   [
+    0,
+    0,
+    3,
+    1
+   ],
+   [
+    1,
+    1,
+    3,
+    1
+   ],
+   [
+    3,
+    2,
+    3,
+    1
+   ],
+   [
+    2,
+    3,
+    3,
+    1
+   ],
+   [
+    0,
+    0,
+    0,
+    2
+   ],
+   [
+    1,
+    1,
+    0,
+    2
+   ],
+   [
+    3,
+    2,
+    0,
+    2
+   ],
+   [
+    2,
+    3,
+    0,
+    2
+   ],
+   [
+    3,
+    0,
+    1,
+    2
+   ],
+   [
+    1,
+    1,
+    1,
+    2
+   ],
+   [
+    0,
+    3,
+    1,
+    2
+   ],
+   [
+    3,
+    0,
+    2,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    2
+   ],
+   [
+    2,
+    1,
+    2,
+    2
+   ],
+   [
+    2,
+    3,
+    2,
+    2
+   ],
+   [
+    0,
+    0,
+    3,
+    2
+   ],
+   [
+    0,
+    2,
+    3,
+    2
+   ],
+   [
+    2,
+    2,
+    3,
+    2
+   ],
+   [
+    2,
+    0,
+    0,
+    3
+   ],
+   [
+    0,
+    1,
+    0,
+    3
+   ],
+   [
+    3,
+    2,
+    0,
+    3
+   ],
+   [
+    0,
+    2,
+    1,
+    3
+   ],
+   [
+    1,
+    2,
+    1,
+    3
+   ],
+   [
+    0,
+    3,
+    1,
+    3
+   ],
+   [
+    1,
+    3,
+    1,
+    3
+   ],
+   [
+    2,
+    0,
+    2,
+    3
+   ],
+   [
+    1,
+    1,
+    2,
+    3
+   ],
+   [
+    0,
+    2,
+    2,
+    3
+   ],
+   [
+    0,
+    0,
+    3,
+    3
+   ],
+   [
+    1,
+    1,
+    3,
+    3
+   ],
+   [
+    2,
+    2,
+    3,
+    3
+   ],
+   [
+    3,
+    2,
+    3,
+    3
+   ],
+   [
+    2,
+    3,
+    3,
+    3
+   ],
+   [
+    3,
+    3,
+    3,
+    3
+   ]
+  ]
+ },
+ {
+  "n": 3,
+  "q": 7,
+  "points": 343,
+  "directions": 57,
+  "lines": 2793,
+  "dvir_bound": 84,
+  "bukh_chao_bound": 100,
+  "plane_known_minimum": null,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "FEASIBLE",
+    "seconds": 1200.05,
+    "time_limit": 1200,
+    "value": 128,
+    "lower_bound": 41,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     12,
+     13,
+     14,
+     15,
+     16,
+     18,
+     19,
+     23,
+     24,
+     25,
+     28,
+     30,
+     32,
+     34,
+     36,
+     38,
+     40,
+     42,
+     45,
+     48,
+     49,
+     51,
+     53,
+     54,
+     56,
+     61,
+     63,
+     65,
+     67,
+     68,
+     70,
+     72,
+     74,
+     77,
+     79,
+     81,
+     84,
+     89,
+     91,
+     98,
+     101,
+     102,
+     103,
+     104,
+     110,
+     111,
+     116,
+     117,
+     119,
+     122,
+     123,
+     126,
+     130,
+     132,
+     136,
+     138,
+     143,
+     146,
+     147,
+     148,
+     150,
+     153,
+     155,
+     160,
+     162,
+     168,
+     171,
+     181,
+     182,
+     183,
+     185,
+     192,
+     195,
+     196,
+     198,
+     199,
+     202,
+     203,
+     209,
+     210,
+     212,
+     217,
+     219,
+     220,
+     224,
+     226,
+     230,
+     234,
+     238,
+     241,
+     244,
+     245,
+     246,
+     249,
+     250,
+     252,
+     253,
+     257,
+     259,
+     260,
+     263,
+     264,
+     270,
+     277,
+     281,
+     285,
+     294,
+     295,
+     296,
+     301,
+     302,
+     309,
+     310,
+     317,
+     322,
+     324,
+     329,
+     330,
+     336
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "seconds": 600.18,
+    "time_limit": 600,
+    "value": 180,
+    "lower_bound": 22,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     21,
+     23,
+     24,
+     25,
+     27,
+     28,
+     32,
+     33,
+     34,
+     35,
+     37,
+     38,
+     42,
+     44,
+     46,
+     48,
+     51,
+     54,
+     59,
+     62,
+     64,
+     65,
+     66,
+     67,
+     68,
+     69,
+     71,
+     74,
+     75,
+     77,
+     79,
+     83,
+     87,
+     88,
+     90,
+     93,
+     94,
+     96,
+     98,
+     100,
+     102,
+     103,
+     104,
+     106,
+     108,
+     113,
+     115,
+     116,
+     119,
+     120,
+     123,
+     124,
+     125,
+     126,
+     127,
+     128,
+     130,
+     135,
+     136,
+     139,
+     142,
+     150,
+     152,
+     155,
+     156,
+     165,
+     167,
+     170,
+     171,
+     172,
+     173,
+     178,
+     180,
+     182,
+     183,
+     184,
+     185,
+     186,
+     187,
+     189,
+     190,
+     193,
+     194,
+     195,
+     197,
+     199,
+     202,
+     204,
+     205,
+     207,
+     209,
+     211,
+     212,
+     213,
+     214,
+     215,
+     219,
+     220,
+     221,
+     223,
+     224,
+     227,
+     229,
+     230,
+     232,
+     233,
+     234,
+     236,
+     241,
+     247,
+     250,
+     252,
+     253,
+     254,
+     255,
+     256,
+     257,
+     258,
+     262,
+     263,
+     265,
+     266,
+     267,
+     268,
+     269,
+     270,
+     271,
+     274,
+     276,
+     277,
+     279,
+     280,
+     281,
+     282,
+     285,
+     286,
+     287,
+     288,
+     289,
+     291,
+     293,
+     294,
+     296,
+     297,
+     301,
+     303,
+     304,
+     308,
+     315,
+     317,
+     319,
+     320,
+     324,
+     326,
+     329,
+     330,
+     331,
+     333,
+     334,
+     335,
+     337,
+     338,
+     339,
+     342
+    ]
+   }
+  ],
+  "best_found": 128,
+  "best_lower_bound": 100,
+  "proved_minimum": null,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    0
+   ],
+   [
+    2,
+    0,
+    0
+   ],
+   [
+    3,
+    0,
+    0
+   ],
+   [
+    4,
+    0,
+    0
+   ],
+   [
+    5,
+    0,
+    0
+   ],
+   [
+    6,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0
+   ],
+   [
+    1,
+    1,
+    0
+   ],
+   [
+    5,
+    1,
+    0
+   ],
+   [
+    6,
+    1,
+    0
+   ],
+   [
+    0,
+    2,
+    0
+   ],
+   [
+    1,
+    2,
+    0
+   ],
+   [
+    2,
+    2,
+    0
+   ],
+   [
+    4,
+    2,
+    0
+   ],
+   [
+    5,
+    2,
+    0
+   ],
+   [
+    2,
+    3,
+    0
+   ],
+   [
+    3,
+    3,
+    0
+   ],
+   [
+    4,
+    3,
+    0
+   ],
+   [
+    0,
+    4,
+    0
+   ],
+   [
+    2,
+    4,
+    0
+   ],
+   [
+    4,
+    4,
+    0
+   ],
+   [
+    6,
+    4,
+    0
+   ],
+   [
+    1,
+    5,
+    0
+   ],
+   [
+    3,
+    5,
+    0
+   ],
+   [
+    5,
+    5,
+    0
+   ],
+   [
+    0,
+    6,
+    0
+   ],
+   [
+    3,
+    6,
+    0
+   ],
+   [
+    6,
+    6,
+    0
+   ],
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    2,
+    0,
+    1
+   ],
+   [
+    4,
+    0,
+    1
+   ],
+   [
+    5,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    1
+   ],
+   [
+    5,
+    1,
+    1
+   ],
+   [
+    0,
+    2,
+    1
+   ],
+   [
+    2,
+    2,
+    1
+   ],
+   [
+    4,
+    2,
+    1
+   ],
+   [
+    5,
+    2,
+    1
+   ],
+   [
+    0,
+    3,
+    1
+   ],
+   [
+    2,
+    3,
+    1
+   ],
+   [
+    4,
+    3,
+    1
+   ],
+   [
+    0,
+    4,
+    1
+   ],
+   [
+    2,
+    4,
+    1
+   ],
+   [
+    4,
+    4,
+    1
+   ],
+   [
+    0,
+    5,
+    1
+   ],
+   [
+    5,
+    5,
+    1
+   ],
+   [
+    0,
+    6,
+    1
+   ],
+   [
+    0,
+    0,
+    2
+   ],
+   [
+    3,
+    0,
+    2
+   ],
+   [
+    4,
+    0,
+    2
+   ],
+   [
+    5,
+    0,
+    2
+   ],
+   [
+    6,
+    0,
+    2
+   ],
+   [
+    5,
+    1,
+    2
+   ],
+   [
+    6,
+    1,
+    2
+   ],
+   [
+    4,
+    2,
+    2
+   ],
+   [
+    5,
+    2,
+    2
+   ],
+   [
+    0,
+    3,
+    2
+   ],
+   [
+    3,
+    3,
+    2
+   ],
+   [
+    4,
+    3,
+    2
+   ],
+   [
+    0,
+    4,
+    2
+   ],
+   [
+    4,
+    4,
+    2
+   ],
+   [
+    6,
+    4,
+    2
+   ],
+   [
+    3,
+    5,
+    2
+   ],
+   [
+    5,
+    5,
+    2
+   ],
+   [
+    3,
+    6,
+    2
+   ],
+   [
+    6,
+    6,
+    2
+   ],
+   [
+    0,
+    0,
+    3
+   ],
+   [
+    1,
+    0,
+    3
+   ],
+   [
+    3,
+    0,
+    3
+   ],
+   [
+    6,
+    0,
+    3
+   ],
+   [
+    1,
+    1,
+    3
+   ],
+   [
+    6,
+    1,
+    3
+   ],
+   [
+    1,
+    2,
+    3
+   ],
+   [
+    0,
+    3,
+    3
+   ],
+   [
+    3,
+    3,
+    3
+   ],
+   [
+    6,
+    4,
+    3
+   ],
+   [
+    0,
+    5,
+    3
+   ],
+   [
+    1,
+    5,
+    3
+   ],
+   [
+    3,
+    5,
+    3
+   ],
+   [
+    3,
+    6,
+    3
+   ],
+   [
+    6,
+    6,
+    3
+   ],
+   [
+    0,
+    0,
+    4
+   ],
+   [
+    2,
+    0,
+    4
+   ],
+   [
+    3,
+    0,
+    4
+   ],
+   [
+    6,
+    0,
+    4
+   ],
+   [
+    0,
+    1,
+    4
+   ],
+   [
+    6,
+    1,
+    4
+   ],
+   [
+    0,
+    2,
+    4
+   ],
+   [
+    2,
+    2,
+    4
+   ],
+   [
+    0,
+    3,
+    4
+   ],
+   [
+    2,
+    3,
+    4
+   ],
+   [
+    3,
+    3,
+    4
+   ],
+   [
+    0,
+    4,
+    4
+   ],
+   [
+    2,
+    4,
+    4
+   ],
+   [
+    6,
+    4,
+    4
+   ],
+   [
+    3,
+    5,
+    4
+   ],
+   [
+    0,
+    6,
+    4
+   ],
+   [
+    3,
+    6,
+    4
+   ],
+   [
+    6,
+    6,
+    4
+   ],
+   [
+    0,
+    0,
+    5
+   ],
+   [
+    1,
+    0,
+    5
+   ],
+   [
+    4,
+    0,
+    5
+   ],
+   [
+    5,
+    0,
+    5
+   ],
+   [
+    0,
+    1,
+    5
+   ],
+   [
+    1,
+    1,
+    5
+   ],
+   [
+    5,
+    1,
+    5
+   ],
+   [
+    0,
+    2,
+    5
+   ],
+   [
+    1,
+    2,
+    5
+   ],
+   [
+    4,
+    2,
+    5
+   ],
+   [
+    5,
+    2,
+    5
+   ],
+   [
+    4,
+    3,
+    5
+   ],
+   [
+    4,
+    4,
+    5
+   ],
+   [
+    1,
+    5,
+    5
+   ],
+   [
+    5,
+    5,
+    5
+   ],
+   [
+    0,
+    0,
+    6
+   ],
+   [
+    1,
+    0,
+    6
+   ],
+   [
+    2,
+    0,
+    6
+   ],
+   [
+    0,
+    1,
+    6
+   ],
+   [
+    1,
+    1,
+    6
+   ],
+   [
+    1,
+    2,
+    6
+   ],
+   [
+    2,
+    2,
+    6
+   ],
+   [
+    2,
+    3,
+    6
+   ],
+   [
+    0,
+    4,
+    6
+   ],
+   [
+    2,
+    4,
+    6
+   ],
+   [
+    0,
+    5,
+    6
+   ],
+   [
+    1,
+    5,
+    6
+   ],
+   [
+    0,
+    6,
+    6
+   ]
+  ]
+ },
+ {
+  "n": 5,
+  "q": 3,
+  "points": 243,
+  "directions": 121,
+  "lines": 9801,
+  "dvir_bound": 21,
+  "bukh_chao_bound": 32,
+  "plane_known_minimum": null,
+  "runs": [
+   {
+    "solver": "cp-sat",
+    "symmetry_fixing": true,
+    "status": "FEASIBLE",
+    "seconds": 1200.03,
+    "time_limit": 1200,
+    "value": 56,
+    "lower_bound": 18,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     3,
+     5,
+     6,
+     9,
+     13,
+     18,
+     23,
+     25,
+     28,
+     31,
+     39,
+     46,
+     50,
+     67,
+     69,
+     72,
+     74,
+     92,
+     96,
+     99,
+     110,
+     114,
+     115,
+     116,
+     120,
+     126,
+     130,
+     134,
+     141,
+     143,
+     144,
+     150,
+     162,
+     170,
+     180,
+     181,
+     186,
+     189,
+     190,
+     193,
+     201,
+     204,
+     207,
+     209,
+     214,
+     216,
+     224,
+     225,
+     227,
+     230,
+     233,
+     236,
+     238
+    ]
+   },
+   {
+    "solver": "highs",
+    "symmetry_fixing": true,
+    "status": 1,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "seconds": 606.51,
+    "time_limit": 600,
+    "value": 123,
+    "lower_bound": 9,
+    "proved_optimal": false,
+    "verified_kakeya": true,
+    "points": [
+     0,
+     1,
+     2,
+     6,
+     9,
+     12,
+     15,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     27,
+     29,
+     33,
+     36,
+     37,
+     39,
+     40,
+     41,
+     44,
+     45,
+     46,
+     49,
+     52,
+     56,
+     57,
+     58,
+     59,
+     60,
+     61,
+     65,
+     67,
+     68,
+     69,
+     70,
+     71,
+     72,
+     78,
+     81,
+     82,
+     84,
+     85,
+     87,
+     88,
+     89,
+     90,
+     92,
+     93,
+     94,
+     96,
+     102,
+     105,
+     107,
+     108,
+     113,
+     114,
+     115,
+     117,
+     118,
+     121,
+     125,
+     126,
+     127,
+     128,
+     129,
+     131,
+     133,
+     134,
+     135,
+     137,
+     138,
+     141,
+     142,
+     143,
+     151,
+     152,
+     155,
+     157,
+     158,
+     162,
+     165,
+     167,
+     168,
+     169,
+     170,
+     173,
+     174,
+     178,
+     180,
+     185,
+     186,
+     187,
+     190,
+     195,
+     198,
+     200,
+     203,
+     205,
+     206,
+     207,
+     208,
+     209,
+     210,
+     211,
+     212,
+     213,
+     214,
+     215,
+     217,
+     219,
+     221,
+     223,
+     225,
+     226,
+     228,
+     229,
+     233,
+     237,
+     238,
+     240
+    ]
+   }
+  ],
+  "best_found": 56,
+  "best_lower_bound": 32,
+  "proved_minimum": null,
+  "solvers_agree": true,
+  "certificate": [
+   [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    2,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0,
+    0,
+    0
+   ],
+   [
+    2,
+    1,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    2,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    2,
+    0,
+    0
+   ],
+   [
+    2,
+    1,
+    2,
+    0,
+    0
+   ],
+   [
+    1,
+    2,
+    2,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    0,
+    1,
+    0
+   ],
+   [
+    1,
+    1,
+    0,
+    1,
+    0
+   ],
+   [
+    0,
+    1,
+    1,
+    1,
+    0
+   ],
+   [
+    1,
+    0,
+    2,
+    1,
+    0
+   ],
+   [
+    2,
+    1,
+    2,
+    1,
+    0
+   ],
+   [
+    1,
+    1,
+    1,
+    2,
+    0
+   ],
+   [
+    0,
+    2,
+    1,
+    2,
+    0
+   ],
+   [
+    0,
+    0,
+    2,
+    2,
+    0
+   ],
+   [
+    2,
+    0,
+    2,
+    2,
+    0
+   ],
+   [
+    2,
+    0,
+    1,
+    0,
+    1
+   ],
+   [
+    0,
+    2,
+    1,
+    0,
+    1
+   ],
+   [
+    0,
+    0,
+    2,
+    0,
+    1
+   ],
+   [
+    2,
+    0,
+    0,
+    1,
+    1
+   ],
+   [
+    0,
+    2,
+    0,
+    1,
+    1
+   ],
+   [
+    1,
+    2,
+    0,
+    1,
+    1
+   ],
+   [
+    2,
+    2,
+    0,
+    1,
+    1
+   ],
+   [
+    0,
+    1,
+    1,
+    1,
+    1
+   ],
+   [
+    0,
+    0,
+    2,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    2,
+    1,
+    1
+   ],
+   [
+    2,
+    2,
+    2,
+    1,
+    1
+   ],
+   [
+    0,
+    2,
+    0,
+    2,
+    1
+   ],
+   [
+    2,
+    2,
+    0,
+    2,
+    1
+   ],
+   [
+    0,
+    0,
+    1,
+    2,
+    1
+   ],
+   [
+    0,
+    2,
+    1,
+    2,
+    1
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    2
+   ],
+   [
+    2,
+    2,
+    0,
+    0,
+    2
+   ],
+   [
+    0,
+    0,
+    2,
+    0,
+    2
+   ],
+   [
+    1,
+    0,
+    2,
+    0,
+    2
+   ],
+   [
+    0,
+    2,
+    2,
+    0,
+    2
+   ],
+   [
+    0,
+    0,
+    0,
+    1,
+    2
+   ],
+   [
+    1,
+    0,
+    0,
+    1,
+    2
+   ],
+   [
+    1,
+    1,
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    1,
+    1,
+    2
+   ],
+   [
+    0,
+    2,
+    1,
+    1,
+    2
+   ],
+   [
+    0,
+    0,
+    2,
+    1,
+    2
+   ],
+   [
+    2,
+    0,
+    2,
+    1,
+    2
+   ],
+   [
+    1,
+    2,
+    2,
+    1,
+    2
+   ],
+   [
+    0,
+    0,
+    0,
+    2,
+    2
+   ],
+   [
+    2,
+    2,
+    0,
+    2,
+    2
+   ],
+   [
+    0,
+    0,
+    1,
+    2,
+    2
+   ],
+   [
+    2,
+    0,
+    1,
+    2,
+    2
+   ],
+   [
+    2,
+    1,
+    1,
+    2,
+    2
+   ],
+   [
+    2,
+    2,
+    1,
+    2,
+    2
+   ],
+   [
+    2,
+    0,
+    2,
+    2,
+    2
+   ],
+   [
+    1,
+    1,
+    2,
+    2,
+    2
+   ]
+  ]
+ }
+]

@@ -7,12 +7,18 @@ finite-field facts), a dated record of the dimension bounds, and a tested, depen
 companion (`kakeya.py`) that checks Kakeya sets in AG(*n*, *q*), builds the two explicit
 constructions below, and computes every finite-field bound quoted here.
 
+**New in version 1.1:** the first exact finite-field Kakeya number in dimension three over a field
+with more than two elements. The smallest Kakeya set in **F**₃³ has exactly **13** points
+(section 7), proved by an exhaustive search that runs in seconds with no solver. The release also
+gives smaller Kakeya sets than the known constructions in **F**₃⁴, **F**₃⁵, **F**₄³ and **F**₄⁴,
+with every set published and re-checked.
+
 By MV2 of Munim, Inc. This article and the code were researched and written with AI agents working in
 MV2's name. Every statement below is either proved here or cited to a source; section 10 separates
 what is proved from what is open, and section 12 lists what is new here. Corrections are welcome by
 issue or pull request.
 
-Version 1.0, 2026-10-14. Text CC BY 4.0, code Apache-2.0.
+Version 1.1, 2026-10-14. Text and data CC BY 4.0, code Apache-2.0.
 
 Related problem record: Justin Sun Prize JSP-000015, "Kakeya dimension conjecture (general
 dimension)" (MathDB #315983).
@@ -258,27 +264,79 @@ has 15 pairwise sums, and they are exactly the 15 nonzero vectors. The companion
 | --- | --- | --- | --- |
 | (2, *q*) | *q*² | exact: Blokhuis-Mazzocca | exact |
 | (*n*, 2), *n* ≤ 6 | 2^*n* | exact: Banakh-Gavrylkiv | exact |
-| (3, 3) | 27 | 10 (Dvir = Bukh-Chao = counting) | 15 (Smyth) |
-| (4, 3) | 81 | 18 (Bukh-Chao) | 31 (Smyth) |
-| (5, 3) | 243 | 32 (Bukh-Chao) | 63 (Smyth) |
-| (3, 4) | 64 | 21 (Bukh-Chao) | 34 (Smyth) |
-| (4, 4) | 256 | 48 (Bukh-Chao) | 96 (Smyth) |
-| (3, 5) | 125 | 39 (Bukh-Chao) | 61 (parabola) |
-| (3, 7) | 343 | 100 (Bukh-Chao) | 145 (parabola) |
+| (3, 3) | 27 | **13 (new, this repository)** | **13 (new)**; Smyth 15 |
+| (4, 3) | 81 | 18 (Bukh-Chao) | **27 (new)**; Smyth 31 |
+| (5, 3) | 243 | 32 (Bukh-Chao) | **56 (new)**; Smyth 63 |
+| (3, 4) | 64 | 21 (Bukh-Chao) | **28 (new)**; Smyth 34 |
+| (4, 4) | 256 | 48 (Bukh-Chao) | **64 (new)**; Smyth 96 |
+| (3, 5) | 125 | 39 (Bukh-Chao) | 53 (AlphaEvolve formula; found again here); parabola 61 |
+| (3, 7) | 343 | 100 (Bukh-Chao) | 128 (found here); parabola 145 |
 
-Every number in the table is recomputed by `python kakeya.py bounds N Q`, and every upper bound is a
-set that the tests build and check line by line. The 2025 AlphaEvolve paper (Georgiev,
-Gómez-Serrano, Tao and Wagner, arXiv 2511.02864) reports constructions in **F**_*p*³ for primes
-*p* ≡ 1 (mod 4) of size *p*³/4 + 7*p*²/8 − 1/8 (53 at *p* = 5) and formulas in dimensions 4 and 5;
-we have not checked whether they apply at *p* = 5, so the table does not use them.
+Every number in the table is recomputed by `python kakeya.py bounds N Q`, every upper bound is a
+set that the tests build or load and check line by line, and the lower bound 13 is re-proved by the
+tests (below). The 2025 AlphaEvolve paper (Georgiev, Gómez-Serrano, Tao and Wagner,
+arXiv 2511.02864) gives constructions in **F**_*p*³ for primes *p* ≡ 1 (mod 4) of size
+*p*³/4 + 7*p*²/8 − 1/8, which is 53 at *p* = 5; our solver found a 53-point set in **F**₅³
+independently, and did not beat it in 25 minutes.
 
-**Open, and as far as we can tell not even computed:** the exact value of *K*(*n*, *q*) for any
-*n* ≥ 3 and *q* ≥ 3. Lund, Saraf and Wolf wrote in 2016 (arXiv 1609.01048) that no exact bound is
-known in any dimension other than 2; a question on Tao's 2008 blog post about the smallest subset of
-**F**₃^*n* with a three-term progression in every direction (over **F**₃ a line *is* a 3-term
-progression) received no answer; and we found no OEIS sequence for these numbers. MV2 is running an
-exact integer-programming computation for the cases above (two independent solvers, every optimal
-set re-checked) and will add the results here with certificates.
+**Theorem (new). *K*(3, 3) = 13: the smallest Kakeya set in F₃³ has exactly 13 points.**
+
+*Upper bound.* The set
+
+    (0,0,0) (1,0,0) (2,0,0) (1,1,0) (0,0,1) (2,0,1) (0,1,1)
+    (1,1,1) (0,2,1) (2,2,1) (0,0,2) (2,1,2) (0,2,2)
+
+contains a line in each of the 13 directions of **F**₃³ (over **F**₃ a line is a 3-term
+progression *b*, *b* + *d*, *b* + 2*d*):
+
+| direction | line in the set | direction | line in the set |
+| --- | --- | --- | --- |
+| (1,0,0) | (0,0,0) (1,0,0) (2,0,0) | (1,1,0) | (0,0,1) (1,1,1) (2,2,1) |
+| (0,1,0) | (0,0,1) (0,1,1) (0,2,1) | (1,2,0) | (0,2,1) (1,1,1) (2,0,1) |
+| (0,0,1) | (0,0,0) (0,0,1) (0,0,2) | (1,1,1) | (0,0,2) (1,1,0) (2,2,1) |
+| (0,1,1) | (0,0,0) (0,1,1) (0,2,2) | (1,1,2) | (0,2,1) (1,0,0) (2,1,2) |
+| (0,1,2) | (2,0,0) (2,1,2) (2,2,1) | (1,2,1) | (0,2,2) (1,1,0) (2,0,1) |
+| (1,0,1) | (0,0,2) (1,0,0) (2,0,1) | (1,2,2) | (0,2,2) (1,1,1) (2,0,0) |
+| (1,0,2) | (0,1,1) (1,1,0) (2,1,2) | | |
+
+*Lower bound.* Suppose *K* is a Kakeya set with at most 12 points. Translating *K* so that its line
+in direction *e*₁ becomes the axis {(0,0,0), (1,0,0), (2,0,0)} keeps it a Kakeya set of the same
+size, and adding points keeps it Kakeya, so there would be a 12-point Kakeya set containing the
+axis. There are C(24, 9) = 1,307,504 such 12-point sets, and none of them contains a line in all
+13 directions. `kakeya_sets_through_axis` checks every one with bitmasks, with no solver, in a few
+seconds; `test_k33_is_thirteen` runs it on every test run. Separately, two independent
+integer-programming solvers (OR-Tools CP-SAT, with and without symmetry fixing, and HiGHS through
+SciPy) each proved 13 optimal in MV2's run `kakeya-min-v1`. ∎
+
+So the sequence *K*(*n*, 3) begins 3, 7, 13. The minimum set is not a "lift" of a planar one in
+the obvious way: its slices by the last coordinate have 4, 6 and 3 points, and none of them is a
+planar Kakeya set (that needs 7 points).
+
+**Why this is new.** Lund, Saraf and Wolf (arXiv 1609.01048) wrote that no exact value is known in
+any dimension other than 2. The *q* = 2 values follow from Banakh and Gavrylkiv's difference bases
+(section 6(c)); for *q* ≥ 3 and *n* ≥ 3 we found no exact value in the papers cited here, in the
+AlphaEvolve paper (which treats asymptotic constructions), on OEIS, or in answer to the 2008
+question on Tao's blog about the smallest subset of **F**₃^*n* with a 3-term progression in every
+direction. If an earlier computation exists, we would like to cite it.
+
+**New upper bounds.** The same run found Kakeya sets of 27 points in **F**₃⁴, 56 in **F**₃⁵,
+28 in **F**₄³ and 64 in **F**₄⁴. Each is smaller than every explicit construction quoted in this
+article: the Smyth set (31, 63, 34, 96), the parabola set (43 and 113 for *q* = 3), products of
+smaller optimal sets (for example 3 · 13 = 39 and 7 · 7 = 49 in **F**₃⁴, 10 · 10 = 100 in **F**₄⁴),
+and the Kyureghyan-Müller-Wang construction for *q* = 4 (46 in **F**₄³ by their formula (2)).
+They are not claimed optimal: the solvers stopped at their time limits. CP-SAT reported a lower
+bound of 24 for **F**₄³; we do not use it, because it was not certified independently. The
+27-point set in **F**₃⁴ has slices of 13, 6 and 8 points by its last coordinate, which suggests a
+construction lifting **F**₃³ sets to **F**₃⁴; MV2 is testing that next.
+
+All sets, solver logs and timings are in `data/kakeya-min-v1/` (`results.json`: for every case the
+runs of each solver and a `certificate`, the smallest set found as a list of coordinates;
+`results.txt`: one line per case). `solve.py` reproduces the run
+(`pip install -r requirements-solve.txt`, then `python solve.py --out-dir out`; about 3.3 hours on
+4 cores).
+
+**Open, as far as we can tell:** every other exact value with *n* ≥ 3 and *q* ≥ 3. The smallest
+open cases are *K*(4, 3) ∈ [18, 27] and *K*(3, 4) ∈ [21, 28].
 
 ## 8. Variants that are open or recently settled
 
@@ -306,14 +364,14 @@ individual unrefereed claims.
 - All *n*: Hausdorff dimension ≥ max((*n* + 2)/2, (2 − √2)(*n* − 4) + 3) and the Katz-Tao Minkowski
   bound; in **R**⁴, at least 3.059 (Katz-Zahl, published) and 3.0738 (2026 preprint).
 - Finite fields: |*K*| ≥ *q^n*/(2 − 1/*q*)^(*n*−1), sharp to first order; the plane exactly; *q* = 2
-  exactly for *n* ≤ 6.
+  exactly for *n* ≤ 6; *K*(3, 3) = 13 (new here, by exhaustive computation that anyone can rerun).
 
 **Open.**
 - The Kakeya set conjecture for every *n* ≥ 4 (this is the open content of JSP-000015).
 - The Kakeya maximal function conjecture for every *n* ≥ 3.
 - The restriction and Bochner-Riesz conjectures for *n* ≥ 3.
-- Exact finite-field values *K*(*n*, *q*) for *n* ≥ 3, *q* ≥ 3; the second-order term in
-  *K*(*n*, *q*).
+- Exact finite-field values *K*(*n*, *q*) for *n* ≥ 3, *q* ≥ 3 other than *K*(3, 3); the
+  second-order term in *K*(*n*, *q*).
 
 ## 11. Why this matters beyond the problem
 
@@ -325,6 +383,11 @@ combinatorics, which went on to the joints theorem and the cap-set bound.
 
 ## 12. What is original here
 
+- **The exact value *K*(3, 3) = 13** (section 7), with a solver-free proof that reruns in seconds,
+  an explicit 13-point set and a table of its 13 lines. As far as we found, it is the first exact
+  finite-field Kakeya number in dimension at least 3 over a field with more than two elements.
+- **Smaller Kakeya sets** in **F**₃⁴ (27), **F**₃⁵ (56), **F**₄³ (28) and **F**₄⁴ (64) than the
+  constructions we found in the literature, all published as coordinate lists and re-checked.
 - A dated, sourced record of the dimension bounds through October 2026, including the August 2026
   **R**⁴ preprint and the 2026 publication and recognition of the Wang-Zahl work.
 - Self-contained proofs of the planar bound, Dvir's theorem, the counting bound, the product lemma,
@@ -345,13 +408,22 @@ combinatorics, which went on to the joints theorem and the cap-set bound.
     python kakeya.py parabola 3 5     # print the 61-point Kakeya set in F_5^3
     python kakeya.py check 3 3 set.txt  # check a set: one point per line, coordinates separated by spaces
     python kakeya.py brute 2 5        # exact minimum by brute force (small planes only)
+    python kakeya.py exhaust 3 3 12   # no Kakeya set of 12 points in F_3^3 (a few seconds)
+    python kakeya.py exhaust 3 3 13   # print a 13-point one
+    python kakeya.py records          # the exact values and bounds of section 7
     python -m unittest -v test_kakeya
 
 Fields supported: **F**_*p* for primes *p*, and **F**₄, **F**₈, **F**₉, **F**₁₆. The tests check the
-field axioms, the line structure of AG(*n*, *q*), the plane minima for *q* ≤ 5 by brute force,
-*K*(3, 2) = 5 and *K*(4, 2) = 6 by exhaustion, the equivalence (c) on all 256 subsets of
-**F**₂³, both constructions in every case used in section 7 (line by line, with their exact
-sizes), and the product lemma.
+field axioms, the line structure of AG(*n*, *q*), the plane minima for *q* ≤ 5 by brute force and
+by the exhaustive search, *K*(3, 2) = 5 and *K*(4, 2) = 6 by exhaustion, the equivalence (c) on all
+256 subsets of **F**₂³, both constructions in every case used in section 7 (line by line, with
+their exact sizes), the product lemma, the exhaustive search against a slow independent check,
+*K*(3, 3) = 13, and every one of the 18 solver certificates in `data/kakeya-min-v1/results.json`.
+
+`solve.py` (needs `ortools`, `scipy` and `numpy`, see `requirements-solve.txt`) is the
+integer-programming search that produced the data: one 0/1 variable per point and per line,
+exactly one chosen line per direction, every point of a chosen line in the set, minimise the size;
+solved with CP-SAT and HiGHS, and every set returned is re-checked with `is_kakeya`.
 
 ## Sources
 
@@ -365,6 +437,7 @@ sizes), and the product lemma.
 - T. Banakh, V. Gavrylkiv, "Difference bases in finite Abelian groups", Acta Sci. Math. (Szeged) 85 (2019) 119-137; arXiv 1704.02471.
 - B. Georgiev, J. Gómez-Serrano, T. Tao, A. Z. Wagner, "Mathematical exploration and discovery at scale", arXiv 2511.02864 (2025).
 - T. Tao, "Dvir's proof of the finite field Kakeya conjecture", blog post, 2008-03-24, https://terrytao.wordpress.com/2008/03/24/dvirs-proof-of-the-finite-field-kakeya-conjecture/ (comments include the Smyth construction and the F_3 question).
+- L. Perron, F. Didier, "CP-SAT", Google OR-Tools, https://developers.google.com/optimization; Q. Huangfu, J. A. J. Hall, "Parallelizing the dual revised simplex method", Math. Prog. Comp. 10 (2018) (HiGHS), used through scipy.optimize.milp.
 - R. O. Davies, "Some remarks on the Kakeya problem", Proc. Cambridge Philos. Soc. 69 (1971) 417-421.
 - A. Córdoba, "The Kakeya maximal function and the spherical summation multipliers", Amer. J. Math. 99 (1977).
 - S. Drury, "L^p estimates for the X-ray transform", Illinois J. Math. 27 (1983).
@@ -393,5 +466,6 @@ sizes), and the product lemma.
 
 ## Licence
 
-Text: CC BY 4.0. Code: Apache-2.0 (see LICENSE). Cite as: MV2 (Munim, Inc.), "The Kakeya conjecture
-in October 2026", version 1.0, https://github.com/munimtechnologies/kakeya-conjecture.
+Text and data (`data/`): CC BY 4.0. Code: Apache-2.0 (see LICENSE). Cite as: MV2 (Munim, Inc.),
+"The Kakeya conjecture in October 2026", version 1.1,
+https://github.com/munimtechnologies/kakeya-conjecture.
