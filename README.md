@@ -7,6 +7,13 @@ finite-field facts), a dated record of the dimension bounds, and a tested, depen
 companion (`kakeya.py`) that checks Kakeya sets in AG(*n*, *q*), builds the two explicit
 constructions below, and computes every finite-field bound quoted here.
 
+**New in version 1.3:** a pointer to MV2's companion repository
+[kakeya-small-fields](https://github.com/munimtechnologies/kakeya-small-fields), which supersedes
+the growth results of version 1.2. It proves lim *K*(*n*, *q*)^(1/*n*) ≤ *q* · 2^(−(*q*−1)/*q*)
+for every *q* with explicit sets (1.8899 for *q* = 3, matching the random bound of Kopparty, Lev,
+Saraf and Sudan explicitly, and below every published bound for *q* ≥ 4), and an exact entropy
+formula for the limit. Sections 7, 10 and 12 are updated to match.
+
 **New in version 1.2:** explicit Kakeya sets in **F**₃^*n* with base below 2. Cut a point of
 **F**₃^3*m* into three blocks of length *m*; the set of points in which one block is a 0/1 vector
 with at most *m*/3 ones and each of the other two blocks misses one of the three symbols is a
@@ -25,7 +32,7 @@ MV2's name. Every statement below is either proved here or cited to a source; se
 what is proved from what is open, and section 12 lists what is new here. Corrections are welcome by
 issue or pull request.
 
-Version 1.2, 2026-10-14. Text and data CC BY 4.0, code Apache-2.0.
+Version 1.3, 2026-10-15. Text and data CC BY 4.0, code Apache-2.0.
 
 Related problem record: Justin Sun Prize JSP-000015, "Kakeya dimension conjecture (general
 dimension)" (MathDB #315983).
@@ -372,10 +379,21 @@ and |*B*| ≤ 2^(*m* h(1/3)) = (27/4)^(*m*/3) (the binomial tail bound, h the bi
 
 The exact size is |*K_m*| = 3*w*²*b* − 3*wb*² + *b*³ with *w* = |*W*|, *b* = |*B*|, because *B* lies
 inside *W*. It first beats the Smyth set at *m* = 17 (*n* = 51), and the clean bound beats it for
-every *n* = 3*m* ≥ 138. The construction does **not** improve the probabilistic 1.890; it is, as far
-as we found, the first explicit one below 2. [`TRIPLES.md`](TRIPLES.md) puts it in a general
-framework ("rainbow triples": the growth base equals the best base of a single small triple), with
-the tripling lemma, an energy lemma, the exact plane values and the open targets in **F**₃³.
+every *n* = 3*m* ≥ 138. The construction does **not** improve the probabilistic 1.890; when version
+1.2 appeared it was, as far as we found, the first explicit one below 2. [`TRIPLES.md`](TRIPLES.md)
+puts it in a general framework ("rainbow triples": the growth base equals the best base of a single
+small triple), with the tripling lemma, an energy lemma, the exact plane values and the open
+targets in **F**₃³.
+
+**Superseded (version 1.3).** MV2's companion note
+[kakeya-small-fields](https://github.com/munimtechnologies/kakeya-small-fields) gives explicit
+Kakeya sets with *K*(*n*, 3) ≤ (3/4^(1/3))^(*n* + *o*(*n*)), base 1.8899, which matches the random
+1.890 explicitly and beats 432^(1/9) for large *n*. Its points are scored block by block by the
+sizes of their composition classes, and the line in direction *d* uses *d*² + *s_j* *d* on block
+*j* with a shift *s_j* per block. The same note proves lim *K*(*n*, *q*)^(1/*n*) ≤
+*q* · 2^(−(*q*−1)/*q*) for every *q* (new for *q* ≥ 4), shows that the limit equals
+inf_*k* 2^(*h_k*/*k*) for an explicit entropy quantity *h_k*, and that sets invariant under
+permuting coordinates cannot reach 1.8899 over **F**₃. Beating 1.8899 for *q* = 3 is still open.
 
 ## 8. Variants that are open or recently settled
 
@@ -394,7 +412,7 @@ only if it handles the Heisenberg obstruction of section 5 (any argument that wo
 **C** proves something false) and recovers the Wang-Zahl theorem as a special case. We do not list
 individual unrefereed claims.
 
-## 10. Proved versus open, as of 2026-10-14
+## 10. Proved versus open, as of 2026-10-15
 
 **Proved.**
 - *n* = 2: every Kakeya set has dimension 2 (Davies 1971); the maximal conjecture holds (Córdoba 1977).
@@ -404,8 +422,9 @@ individual unrefereed claims.
   bound; in **R**⁴, at least 3.059 (Katz-Zahl, published) and 3.0738 (2026 preprint).
 - Finite fields: |*K*| ≥ *q^n*/(2 − 1/*q*)^(*n*−1), sharp to first order; the plane exactly; *q* = 2
   exactly for *n* ≤ 6; *K*(3, 3) = 13 (new here, by exhaustive computation that anyone can rerun);
-  for *q* = 3, 1.8 ≤ β ≤ 1.890 (KLSS, the upper bound probabilistic) and explicit sets with
-  *K*(*n*, 3) ≤ 189 · 1.9627^*n* (new here, section 7).
+  for *q* = 3, 1.8 ≤ β ≤ 1.8899 (KLSS, by a random construction; explicit sets with this base in
+  MV2's kakeya-small-fields), and explicit sets with *K*(*n*, 3) ≤ 189 · 1.9627^*n* for every *n*
+  (new here, section 7); for every *q*, β_*q* ≤ *q* · 2^(−(*q*−1)/*q*) (kakeya-small-fields).
 
 **Open.**
 - The Kakeya set conjecture for every *n* ≥ 4 (this is the open content of JSP-000015).
@@ -413,7 +432,7 @@ individual unrefereed claims.
 - The restriction and Bochner-Riesz conjectures for *n* ≥ 3.
 - Exact finite-field values *K*(*n*, *q*) for *n* ≥ 3, *q* ≥ 3 other than *K*(3, 3); the
   second-order term in *K*(*n*, *q*).
-- The growth base β for *q* = 3, and an explicit construction matching the random 1.890.
+- The growth base β for *q* = 3 (anything below 1.8899, or a better lower bound than 1.8).
 
 ## 11. Why this matters beyond the problem
 
@@ -427,8 +446,8 @@ combinatorics, which went on to the joints theorem and the cap-set bound.
 
 - **Explicit Kakeya sets in F₃^*n* with base below 2** (section 7, last part): *K*(*n*, 3) ≤
   189 · 432^(*n*/9), base 1.9626, from a two-symbol "rainbow triple" and a tripling lemma
-  (`TRIPLES.md`). As far as we found, the explicit constructions in the literature for *q* = 3
-  have base 2, and the best bound, 1.890, is probabilistic.
+  (`TRIPLES.md`). Valid for every *n*; asymptotically superseded by the base-1.8899 explicit sets
+  of MV2's kakeya-small-fields (section 7, "Superseded").
 - **The exact value *K*(3, 3) = 13** (section 7), with a solver-free proof that reruns in seconds,
   an explicit 13-point set and a table of its 13 lines. As far as we found, it is the first exact
   finite-field Kakeya number in dimension at least 3 over a field with more than two elements.
@@ -522,9 +541,10 @@ solved with CP-SAT and HiGHS, and every set returned is re-checked with `is_kake
 - M. Dhar, "The Kakeya set conjecture for Z/NZ for general N", Advances in Combinatorics 2024:2; B. Arsovski, "The p-adic Kakeya conjecture", J. Amer. Math. Soc. 37 (2024).
 - Fields Medal 2026: NYU news, July 2026, https://www.nyu.edu/about/news-publications/news/2026/july/nyu-professor-hong-wang-wins-fields-medal.html
 - Justin Sun Prize catalogue, JSP-000015: https://github.com/TheJustinSunPrize/awards (problems/catalog-0001-0100.md, problems/mathdb-pilot.md).
+- MV2 of Munim, Inc., "Smaller Kakeya sets over small finite fields", https://github.com/munimtechnologies/kakeya-small-fields (2026).
 
 ## Licence
 
 Text and data (`data/`): CC BY 4.0. Code: Apache-2.0 (see LICENSE). Cite as: MV2 (Munim, Inc.),
-"The Kakeya conjecture in October 2026", version 1.2,
+"The Kakeya conjecture in October 2026", version 1.3,
 https://github.com/munimtechnologies/kakeya-conjecture.
