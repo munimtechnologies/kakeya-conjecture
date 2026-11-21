@@ -1,0 +1,72 @@
+===== setup-01-pip: pip install "ortools>=9.8,<10" numpy scipy
+Collecting ortools<10,>=9.8
+  Downloading ortools-9.15.6755-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.3 kB)
+Collecting numpy
+  Downloading numpy-2.5.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Collecting scipy
+  Downloading scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+Collecting absl-py>=2.0.0 (from ortools<10,>=9.8)
+  Downloading absl_py-2.5.1-py3-none-any.whl.metadata (3.3 kB)
+Collecting pandas>=2.0.0 (from ortools<10,>=9.8)
+  Downloading pandas-3.1.1-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (16 kB)
+Collecting protobuf<6.34,>=6.33.1 (from ortools<10,>=9.8)
+  Downloading protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl.metadata (593 bytes)
+Collecting typing-extensions>=4.12 (from ortools<10,>=9.8)
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting immutabledict>=3.0.0 (from ortools<10,>=9.8)
+  Downloading immutabledict-4.3.1-py3-none-any.whl.metadata (3.5 kB)
+Collecting python-dateutil>=2.9.0 (from pandas>=2.0.0->ortools<10,>=9.8)
+  Downloading python_dateutil-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+Collecting tzdata (from python-dateutil>=2.9.0->pandas>=2.0.0->ortools<10,>=9.8)
+  Downloading tzdata-2026.6-py2.py3-none-any.whl.metadata (1.4 kB)
+Downloading ortools-9.15.6755-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (29.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 29.8/29.8 MB 8.2 MB/s eta 0:00:00
+Downloading numpy-2.5.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (15.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 15.7/15.7 MB 9.7 MB/s eta 0:00:00
+Downloading scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 8.2 MB/s eta 0:00:00
+Downloading absl_py-2.5.1-py3-none-any.whl (137 kB)
+Downloading immutabledict-4.3.1-py3-none-any.whl (5.0 kB)
+Downloading pandas-3.1.1-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.0/12.0 MB 9.6 MB/s eta 0:00:00
+Downloading protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl (323 kB)
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Downloading python_dateutil-4.0.0-py3-none-any.whl (92 kB)
+Downloading tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+Installing collected packages: tzdata, typing-extensions, protobuf, numpy, immutabledict, absl-py, scipy, python-dateutil, pandas, ortools
+Successfully installed absl-py-2.5.1 immutabledict-4.3.1 numpy-2.5.5 ortools-9.15.6755 pandas-3.1.1 protobuf-6.33.6 python-dateutil-4.0.0 scipy-1.18.1 typing-extensions-4.16.0 tzdata-2026.6
+
+===== run-01-cd: cd /work && python -m unittest -v test_kmin34
+
+===== run-02-cd: cd /work && python kmin34.py --workers 4 --deadline-min 290 --out /out/kmin34.json
+[     0.0s] k=2: 1 orbits
+[     0.0s] k=3: 2 orbits
+[     0.0s] k=4: 4 orbits
+[     0.0s] k=5: 5 orbits
+[     0.0s] k=6: 9 orbits
+[     0.1s] k=7: 10 orbits
+[     1.3s] known28 embedded: {'size': 28, 'kakeya': True, 'min_section': 4, 'rep': [0, 1, 4, 5], 'slice_sizes': [4, 16, 4, 4], 'evaluate_28': True, 'evaluate_27': False, 'cpsat_fixed_28': 'FEASIBLE', 'highs_fixed_28': 'FEASIBLE', 'cpsat_fixed_27': 'INFEASIBLE', 'highs_fixed_27': 'INFEASIBLE', 'cpsat_free_28': 'FEASIBLE', 'cpsat_free_28_check': True, 'ok': True}
+[     1.4s] known28 downloaded: {'size': 28, 'kakeya': True, 'min_section': 4, 'rep': [0, 1, 4, 5], 'slice_sizes': [4, 16, 4, 4], 'evaluate_28': True, 'evaluate_27': False, 'cpsat_fixed_28': 'FEASIBLE', 'highs_fixed_28': 'FEASIBLE', 'cpsat_fixed_27': 'INFEASIBLE', 'highs_fixed_27': 'INFEASIBLE', 'cpsat_free_28': 'FEASIBLE', 'cpsat_free_28_check': True, 'ok': True}
+[     1.4s] bound 27 n0=1 rep=[0]: cpsat INFEASIBLE 0.0s, highs INFEASIBLE 0.0s
+[     1.5s] bound 27 n0=2 rep=[0, 1]: cpsat INFEASIBLE 0.1s, highs INFEASIBLE 0.0s
+[     6.6s] bound 27 n0=3 rep=[0, 1, 2]: cpsat INFEASIBLE 4.1s, highs INFEASIBLE 0.9s
+[    19.2s] bound 27 n0=3 rep=[0, 1, 4]: cpsat INFEASIBLE 8.5s, highs INFEASIBLE 4.1s
+[    33.3s] bound 27 n0=4 rep=[0, 1, 2, 3]: cpsat INFEASIBLE 3.0s, highs INFEASIBLE 11.1s
+[   171.4s] bound 27 n0=4 rep=[0, 1, 2, 4]: cpsat INFEASIBLE 119.5s, highs INFEASIBLE 18.5s
+[  1369.7s] bound 27 n0=4 rep=[0, 1, 4, 5]: cpsat UNKNOWN 1153.7s, highs INFEASIBLE 44.6s
+[  1945.2s] bound 27 n0=4 rep=[0, 1, 4, 6]: cpsat INFEASIBLE 549.8s, highs INFEASIBLE 25.7s
+[  2876.9s] bound 27 n0=5 rep=[0, 1, 2, 3, 4]: cpsat UNKNOWN 900.0s, highs INFEASIBLE 31.7s
+[  3862.1s] bound 27 n0=5 rep=[0, 1, 2, 4, 5]: cpsat UNKNOWN 900.0s, highs INFEASIBLE 85.1s
+[  4876.0s] bound 27 n0=5 rep=[0, 1, 2, 4, 8]: cpsat UNKNOWN 900.0s, highs INFEASIBLE 113.9s
+[  5858.6s] bound 27 n0=5 rep=[0, 1, 2, 4, 10]: cpsat UNKNOWN 900.0s, highs INFEASIBLE 82.5s
+[  6858.6s] bound 27 n0=5 rep=[0, 1, 4, 6, 9]: cpsat UNKNOWN 900.0s, highs INFEASIBLE 100.1s
+[  6858.8s] bound 27 n0=6 rep=[0, 1, 2, 3, 4, 5]: cpsat INFEASIBLE 0.1s, highs INFEASIBLE 0.0s
+[  6858.9s] bound 27 n0=6 rep=[0, 1, 2, 3, 4, 8]: cpsat INFEASIBLE 0.1s, highs INFEASIBLE 0.0s
+[  6859.1s] bound 27 n0=6 rep=[0, 1, 2, 4, 5, 6]: cpsat INFEASIBLE 0.1s, highs INFEASIBLE 0.0s
+[  6859.2s] bound 27 n0=6 rep=[0, 1, 2, 4, 5, 8]: cpsat INFEASIBLE 0.1s, highs INFEASIBLE 0.0s
+[  6859.3s] bound 27 n0=6 rep=[0, 1, 2, 4, 5, 9]: cpsat INFEASIBLE 0.1s, highs INFEASIBLE 0.0s
+[  6859.5s] bound 27 n0=6 rep=[0, 1, 2, 4, 5, 13]: cpsat INFEASIBLE 0.1s, highs INFEASIBLE 0.0s
+[  6859.6s] bound 27 n0=6 rep=[0, 1, 2, 4, 8, 15]: cpsat INFEASIBLE 0.1s, highs INFEASIBLE 0.0s
+[  6859.7s] bound 27 n0=6 rep=[0, 1, 2, 4, 10, 13]: cpsat INFEASIBLE 0.1s, highs INFEASIBLE 0.0s
+[  6859.8s] bound 27 n0=6 rep=[0, 1, 4, 6, 9, 10]: cpsat INFEASIBLE 0.1s, highs INFEASIBLE 0.0s
+[  7074.3s] verdict UNDECIDED; best 28; passes 1; bugs []

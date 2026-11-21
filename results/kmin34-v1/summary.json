@@ -1,0 +1,37 @@
+{
+ "job": "kmin34-v1",
+ "question": "the smallest Kakeya set in F_4^3, K(3,4); known range before the job 21..28",
+ "made_with": "AI agents working in MV2's name; no human mathematician has checked this",
+ "pre_registered_label": "UNDECIDED",
+ "why_label": "the job's verdict rule needed both solvers (K34-EQ-28) or CP-SAT alone (K34-EQ-28-CPSAT-ONLY); HiGHS proved all 22 cases infeasible, CP-SAT 16 of 22, a combination with no label of its own",
+ "bound_tested": 27,
+ "cases_total": 22,
+ "cases_infeasible_highs": 22,
+ "cases_infeasible_cpsat": 16,
+ "cases_open_for_both": 0,
+ "smaller_sets_found": 0,
+ "wall_seconds": 7074.3,
+ "by_smallest_section": [
+  {"n0": 1, "cases": 1, "cpsat_proved": 1, "highs_proved": 1, "highs_max_s": 0.0},
+  {"n0": 2, "cases": 1, "cpsat_proved": 1, "highs_proved": 1, "highs_max_s": 0.0},
+  {"n0": 3, "cases": 2, "cpsat_proved": 2, "highs_proved": 2, "highs_max_s": 4.1},
+  {"n0": 4, "cases": 4, "cpsat_proved": 3, "highs_proved": 4, "highs_max_s": 44.6},
+  {"n0": 5, "cases": 5, "cpsat_proved": 0, "highs_proved": 5, "highs_max_s": 113.9},
+  {"n0": 6, "cases": 9, "cpsat_proved": 9, "highs_proved": 9, "highs_max_s": 0.0}
+ ],
+ "self_checks": {
+  "agl24_distinct_permutations": 2880,
+  "orbit_sizes_sum_to_binomials_k1_to_7": true,
+  "known28_accepted_at_28_rejected_at_27_both_solvers": true,
+  "embedded_equals_downloaded_certificate": true,
+  "bound28_sanity_reps_feasible_infeasible_unknown": [3, 23, 6],
+  "bugs": []
+ },
+ "bounds_on_K34": [
+  {"label": "Bukh-Chao lower bound (2021)", "value": 21, "source": "arXiv:2108.00074, Theorem 1: |K| >= (2-1/q)^-(n-1) q^n = 1024/49 = 20.9"},
+  {"label": "this computation (HiGHS, all 22 cases)", "value": 28, "source": "results/kmin34-v1/kmin34.json"},
+  {"label": "Kopparty-Saraf-Sudan even-q construction", "value": 28, "source": "size 2^-(n-1) q^n + (1-2^-(n-1)) q^(n-1) = 16 + 12, as quoted in arXiv:2108.00074"},
+  {"label": "Smyth set", "value": 34, "source": "(q-1)^n + 2^n - 1 = 27 + 8 - 1"}
+ ],
+ "independent_check": "kmin34cert-v1: new CNF encoding, kissat with DRAT proofs, every proof checked by drat-trim (kmin34/cert/)"
+}

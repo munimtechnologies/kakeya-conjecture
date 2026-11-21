@@ -1,0 +1,1298 @@
+{
+ "job": "kmin34-v1",
+ "question": "what is the smallest Kakeya set in F_4^3? (21..28)",
+ "made_with": "AI agents working in MV2's name; no human has checked this",
+ "start_bound": 27,
+ "bugs": [],
+ "group": {
+  "rows": 2880,
+  "distinct": 2880
+ },
+ "orbits": {
+  "1": {
+   "orbits": 1,
+   "sum_orbit_sizes": 16,
+   "binom": 16,
+   "ok": true
+  },
+  "2": {
+   "orbits": 1,
+   "sum_orbit_sizes": 120,
+   "binom": 120,
+   "ok": true
+  },
+  "3": {
+   "orbits": 2,
+   "sum_orbit_sizes": 560,
+   "binom": 560,
+   "ok": true
+  },
+  "4": {
+   "orbits": 4,
+   "sum_orbit_sizes": 1820,
+   "binom": 1820,
+   "ok": true
+  },
+  "5": {
+   "orbits": 5,
+   "sum_orbit_sizes": 4368,
+   "binom": 4368,
+   "ok": true
+  },
+  "6": {
+   "orbits": 9,
+   "sum_orbit_sizes": 8008,
+   "binom": 8008,
+   "ok": true
+  },
+  "7": {
+   "orbits": 10,
+   "sum_orbit_sizes": 11440,
+   "binom": 11440,
+   "ok": true
+  }
+ },
+ "seconds": 7074.3,
+ "embedded_equals_downloaded": true,
+ "known28": {
+  "embedded": {
+   "size": 28,
+   "kakeya": true,
+   "min_section": 4,
+   "rep": [
+    0,
+    1,
+    4,
+    5
+   ],
+   "slice_sizes": [
+    4,
+    16,
+    4,
+    4
+   ],
+   "evaluate_28": true,
+   "evaluate_27": false,
+   "cpsat_fixed_28": "FEASIBLE",
+   "highs_fixed_28": "FEASIBLE",
+   "cpsat_fixed_27": "INFEASIBLE",
+   "highs_fixed_27": "INFEASIBLE",
+   "cpsat_free_28": "FEASIBLE",
+   "cpsat_free_28_check": true,
+   "ok": true
+  },
+  "downloaded": {
+   "size": 28,
+   "kakeya": true,
+   "min_section": 4,
+   "rep": [
+    0,
+    1,
+    4,
+    5
+   ],
+   "slice_sizes": [
+    4,
+    16,
+    4,
+    4
+   ],
+   "evaluate_28": true,
+   "evaluate_27": false,
+   "cpsat_fixed_28": "FEASIBLE",
+   "highs_fixed_28": "FEASIBLE",
+   "cpsat_fixed_27": "INFEASIBLE",
+   "highs_fixed_27": "INFEASIBLE",
+   "cpsat_free_28": "FEASIBLE",
+   "cpsat_free_28_check": true,
+   "ok": true
+  }
+ },
+ "passes": [
+  {
+   "bound": 27,
+   "cases": [
+    {
+     "n0": 1,
+     "rep": [
+      0
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 0.0,
+     "highs": "INFEASIBLE",
+     "highs_s": 0.0
+    },
+    {
+     "n0": 2,
+     "rep": [
+      0,
+      1
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 0.1,
+     "highs": "INFEASIBLE",
+     "highs_s": 0.02
+    },
+    {
+     "n0": 3,
+     "rep": [
+      0,
+      1,
+      2
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 4.13,
+     "highs": "INFEASIBLE",
+     "highs_s": 0.91
+    },
+    {
+     "n0": 3,
+     "rep": [
+      0,
+      1,
+      4
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 8.51,
+     "highs": "INFEASIBLE",
+     "highs_s": 4.06
+    },
+    {
+     "n0": 4,
+     "rep": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 3.0,
+     "highs": "INFEASIBLE",
+     "highs_s": 11.12
+    },
+    {
+     "n0": 4,
+     "rep": [
+      0,
+      1,
+      2,
+      4
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 119.54,
+     "highs": "INFEASIBLE",
+     "highs_s": 18.54
+    },
+    {
+     "n0": 4,
+     "rep": [
+      0,
+      1,
+      4,
+      5
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ]
+     ],
+     "cpsat": "UNKNOWN",
+     "cpsat_s": 1153.7,
+     "highs": "INFEASIBLE",
+     "highs_s": 44.59
+    },
+    {
+     "n0": 4,
+     "rep": [
+      0,
+      1,
+      4,
+      6
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 549.76,
+     "highs": "INFEASIBLE",
+     "highs_s": 25.71
+    },
+    {
+     "n0": 5,
+     "rep": [
+      0,
+      1,
+      2,
+      3,
+      4
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       0
+      ]
+     ],
+     "cpsat": "UNKNOWN",
+     "cpsat_s": 900.04,
+     "highs": "INFEASIBLE",
+     "highs_s": 31.71
+    },
+    {
+     "n0": 5,
+     "rep": [
+      0,
+      1,
+      2,
+      4,
+      5
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ]
+     ],
+     "cpsat": "UNKNOWN",
+     "cpsat_s": 900.04,
+     "highs": "INFEASIBLE",
+     "highs_s": 85.07
+    },
+    {
+     "n0": 5,
+     "rep": [
+      0,
+      1,
+      2,
+      4,
+      8
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       2,
+       0
+      ]
+     ],
+     "cpsat": "UNKNOWN",
+     "cpsat_s": 900.01,
+     "highs": "INFEASIBLE",
+     "highs_s": 113.91
+    },
+    {
+     "n0": 5,
+     "rep": [
+      0,
+      1,
+      2,
+      4,
+      10
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       2,
+       2
+      ]
+     ],
+     "cpsat": "UNKNOWN",
+     "cpsat_s": 900.04,
+     "highs": "INFEASIBLE",
+     "highs_s": 82.51
+    },
+    {
+     "n0": 5,
+     "rep": [
+      0,
+      1,
+      4,
+      6,
+      9
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       1
+      ]
+     ],
+     "cpsat": "UNKNOWN",
+     "cpsat_s": 899.99,
+     "highs": "INFEASIBLE",
+     "highs_s": 100.06
+    },
+    {
+     "n0": 6,
+     "rep": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 0.11,
+     "highs": "INFEASIBLE",
+     "highs_s": 0.02
+    },
+    {
+     "n0": 6,
+     "rep": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      8
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       2,
+       0
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 0.1,
+     "highs": "INFEASIBLE",
+     "highs_s": 0.02
+    },
+    {
+     "n0": 6,
+     "rep": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      6
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 0.13,
+     "highs": "INFEASIBLE",
+     "highs_s": 0.02
+    },
+    {
+     "n0": 6,
+     "rep": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      8
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       0
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 0.1,
+     "highs": "INFEASIBLE",
+     "highs_s": 0.02
+    },
+    {
+     "n0": 6,
+     "rep": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      9
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       1
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 0.1,
+     "highs": "INFEASIBLE",
+     "highs_s": 0.02
+    },
+    {
+     "n0": 6,
+     "rep": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      13
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 0.1,
+     "highs": "INFEASIBLE",
+     "highs_s": 0.02
+    },
+    {
+     "n0": 6,
+     "rep": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      15
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       3,
+       3
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 0.1,
+     "highs": "INFEASIBLE",
+     "highs_s": 0.02
+    },
+    {
+     "n0": 6,
+     "rep": [
+      0,
+      1,
+      2,
+      4,
+      10,
+      13
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 0.09,
+     "highs": "INFEASIBLE",
+     "highs_s": 0.02
+    },
+    {
+     "n0": 6,
+     "rep": [
+      0,
+      1,
+      4,
+      6,
+      9,
+      10
+     ],
+     "rep_points": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ]
+     ],
+     "cpsat": "INFEASIBLE",
+     "cpsat_s": 0.09,
+     "highs": "INFEASIBLE",
+     "highs_s": 0.02
+    }
+   ],
+   "hit_size": null
+  }
+ ],
+ "found": [],
+ "best_size": 28,
+ "last_bound": 27,
+ "sanity28": {
+  "feasible_reps": 3,
+  "infeasible_reps": 23,
+  "unknown_reps": 6,
+  "cases": [
+   {
+    "n0": 1,
+    "rep": [
+     0
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.0
+   },
+   {
+    "n0": 2,
+    "rep": [
+     0,
+     1
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 3,
+    "rep": [
+     0,
+     1,
+     2
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 6.87
+   },
+   {
+    "n0": 3,
+    "rep": [
+     0,
+     1,
+     4
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 25.0
+   },
+   {
+    "n0": 4,
+    "rep": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "cpsat": "FEASIBLE",
+    "s": 0.03,
+    "check": true,
+    "size": 28
+   },
+   {
+    "n0": 4,
+    "rep": [
+     0,
+     1,
+     2,
+     4
+    ],
+    "cpsat": "UNKNOWN",
+    "s": 30.0
+   },
+   {
+    "n0": 4,
+    "rep": [
+     0,
+     1,
+     4,
+     5
+    ],
+    "cpsat": "FEASIBLE",
+    "s": 0.02,
+    "check": true,
+    "size": 28
+   },
+   {
+    "n0": 4,
+    "rep": [
+     0,
+     1,
+     4,
+     6
+    ],
+    "cpsat": "FEASIBLE",
+    "s": 0.17,
+    "check": true,
+    "size": 28
+   },
+   {
+    "n0": 5,
+    "rep": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "cpsat": "UNKNOWN",
+    "s": 29.98
+   },
+   {
+    "n0": 5,
+    "rep": [
+     0,
+     1,
+     2,
+     4,
+     5
+    ],
+    "cpsat": "UNKNOWN",
+    "s": 29.97
+   },
+   {
+    "n0": 5,
+    "rep": [
+     0,
+     1,
+     2,
+     4,
+     8
+    ],
+    "cpsat": "UNKNOWN",
+    "s": 30.0
+   },
+   {
+    "n0": 5,
+    "rep": [
+     0,
+     1,
+     2,
+     4,
+     10
+    ],
+    "cpsat": "UNKNOWN",
+    "s": 30.06
+   },
+   {
+    "n0": 5,
+    "rep": [
+     0,
+     1,
+     4,
+     6,
+     9
+    ],
+    "cpsat": "UNKNOWN",
+    "s": 30.01
+   },
+   {
+    "n0": 6,
+    "rep": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.11
+   },
+   {
+    "n0": 6,
+    "rep": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     8
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 6,
+    "rep": [
+     0,
+     1,
+     2,
+     4,
+     5,
+     6
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 6,
+    "rep": [
+     0,
+     1,
+     2,
+     4,
+     5,
+     8
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 6,
+    "rep": [
+     0,
+     1,
+     2,
+     4,
+     5,
+     9
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 6,
+    "rep": [
+     0,
+     1,
+     2,
+     4,
+     5,
+     13
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 6,
+    "rep": [
+     0,
+     1,
+     2,
+     4,
+     8,
+     15
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 6,
+    "rep": [
+     0,
+     1,
+     2,
+     4,
+     10,
+     13
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.1
+   },
+   {
+    "n0": 6,
+    "rep": [
+     0,
+     1,
+     4,
+     6,
+     9,
+     10
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 7,
+    "rep": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 7,
+    "rep": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     8
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 7,
+    "rep": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     12
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 7,
+    "rep": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     8,
+     12
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 7,
+    "rep": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     8,
+     13
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 7,
+    "rep": [
+     0,
+     1,
+     2,
+     4,
+     5,
+     6,
+     8
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 7,
+    "rep": [
+     0,
+     1,
+     2,
+     4,
+     5,
+     6,
+     11
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 7,
+    "rep": [
+     0,
+     1,
+     2,
+     4,
+     5,
+     8,
+     10
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   },
+   {
+    "n0": 7,
+    "rep": [
+     0,
+     1,
+     2,
+     4,
+     5,
+     8,
+     11
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.1
+   },
+   {
+    "n0": 7,
+    "rep": [
+     0,
+     1,
+     2,
+     4,
+     5,
+     8,
+     15
+    ],
+    "cpsat": "INFEASIBLE",
+    "s": 0.09
+   }
+  ]
+ },
+ "verdict": "UNDECIDED",
+ "cases_total": 22,
+ "open_cases": []
+}
