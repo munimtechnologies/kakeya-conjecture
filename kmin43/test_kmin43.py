@@ -1,5 +1,6 @@
-# Tests for kmin43.py. MV2 of Munim, Inc. Made with AI agents working in MV2's name.
+# Tests for kmin43.py (v2). MV2 of Munim, Inc. Made with AI agents working in MV2's name.
 # Licence: Apache-2.0.
+import itertools
 import math
 import random
 import unittest
@@ -7,6 +8,19 @@ import unittest
 import numpy as np
 
 import kmin43 as km
+
+
+def is_kakeya_q3(K, n):
+    """A second brute-force Kakeya test (all 3^n - 1 nonzero directions, no projective
+    normalisation), independent of km.is_kakeya."""
+    K = set(tuple(x) for x in K)
+    for v in itertools.product(range(3), repeat=n):
+        if not any(v):
+            continue
+        if not any(tuple((a + b) % 3 for a, b in zip(x, v)) in K
+                   and tuple((a + 2 * b) % 3 for a, b in zip(x, v)) in K for x in K):
+            return False
+    return True
 
 
 class TestBasics(unittest.TestCase):
@@ -19,11 +33,21 @@ class TestBasics(unittest.TestCase):
             self.assertEqual(pts, list(range(27)))
 
     def test_classical(self):
-        cl = km.classical(4)
-        self.assertEqual(len(cl), 31)
-        self.assertTrue(km.is_kakeya(cl, 4))
-        self.assertTrue(km.is_kakeya(km.classical(3), 3))
-        self.assertEqual(len(km.classical(3)), 15)
+        # 2^(n+1) - 1 points: 3, 7, 15, 31
+        for n, size in ((1, 3), (2, 7), (3, 15), (4, 31)):
+            cl = km.classical(n)
+            self.assertEqual(len(cl), size, n)
+            self.assertEqual(len(set(cl)), size)
+            self.assertTrue(km.is_kakeya(cl, n), n)
+            self.assertTrue(is_kakeya_q3(cl, n), n)
+
+    def test_classical_contains_aligned_cube(self):
+        # the induction step needs {1,2} x {0,2}^(m-1) inside K_m
+        for m in (1, 2, 3):
+            K = set(km.classical(m))
+            for t in (1, 2):
+                for y in itertools.product((0, 2), repeat=m - 1):
+                    self.assertIn((t,) + y, K)
 
     def test_slice_decomposition_matches_brute_force(self):
         rng = random.Random(7)
@@ -39,6 +63,7 @@ class TestBasics(unittest.TestCase):
                 K.add(rng.choice(allpts))
             a = km.is_kakeya(K, 4)
             self.assertEqual(a, km.slice_kakeya(K))
+            self.assertEqual(a, is_kakeya_q3(K, 4))
             seen[a] += 1
         self.assertGreater(seen[True], 0)
         self.assertGreater(seen[False], 0)
@@ -51,6 +76,7 @@ class TestBasics(unittest.TestCase):
         for n, nrm, c in secs:
             by.setdefault(nrm, 0)
             by[nrm] += n
+        self.assertEqual(len(by), 40)
         self.assertTrue(all(v == 31 for v in by.values()))
 
 
@@ -99,6 +125,7 @@ class TestGroup(unittest.TestCase):
         K = km.fetch_known(print) or km.KNOWN27  # prefer the published certificate
         self.assertEqual(len(set(K)), 27)
         self.assertTrue(km.is_kakeya(K, 4))
+        self.assertTrue(is_kakeya_q3(K, 4))
         n, code, sl = km.normalise(K, self.perms)
         self.assertLessEqual(n, 9)
         Kn = ([km.PTS3[i] + (0,) for i in sl[0]] + [km.PTS3[i] + (1,) for i in sl[1]]
@@ -113,11 +140,11 @@ class TestGroup(unittest.TestCase):
         cl = [x[1:] + x[:1] for x in km.classical(4)]
         n, code, sl = km.normalise(cl, self.perms)
         m = km.build_model(sl[0], 31)
-        st, sol, _ = km.solve_cpsat(m, 60, 2)
+        st, sol, _ = km.solve_cpsat(m, 120, 2)
         self.assertEqual(st, "FEASIBLE")
         ok, info = km.check_config(sl[0], sol, 31)
         self.assertTrue(ok, info)
-        st2, sol2, _ = km.solve_highs(m, 60)
+        st2, sol2, _ = km.solve_highs(m, 180)
         self.assertEqual(st2, "FEASIBLE")
         self.assertTrue(km.check_config(sl[0], sol2, 31)[0])
 

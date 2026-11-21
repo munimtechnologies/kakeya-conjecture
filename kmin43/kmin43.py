@@ -1,7 +1,14 @@
-# kmin43.py -- is there a Kakeya set of 26 points in F_3^4?  Known: 18 <= K(4,3) <= 27.
+# kmin43.py (v2) -- is there a Kakeya set of 26 points in F_3^4?  Known: 18 <= K(4,3) <= 27.
 #
 # MV2 of Munim, Inc. (mv2@munimtech.com). Made with AI agents working in MV2's name.
 # No human mathematician has checked this. Licence: Apache-2.0.
+#
+# v2 changes (kmin43/addendum-v2.md): (1) classical() now builds the classical 31-point set
+# (v1 omitted the affine map that aligns the lower-dimensional set with the slice {0,1}^m and
+# produced 35 points, so the v1 unit test stopped the job before any search); (2) a wall-clock
+# deadline: cases not reached are reported NOT-RUN and the verdict is then UNDECIDED; (3) the
+# bound-27 sanity check runs before the main search, from the largest sections down, and stops
+# at the first verified set. The reduction and the model are unchanged from v1.
 #
 # Reduction (kmin43/prereg-kmin43.md in munimtechnologies/kakeya-conjecture).
 # Write F_3^4 = F_3^3 x F_3 with points (y, s) and slices K_s = {y : (y, s) in K}.
@@ -20,11 +27,6 @@
 #    then K(4, 3) >= 27, and with the known 27-point set K(4, 3) = 27.
 # Each model has 54 point variables. It is solved by OR-Tools CP-SAT and, independently, by
 # HiGHS (scipy.optimize.milp). Every solution found is re-checked by a brute-force Kakeya test.
-#
-# Self-checks: AGL(3,3) has 303,264 distinct permutations; orbit sizes of the representatives
-# add up to C(27, k) for every k; the known 27-point set (kakeya-min-v1) is Kakeya, and after
-# normalisation both solvers accept it at bound 27 and reject the same fixed set at bound 26;
-# the unfixed model for its representative is feasible at bound 27.
 
 import argparse
 import itertools
@@ -377,10 +379,19 @@ KNOWN_URL = ("https://raw.githubusercontent.com/munimtechnologies/kakeya-conject
 
 
 def classical(n):
-    """The classical Kakeya set in F_3^n (2^(n+1) - 1 points), first coordinate = t."""
+    """The classical Kakeya set in F_3^n (2^(n+1) - 1 points), first coordinate = t.
+
+    K_1 = F_3. Given a Kakeya set K_m in F_3^m (first coordinate t), K_{m+1} is
+      {(t, d^2 + t d) : t in F_3, d in F_3^m}  (squares coordinatewise; a line in every
+      direction (1, d)), together with {0} x phi(K_m), where phi(t, y) = (t - 1, 2y) is affine.
+    For fixed t the first part is a product of the 2-sets {0,1} (t = 0) or {0,2} (t = 1, 2), so
+    it has 3 * 2^m points and its t = 0 slice is {0,1}^m. K_m contains {1,2} x {0,2}^(m-1)
+    (its t = 1, 2 slices; K_1 = F_3 contains {1, 2}), and phi maps that onto {0,1}^m, so the two
+    parts overlap in exactly 2^m points: |K_{m+1}| = 3*2^m + (2^(m+1) - 1) - 2^m = 2^(m+2) - 1.
+    """
     K = set((t,) for t in range(3))
     for m in range(1, n):
-        new = set((0,) + y for y in K)
+        new = set((0, (x[0] - 1) % 3) + tuple((2 * a) % 3 for a in x[1:]) for x in K)
         for d in itertools.product(range(3), repeat=m):
             p = tuple(x * x % 3 for x in d)
             for t in range(3):
@@ -435,9 +446,10 @@ def main():
     ap.add_argument("--t-cpsat", type=float, default=900)
     ap.add_argument("--t-highs", type=float, default=600)
     ap.add_argument("--t27", type=float, default=60)
+    ap.add_argument("--deadline-min", type=float, default=270)
     args = ap.parse_args()
     t_start = time.time()
-    res = {"job": "kmin43-v1", "question": "is there a Kakeya set of <= 26 points in F_3^4?",
+    res = {"job": "kmin43-v2", "question": "is there a Kakeya set of <= 26 points in F_3^4?",
            "made_with": "AI agents working in MV2's name; no human has checked this",
            "bound": args.bound, "bugs": []}
     bugs = res["bugs"]
@@ -449,6 +461,9 @@ def main():
         res["seconds"] = round(time.time() - t_start, 1)
         with open(args.out, "w") as fh:
             json.dump(res, fh, indent=1)
+
+    def out_of_time():
+        return time.time() - t_start > 60 * args.deadline_min
 
     perms = agl3_perms()
     nuniq = len(np.unique(perms, axis=0))
@@ -487,38 +502,12 @@ def main():
         bugs.append("classical 31-point set check failed")
     dump()
 
-    # main search: bound 26 (default), smallest section n0 = 1 .. bound // 3
-    cases = []
-    found = []
-    for n0 in range(1, args.bound // 3 + 1):
-        for code in reps[n0]:
-            R = decode(code, n0)
-            m = build_model(R, args.bound)
-            st1, sol1, dt1 = solve_cpsat(m, args.t_cpsat, args.workers)
-            st2, sol2, dt2 = solve_highs(m, args.t_highs)
-            case = {"n0": n0, "rep": R, "rep_points": [list(PTS3[i]) for i in R],
-                    "cpsat": st1, "cpsat_s": round(dt1, 2), "highs": st2,
-                    "highs_s": round(dt2, 2)}
-            for name, sol in (("cpsat", sol1), ("highs", sol2)):
-                if sol is not None:
-                    ok, info = check_config(R, sol, args.bound)
-                    case[name + "_check"] = ok
-                    if ok:
-                        found.append(dict(info, solver=name, n0=n0, rep=R))
-                    else:
-                        bugs.append(f"{name} solution for rep {R} fails the brute-force check")
-            if "INFEASIBLE" in (st1, st2) and found and found[-1]["rep"] == R:
-                bugs.append(f"solvers disagree on rep {R}: {st1} / {st2}")
-            cases.append(case)
-            res["cases"] = cases
-            res["found"] = found
-            dump()
-            log(f"n0={n0} rep={R}: cpsat {st1} {dt1:.1f}s, highs {st2} {dt2:.1f}s")
-
-    # sanity at bound + 1: the solver must find sets there (the known set has 27 points)
+    # sanity at bound 27 (before the main search): from the largest smallest-section size down,
+    # CP-SAT must find a verified set; stop at the first one.
     sanity = []
     if args.bound == 26:
-        for n0 in range(1, 10):
+        hit = False
+        for n0 in range(9, 0, -1):
             for code in reps[n0]:
                 R = decode(code, n0)
                 st, sol, dt = solve_cpsat(build_model(R, 27), args.t27, args.workers)
@@ -527,15 +516,56 @@ def main():
                     ok, info = check_config(R, sol, 27)
                     ent["check"] = ok
                     ent["size"] = info["size"]
-                    if not ok:
+                    if ok:
+                        hit = True
+                        ent["points"] = info["points"]
+                    else:
                         bugs.append(f"bound-27 solution for rep {R} fails the brute-force check")
                 sanity.append(ent)
-        res["sanity27"] = {"feasible_reps": sum(1 for e in sanity if e["cpsat"] == "FEASIBLE"),
-                           "infeasible_reps": sum(1 for e in sanity if e["cpsat"] == "INFEASIBLE"),
-                           "unknown_reps": sum(1 for e in sanity if e["cpsat"] == "UNKNOWN"),
-                           "cases": sanity}
-        if res["sanity27"]["feasible_reps"] == 0:
+                log(f"sanity27 n0={n0} rep={R}: {st} {dt:.1f}s")
+                if hit:
+                    break
+            if hit:
+                break
+        res["sanity27"] = {"verified_set_found": hit, "tried": len(sanity), "cases": sanity}
+        if not hit:
             bugs.append("no 27-point set found at bound 27")
+        dump()
+
+    # main search: bound 26 (default), smallest section n0 = 1 .. bound // 3
+    cases = []
+    found = []
+    for n0 in range(1, args.bound // 3 + 1):
+        for code in reps[n0]:
+            R = decode(code, n0)
+            if out_of_time():
+                cases.append({"n0": n0, "rep": R, "cpsat": "NOT-RUN", "highs": "NOT-RUN"})
+                continue
+            m = build_model(R, args.bound)
+            st1, sol1, dt1 = solve_cpsat(m, args.t_cpsat, args.workers)
+            st2, sol2, dt2 = solve_highs(m, args.t_highs)
+            case = {"n0": n0, "rep": R, "rep_points": [list(PTS3[i]) for i in R],
+                    "cpsat": st1, "cpsat_s": round(dt1, 2), "highs": st2,
+                    "highs_s": round(dt2, 2)}
+            good = False
+            for name, sol in (("cpsat", sol1), ("highs", sol2)):
+                if sol is not None:
+                    ok, info = check_config(R, sol, args.bound)
+                    case[name + "_check"] = ok
+                    if ok:
+                        good = True
+                        found.append(dict(info, solver=name, n0=n0, rep=R))
+                    else:
+                        bugs.append(f"{name} solution for rep {R} fails the brute-force check")
+            if good and "INFEASIBLE" in (st1, st2):
+                bugs.append(f"solvers disagree on rep {R}: {st1} / {st2}")
+            cases.append(case)
+            res["cases"] = cases
+            res["found"] = found
+            dump()
+            log(f"n0={n0} rep={R}: cpsat {st1} {dt1:.1f}s, highs {st2} {dt2:.1f}s")
+    res["cases"] = cases
+    res["found"] = found
 
     all_cp = all(c["cpsat"] == "INFEASIBLE" for c in cases)
     all_hi = all(c["highs"] == "INFEASIBLE" for c in cases)
@@ -551,6 +581,7 @@ def main():
         verdict = "UNDECIDED"
     res["verdict"] = verdict
     res["cases_total"] = len(cases)
+    res["not_run"] = sum(1 for c in cases if c["cpsat"] == "NOT-RUN")
     res["open_cases"] = [c["rep"] for c in cases
                          if c["cpsat"] != "INFEASIBLE" and c["highs"] != "INFEASIBLE"
                          and not any(f["rep"] == c["rep"] for f in found)]
