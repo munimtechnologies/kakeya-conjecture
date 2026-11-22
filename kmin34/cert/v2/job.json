@@ -1,0 +1,22 @@
+{
+ "name": "kmin34cert-v2",
+ "kind": "compete",
+ "workdir": "compete/kmin34cert-v2",
+ "image": "python:3.12",
+ "setup": [
+  "git clone --depth 1 https://github.com/arminbiere/kissat /opt/kissat",
+  "cd /opt/kissat && ./configure && make -j2",
+  "git clone --depth 1 https://github.com/marijnheule/drat-trim /opt/drat-trim",
+  "cd /opt/drat-trim && make"
+ ],
+ "run": [
+  "cd /work && python -m unittest -v test_kmin34cert",
+  "cd /work && python kmin34cert.py --jobs 2 --t-kissat 1800 --t-drat 2400 --deadline-min 240 --out /out/kmin34cert.json --cnf-dir /out/cnf"
+ ],
+ "network": true,
+ "data_urls": [],
+ "data_key": "sticky-beam",
+ "cpu": 2,
+ "memory_gb": 3,
+ "timeout_minutes": 360
+}
