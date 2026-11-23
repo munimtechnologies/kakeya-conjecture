@@ -6,16 +6,17 @@ MV2 of Munim, Inc. (mv2@munimtech.com), 2026-11-22. Made with AI agents working 
 ## Result
 
 Let k_4 be the smallest size of a Kakeya set in F_3^4 (a set containing a full line in every
-direction). The smallest set known has 27 points (Lev, 2009, who conjectured k_4 = 27). The best
-lower bound we could find in print is 18, from the general bound of Bukh and Chao
-(K(n,q) >= q^n / (2 - 1/q)^(n-1), which gives 17.5 for q = 3, n = 4).
+direction). The smallest set known has 27 points (Lev, 2009; the Polymath wiki adds "it seems
+likely that k_4 = 27 holds"). The best lower bound we could find in print is 18, from the general
+bound of Bukh and Chao (K(n,q) >= q^n / (2 - 1/q)^(n-1), which gives 17.5 for q = 3, n = 4).
 
 **Theorem.** k_4 >= 24. So k_4 is one of 24, 25, 26, 27.
 
 The proof below is short and uses only counting. The same method gives exactly the known
 values K(2,3) = 7 and K(3,3) = 13, which is a check that it does not overreach.
 `kakeya_moments.py` (standard library, exact integer arithmetic) re-checks every number, and
-`test_kakeya_moments.py` asserts them.
+`test_kakeya_moments.py` asserts them. The same method in F_3^5 gives k_5 >= 41 (`F35.md`), and
+`N24.md` narrows the remaining case N = 24.
 
 ## Set-up
 
@@ -84,9 +85,10 @@ Worked line for N = 22: with c = 7, the profile values s3 - 7 s2 are -383, -370,
 
 At N = 24 the conditions can be met on paper: 28 classes of profile (8,8,8) and 12 of profile
 (5,6,13) give the right sum of C(n_H, 2) (3588) and enough triples (8496 >= 8456). So closing
-24, 25 and 26 needs more structure than these two moments. The queued exact computation
-(`kmin43/`, Lev's k_4 = 27 test) remains the way to decide k_4; this bound shrinks what it must
-rule out.
+24, 25 and 26 needs more structure than these two moments. `N24.md` (2026-11-23) adds one such
+piece: lines parallel to a class must fit inside its sections, which rules out (8,8,8) and caps a
+24-point set at 41 lines, but does not exclude N = 24. The queued exact computation (`kmin43/`,
+the k_4 = 27 test) remains the way to decide k_4; this bound shrinks what it must rule out.
 
 ## Sanity checks
 
@@ -102,8 +104,11 @@ rule out.
   geometry). We did not find them applied to Kakeya sets in F_3^4 in the sources we checked:
   Lev's 2009 comment on Tao's blog, the Bukh-Chao paper (arXiv:2108.00074), and the
   2025-26 papers listed in `CORRECTIONS.md`.
-- **We could not read the Polymath wiki's "Kakeya problem" page in full** (its server refused our
-  fetches). Search snippets show it has a "slices argument" lower-bound section, which uses the
-  same three slices as condition (T). We have not seen its numbers. If that page already gives
-  k_4 >= 24 or more, this note is a re-derivation, and we will say so here.
+- **The Polymath wiki's "Kakeya problem" page** (last modified 5 June 2009; read on 2026-11-22
+  through the Internet Archive snapshot of 23 December 2020, because michaelnielsen.org now
+  returns 404) states k_1 = 3, k_2 = 7, k_3 = 13 and k_4 <= 27 by computer, and "it seems likely
+  that k_4 = 27 holds". It gives **no numerical lower bound for k_4 or k_5**. Its "slices argument"
+  uses the same three slices as condition (T) and, with a Katz-Tao estimate, concludes
+  k_n >= 3^(6(n-1)/11), about 6.0 for n = 4 and 11.0 for n = 5. So the bounds here are new as far
+  as we can tell, and the page confirms the conjecture k_4 = 27 that this bound narrows towards.
 - The work was carried out with AI agents working in MV2's name. No human expert has checked it.
