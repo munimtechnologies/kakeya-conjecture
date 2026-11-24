@@ -1,0 +1,49 @@
+{
+  "title": "No Kakeya set in F_3^4 has 26 points, so k_4 = 27 (computer-assisted; not yet checked by a human mathematician)",
+  "author": "MV2 of Munim, Inc. (mv2@munimtech.com); made with AI agents working in MV2's name",
+  "date": "2026-11-24",
+  "licence": "CC BY 4.0",
+  "space": {"q": 3, "n": 4, "points": 81, "directions": 40, "hyperplane_classes": 40},
+  "conclusion": {"k4_lower": 27, "k4_upper": 27, "upper_bound_source": "Lev 2009, 27-point set (Polymath wiki, Kakeya problem page); coordinates re-verified in indep26/kk.py KNOWN27"},
+  "identities": {
+    "sum_n1n2n3": "9 (C(N,3) + 2L)",
+    "sum_e2": "27 C(N,2)",
+    "N26_shifted_sum": "sum over classes of (n1-8)(n2-8)(n3-8) = 18 (L - 40)",
+    "N26_constant": -720,
+    "zero_case_sum_of_squares": 9490,
+    "zero_case_max_if_all_sections_at_least_8": 228,
+    "zero_case_bound_40_times_228": 9120
+  },
+  "cuts": [
+    {"cut": [4, 7, 15], "case": "positive", "indep26_search": ["deb6da6"], "gate26_search": null, "other_argument": "sum-difference lemma, moments/SD.md (third section >= 25)"},
+    {"cut": [5, 6, 15], "case": "positive", "indep26_search": ["deb6da6"], "gate26_search": null, "other_argument": "sum-difference lemma, moments/SD.md (third section >= 18)"},
+    {"cut": [5, 7, 14], "case": "positive", "indep26_search": ["deb6da6"], "gate26_search": "9fae0cb", "other_argument": null},
+    {"cut": [6, 6, 14], "case": "positive", "indep26_search": ["deb6da6"], "gate26_search": "67b9e21", "other_argument": null},
+    {"cut": [6, 7, 13], "case": "positive", "indep26_search": ["edeeabb"], "gate26_search": "5af2046", "other_argument": null},
+    {"cut": [7, 7, 12], "case": "positive", "indep26_search": ["df71c1d", "ebc8b20"], "gate26_search": "2730bd2", "other_argument": null},
+    {"cut": [4, 8, 14], "case": "zero", "indep26_search": ["deb6da6"], "gate26_search": null, "other_argument": "sum-difference lemma, moments/SD.md (Emax(4,8) = 50, 729/50 > 14)"},
+    {"cut": [5, 8, 13], "case": "zero", "indep26_search": ["82f6e8a"], "gate26_search": "912f7c3", "other_argument": null},
+    {"cut": [6, 8, 12], "case": "zero", "indep26_search": ["177d4c2", "b7752a2"], "gate26_search": "9d84763", "other_argument": null},
+    {"cut": [7, 8, 11], "case": "zero", "indep26_search": ["95d3d20", "04e07a4", "623003b", "2d963de"], "gate26_search": "f2d8ebd", "other_argument": null}
+  ],
+  "counts": {
+    "cuts_needed": 10,
+    "cuts_searched_by_indep26": 10,
+    "cuts_searched_by_gate26": 7,
+    "cuts_searched_twice": 7,
+    "cuts_one_search_plus_lemma": 3,
+    "indep26_commit_checks": 11,
+    "gate26_commit_checks": 7
+  },
+  "lower_bound_history": [
+    {"label": "General bound before Nov 2026", "value": 18},
+    {"label": "MV2 counting proof, Nov 2026", "value": 24},
+    {"label": "MV2 second-moment lemma, Nov 2026", "value": 25},
+    {"label": "This result", "value": 27}
+  ],
+  "controls_run_before_every_search": [
+    "k_3 = 13 through the same pipeline one dimension down (no 12-point Kakeya set in F_3^3 under any cut allowed by (T); a 13-point one found and brute-force verified)",
+    "Lev's 27-point set is Kakeya, and for each of its 4 coordinate classes and 6 section orders the third-section search completes the first two within the size of the third"
+  ],
+  "limits": "Computer-assisted. Relies on the correctness of indep26/kk.py and kcut/kcut.py (written independently) and on the hand proofs of the identities. No human mathematician has checked it yet. A certificate-level SAT/DRAT re-check (kdrat26) is queued."
+}
