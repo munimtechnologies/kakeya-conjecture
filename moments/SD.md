@@ -96,10 +96,35 @@ Here a1 = 40, a2 = 13, T = 81 and H = 121.
 **So k_5 >= 44**, against the published 32 (Bukh-Chao) and our earlier 41. At N = 44 the relaxation
 is feasible, for example with (14,15,15) and (10,10,24).
 
+## Higher dimensions (added 2026-11-24)
+
+The same relaxation (`sd_bound.feasible(n, N, sd=True)`), decided in exact arithmetic, gives the
+table below. Each lower bound is a test file that was committed only after it passed; the next
+size up was tried the same way and its test failed (the relaxation is feasible there), so each
+value is the most this method gives.
+
+| n | Bukh-Chao lower bound | this method | test file | first size the method allows |
+|---|---|---|---|---|
+| 4 | 18 | 25 | `test_sd_bound.py` | 25 |
+| 5 | 32 | 44 | `test_sd_bound.py` | 44 |
+| 6 | 57 | 78 | `test_k6_at_least_78.py` | 78 |
+| 7 | 103 | 137 | `test_k7_at_least_137.py` | 137 |
+
+For n = 6 and 7 we have not surveyed the best known constructions; the classical one has
+2^(n+1) - 1 points (127 and 255). The method's advantage over Bukh-Chao shrinks in relative terms
+as n grows, so it is a small-dimension tool, not a new asymptotic bound.
+
+A second fact used by the exact search (`moments/min_section.py`, tested): summing |K n H|^2 over
+the 120 hyperplanes of F_3^4 gives 40 N + 13 N (N - 1) for every set, so every 25-point set has a
+hyperplane section of at most 6 points and every 26-point set one of at most 7.
+
 ## Limits
 
 - These are lower bounds from a linear relaxation; no Kakeya set of 25 points in F_3^4 is claimed,
   and Lev's conjectured value k_4 = 27 is not proved.
+- Two finer relaxations over the 130 plane classes (`PLANE.md`, `PLANE2.md`) still admit 25 points
+  (readouts `test_plane_n25_not_excluded.py`, `test_plane2_n25_not_excluded.py`), even with 46 or
+  more lines.
 - The (SD) lemma is a standard additive-energy argument (Cauchy-Schwarz plus E(A,B) = E(A,-B));
   what is new is using it on the sections of a Kakeya set together with the moment identities.
 - Checked by the code in this folder and by hand. No human mathematician has checked it yet.
