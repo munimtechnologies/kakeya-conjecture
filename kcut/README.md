@@ -60,7 +60,16 @@ check the symmetry claim directly. Job `kcut26c-v1` runs it on the seven N = 26 
 - Every reported set is re-checked against the plain definition of a Kakeya set.
 - kcutc: orbit-stabiliser check |Stab(A)| * |orbit| = |AGL(3,3)| for every representative.
 
+## Note on testing (2026-11-24)
+
+MV2's publishing pipeline runs `unittest discover` (Python 3.11) at commit time, and that only
+enters folders that are Python packages. This folder has no `__init__.py`, so `test_kcut.py` and
+`test_kcutc.py` were **not** run when they were committed; they run inside the compute jobs. The
+folder `gate26/` is a package that loads `kcut.py` by file path and runs the controls and the
+seven 26-point cuts at commit time, one commit per cut (see `gate26/README.md`).
+
 ## Status
 
-Jobs `kcut-v1` and `kcut26c-v1` are queued. Their results will be added here; no claim is made
-until then.
+Jobs `kcut-v1` and `kcut26c-v1` are queued (on 2026-11-24 every compute host was short of free
+memory, so no job was running). Their results, and those of the `gate26/` commits, will be added
+here; no claim is made until then.
