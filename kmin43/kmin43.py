@@ -1,14 +1,23 @@
-# kmin43.py (v2) -- is there a Kakeya set of 26 points in F_3^4?  Known: 18 <= K(4,3) <= 27.
+# kmin43.py (v3) -- exact search: is there a Kakeya set of <= 25 (then <= 26) points in F_3^4?
+# Known: 25 <= k_4 <= 27 (lower bound: moments/SD.md in munimtechnologies/kakeya-conjecture).
 #
 # MV2 of Munim, Inc. (mv2@munimtech.com). Made with AI agents working in MV2's name.
 # No human mathematician has checked this. Licence: Apache-2.0.
 #
-# v2 changes (kmin43/addendum-v2.md): (1) classical() now builds the classical 31-point set
-# (v1 omitted the affine map that aligns the lower-dimensional set with the slice {0,1}^m and
-# produced 35 points, so the v1 unit test stopped the job before any search); (2) a wall-clock
-# deadline: cases not reached are reported NOT-RUN and the verdict is then UNDECIDED; (3) the
-# bound-27 sanity check runs before the main search, from the largest sections down, and stops
-# at the first verified set. The reduction and the model are unchanged from v1.
+# v3 changes against v2 (the model and the reduction are unchanged):
+#  (1) bound 25 is decided first (a "no" proves k_4 >= 26), then bound 26 (a "no" proves k_4 = 27);
+#  (2) the smallest-section size n0 only runs up to nmax(bound), from the identity
+#        sum over the 120 hyperplanes H of |K n H|^2 = 40 N + 13 N (N - 1)
+#      (each point lies in 40 hyperplanes, each pair of points in 13). If every one of the 40
+#      parallel classes had all three sections >= m, each class would contribute at most
+#      2 m^2 + (N - 2m)^2, so some section is < m as soon as 40 (2 m^2 + (N - 2m)^2) < S.
+#      This gives n0 <= 6 for N = 25 and n0 <= 7 for N = 26 (nmax() computes it, max over N' <= bound);
+#  (3) symmetry breaking |K_1| <= |K_2| (the linear map (y, s) -> (y, -s) fixes slice 0 and swaps
+#      slices 1 and 2), used in the main search only;
+#  (4) CP-SAT runs over all cases first; HiGHS re-solves them afterwards as an independent check;
+#  (5) the long bound-27 sanity loop of v2 is replaced by the known 27-point set check
+#      (fixed slices feasible at 27 and infeasible at 26 in both solvers; free search at 27 finds a
+#      verified set with and without symmetry breaking); 2 workers, 1 GB.
 #
 # Reduction (kmin43/prereg-kmin43.md in munimtechnologies/kakeya-conjecture).
 # Write F_3^4 = F_3^3 x F_3 with points (y, s) and slices K_s = {y : (y, s) in K}.
@@ -16,17 +25,14 @@
 #    some a in K_0 has a + w in K_1 and a + 2w in K_2.
 #  * A direction (w, 0), w in PG(2, 3) (13 "horizontal" directions), has a line in K iff some
 #    slice K_s contains a line of F_3^3 in direction w.
-#  * Let K be a Kakeya set with |K| <= 26 and let H be an affine hyperplane with |K n H| = n
-#    minimal (n <= 8 because the three parallel sections sum to |K|; n >= 1 because a
-#    transversal line meets every parallel hyperplane). Move H to {s = 0} by an affine map
-#    of F_3^4, then move K_0 to its canonical representative R under AGL(3, 3) acting on y
-#    alone ((y, s) -> (A y + b, s) is affine on F_3^4). The image is again a Kakeya set, so
-#    (K_1, K_2) solves MODEL(R, 26): slice 0 equal to R, transversal and horizontal
-#    conditions, every one of the 120 hyperplane sections >= |R|, and |K| <= 26.
-#  * So if MODEL(R, 26) is infeasible for every orbit representative R with 1 <= |R| <= 8,
-#    then K(4, 3) >= 27, and with the known 27-point set K(4, 3) = 27.
-# Each model has 54 point variables. It is solved by OR-Tools CP-SAT and, independently, by
-# HiGHS (scipy.optimize.milp). Every solution found is re-checked by a brute-force Kakeya test.
+#  * Let K be a Kakeya set with |K| <= bound and let H be an affine hyperplane with |K n H| = n0
+#    minimal. Move H to {s = 0} by an affine map of F_3^4, then move K_0 to its canonical
+#    representative R under AGL(3, 3) acting on y alone. The image is again a Kakeya set, so
+#    (K_1, K_2) solves MODEL(R, bound): slice 0 equal to R, transversal and horizontal
+#    conditions, every one of the 120 hyperplane sections >= |R|, and |K| <= bound.
+#  * So if MODEL(R, bound) is infeasible for every orbit representative R with
+#    1 <= |R| <= nmax(bound), there is no Kakeya set with <= bound points.
+# Every solution found is re-checked by a brute-force Kakeya test.
 
 import argparse
 import itertools
@@ -76,6 +82,21 @@ def lines3(w):
 
 
 LINES3 = {w: lines3(w) for w in DIR3}
+
+
+def nmax_for_size(N):
+    """Largest m such that a set of N points in F_3^4 can have all 120 sections >= m, by the
+    second-moment identity (see the header). 0 if N < 3."""
+    S = 40 * N + 13 * N * (N - 1)
+    best = 0
+    for m in range(1, N // 3 + 1):
+        if 40 * (2 * m * m + (N - 2 * m) ** 2) >= S:
+            best = m
+    return best
+
+
+def nmax(bound):
+    return max(nmax_for_size(N) for N in range(1, bound + 1))
 
 
 def is_kakeya(K, n):
@@ -223,8 +244,9 @@ def X(s, i):
 BIG = 10 ** 6
 
 
-def build_model(R, bound, fix=None):
-    """MODEL(R, bound): slice 0 = R (point indices); variables for slices 1 and 2."""
+def build_model(R, bound, fix=None, sym=False):
+    """MODEL(R, bound): slice 0 = R (point indices); variables for slices 1 and 2.
+    sym=True adds |K_1| <= |K_2| (valid symmetry breaking, see the header)."""
     R = sorted(R)
     n0 = len(R)
     Rset = set(R)
@@ -261,6 +283,8 @@ def build_model(R, bound, fix=None):
                 m.add(terms, n0 - cnt0, BIG)
     # size
     m.add([(X(s, i), 1) for s in (1, 2) for i in range(27)], -BIG, bound - n0)
+    if sym:
+        m.add([(X(1, i), 1) for i in range(27)] + [(X(2, i), -1) for i in range(27)], -BIG, 0)
     if fix is not None:
         for s in (1, 2):
             for i in range(27):
@@ -384,10 +408,6 @@ def classical(n):
     K_1 = F_3. Given a Kakeya set K_m in F_3^m (first coordinate t), K_{m+1} is
       {(t, d^2 + t d) : t in F_3, d in F_3^m}  (squares coordinatewise; a line in every
       direction (1, d)), together with {0} x phi(K_m), where phi(t, y) = (t - 1, 2y) is affine.
-    For fixed t the first part is a product of the 2-sets {0,1} (t = 0) or {0,2} (t = 1, 2), so
-    it has 3 * 2^m points and its t = 0 slice is {0,1}^m. K_m contains {1,2} x {0,2}^(m-1)
-    (its t = 1, 2 slices; K_1 = F_3 contains {1, 2}), and phi maps that onto {0,1}^m, so the two
-    parts overlap in exactly 2^m points: |K_{m+1}| = 3*2^m + (2^(m+1) - 1) - 2^m = 2^(m+2) - 1.
     """
     K = set((t,) for t in range(3))
     for m in range(1, n):
@@ -423,16 +443,20 @@ def known_check(K, perms, workers, seconds):
         m = build_model(sl[0], b, fix=fix)
         out[f"cpsat_fixed_{b}"] = solve_cpsat(m, seconds, workers)[0]
         out[f"highs_fixed_{b}"] = solve_highs(m, seconds)[0]
-    m = build_model(sl[0], 27)
-    st, sol, _ = solve_cpsat(m, seconds, workers)
-    out["cpsat_free_27"] = st
-    if sol is not None:
-        out["cpsat_free_27_check"] = check_config(sl[0], sol, 27)[0]
+    for sym in (False, True):
+        m = build_model(sl[0], 27, sym=sym)
+        st, sol, _ = solve_cpsat(m, seconds, workers)
+        key = "cpsat_free_27" + ("_sym" if sym else "")
+        out[key] = st
+        if sol is not None:
+            out[key + "_check"] = check_config(sl[0], sol, 27)[0]
     out["ok"] = (out["kakeya"] and out["size"] == 27
                  and out["cpsat_fixed_27"] == "FEASIBLE" and out["highs_fixed_27"] == "FEASIBLE"
                  and out["cpsat_fixed_26"] == "INFEASIBLE"
                  and out["highs_fixed_26"] == "INFEASIBLE"
-                 and out["cpsat_free_27"] == "FEASIBLE" and out.get("cpsat_free_27_check", False))
+                 and out["cpsat_free_27"] == "FEASIBLE" and out.get("cpsat_free_27_check", False)
+                 and out["cpsat_free_27_sym"] == "FEASIBLE"
+                 and out.get("cpsat_free_27_sym_check", False))
     return out
 
 
@@ -441,17 +465,18 @@ def known_check(K, perms, workers, seconds):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="kmin43.json")
-    ap.add_argument("--bound", type=int, default=26)
-    ap.add_argument("--workers", type=int, default=4)
-    ap.add_argument("--t-cpsat", type=float, default=900)
-    ap.add_argument("--t-highs", type=float, default=600)
-    ap.add_argument("--t27", type=float, default=60)
-    ap.add_argument("--deadline-min", type=float, default=270)
+    ap.add_argument("--bounds", default="25,26")
+    ap.add_argument("--workers", type=int, default=2)
+    ap.add_argument("--t-cpsat", type=float, default=1200)
+    ap.add_argument("--t-highs", type=float, default=900)
+    ap.add_argument("--t27", type=float, default=180)
+    ap.add_argument("--deadline-min", type=float, default=320)
     args = ap.parse_args()
+    bounds = [int(b) for b in args.bounds.split(",")]
     t_start = time.time()
-    res = {"job": "kmin43-v2", "question": "is there a Kakeya set of <= 26 points in F_3^4?",
+    res = {"job": "kmin43-v3", "question": "is there a Kakeya set of <= 25, or <= 26, points in F_3^4?",
            "made_with": "AI agents working in MV2's name; no human has checked this",
-           "bound": args.bound, "bugs": []}
+           "bounds": bounds, "nmax": {str(b): nmax(b) for b in bounds}, "bugs": []}
     bugs = res["bugs"]
 
     def log(msg):
@@ -465,12 +490,15 @@ def main():
     def out_of_time():
         return time.time() - t_start > 60 * args.deadline_min
 
+    if res["nmax"].get("25", 6) != 6 or res["nmax"].get("26", 7) != 7:
+        bugs.append(f"nmax differs from the hand values 6 (N=25) and 7 (N=26): {res['nmax']}")
+
     perms = agl3_perms()
     nuniq = len(np.unique(perms, axis=0))
     res["group"] = {"rows": int(perms.shape[0]), "distinct": nuniq}
     if perms.shape[0] != GROUP_ORDER or nuniq != GROUP_ORDER:
         bugs.append("AGL(3,3) is not 303,264 distinct permutations")
-    kmax = max(9, args.bound // 3)
+    kmax = max(nmax(b) for b in bounds)
     reps = orbit_reps(kmax, perms, log)
     oc = orbit_check(reps, perms)
     res["orbits"] = {str(k): {kk: vv for kk, vv in v.items() if kk != "stabilisers"}
@@ -480,7 +508,7 @@ def main():
             bugs.append(f"orbit sizes for k={k} add up to {v['sum_orbit_sizes']}, not {v['binom']}")
     dump()
 
-    # known 27-point set
+    # known 27-point set (sanity: the model must accept it)
     cands = {"embedded": KNOWN27}
     dl = fetch_known(log)
     if dl is not None:
@@ -489,7 +517,7 @@ def main():
     res["known27"] = {}
     for name, K in cands.items():
         try:
-            res["known27"][name] = known_check(K, perms, args.workers, max(args.t27, 180))
+            res["known27"][name] = known_check(K, perms, args.workers, args.t27)
         except Exception as exc:
             res["known27"][name] = {"ok": False, "error": repr(exc)}
         log(f"known27 {name}: {res['known27'][name]}")
@@ -502,91 +530,87 @@ def main():
         bugs.append("classical 31-point set check failed")
     dump()
 
-    # sanity at bound 27 (before the main search): from the largest smallest-section size down,
-    # CP-SAT must find a verified set; stop at the first one.
-    sanity = []
-    if args.bound == 26:
-        hit = False
-        for n0 in range(9, 0, -1):
-            for code in reps[n0]:
-                R = decode(code, n0)
-                st, sol, dt = solve_cpsat(build_model(R, 27), args.t27, args.workers)
-                ent = {"n0": n0, "rep": R, "cpsat": st, "s": round(dt, 2)}
-                if sol is not None:
-                    ok, info = check_config(R, sol, 27)
-                    ent["check"] = ok
-                    ent["size"] = info["size"]
-                    if ok:
-                        hit = True
-                        ent["points"] = info["points"]
-                    else:
-                        bugs.append(f"bound-27 solution for rep {R} fails the brute-force check")
-                sanity.append(ent)
-                log(f"sanity27 n0={n0} rep={R}: {st} {dt:.1f}s")
-                if hit:
-                    break
-            if hit:
-                break
-        res["sanity27"] = {"verified_set_found": hit, "tried": len(sanity), "cases": sanity}
-        if not hit:
-            bugs.append("no 27-point set found at bound 27")
-        dump()
-
-    # main search: bound 26 (default), smallest section n0 = 1 .. bound // 3
+    # pass 1: CP-SAT on every case, bound by bound
     cases = []
     found = []
-    for n0 in range(1, args.bound // 3 + 1):
-        for code in reps[n0]:
-            R = decode(code, n0)
-            if out_of_time():
-                cases.append({"n0": n0, "rep": R, "cpsat": "NOT-RUN", "highs": "NOT-RUN"})
-                continue
-            m = build_model(R, args.bound)
-            st1, sol1, dt1 = solve_cpsat(m, args.t_cpsat, args.workers)
-            st2, sol2, dt2 = solve_highs(m, args.t_highs)
-            case = {"n0": n0, "rep": R, "rep_points": [list(PTS3[i]) for i in R],
-                    "cpsat": st1, "cpsat_s": round(dt1, 2), "highs": st2,
-                    "highs_s": round(dt2, 2)}
-            good = False
-            for name, sol in (("cpsat", sol1), ("highs", sol2)):
+    for b in bounds:
+        for n0 in range(1, nmax(b) + 1):
+            for code in reps[n0]:
+                R = decode(code, n0)
+                case = {"bound": b, "n0": n0, "rep": R, "rep_points": [list(PTS3[i]) for i in R],
+                        "cpsat": "NOT-RUN", "highs": "NOT-RUN"}
+                cases.append(case)
+                if out_of_time():
+                    continue
+                st, sol, dt = solve_cpsat(build_model(R, b, sym=True), args.t_cpsat, args.workers)
+                case["cpsat"], case["cpsat_s"] = st, round(dt, 2)
                 if sol is not None:
-                    ok, info = check_config(R, sol, args.bound)
-                    case[name + "_check"] = ok
+                    ok, info = check_config(R, sol, b)
+                    case["cpsat_check"] = ok
                     if ok:
-                        good = True
-                        found.append(dict(info, solver=name, n0=n0, rep=R))
+                        found.append(dict(info, solver="cpsat", bound=b, n0=n0, rep=R))
                     else:
-                        bugs.append(f"{name} solution for rep {R} fails the brute-force check")
-            if good and "INFEASIBLE" in (st1, st2):
-                bugs.append(f"solvers disagree on rep {R}: {st1} / {st2}")
-            cases.append(case)
-            res["cases"] = cases
-            res["found"] = found
-            dump()
-            log(f"n0={n0} rep={R}: cpsat {st1} {dt1:.1f}s, highs {st2} {dt2:.1f}s")
-    res["cases"] = cases
-    res["found"] = found
+                        bugs.append(f"cpsat solution for bound {b} rep {R} fails the brute-force check")
+                res["cases"], res["found"] = cases, found
+                dump()
+                log(f"bound={b} n0={n0} rep={R}: cpsat {st} {dt:.1f}s")
 
-    all_cp = all(c["cpsat"] == "INFEASIBLE" for c in cases)
-    all_hi = all(c["highs"] == "INFEASIBLE" for c in cases)
+    # pass 2: HiGHS re-solves the same cases (independent second solver)
+    for case in cases:
+        if out_of_time() or case["cpsat"] == "NOT-RUN":
+            continue
+        R, b = case["rep"], case["bound"]
+        st, sol, dt = solve_highs(build_model(R, b, sym=True), args.t_highs)
+        case["highs"], case["highs_s"] = st, round(dt, 2)
+        if sol is not None:
+            ok, info = check_config(R, sol, b)
+            case["highs_check"] = ok
+            if ok:
+                found.append(dict(info, solver="highs", bound=b, n0=case["n0"], rep=R))
+            else:
+                bugs.append(f"highs solution for bound {b} rep {R} fails the brute-force check")
+        if (st == "FEASIBLE" and case["cpsat"] == "INFEASIBLE") or \
+                (st == "INFEASIBLE" and case["cpsat"] == "FEASIBLE"):
+            bugs.append(f"solvers disagree on bound {b} rep {R}: {case['cpsat']} / {st}")
+        res["cases"], res["found"] = cases, found
+        dump()
+        log(f"bound={b} n0={case['n0']} rep={R}: highs {st} {dt:.1f}s")
+
+    per = {}
+    for b in bounds:
+        cb = [c for c in cases if c["bound"] == b]
+        per[str(b)] = {
+            "cases": len(cb),
+            "cpsat_all_infeasible": all(c["cpsat"] == "INFEASIBLE" for c in cb),
+            "highs_all_infeasible": all(c["highs"] == "INFEASIBLE" for c in cb),
+            "cpsat_not_run": sum(1 for c in cb if c["cpsat"] == "NOT-RUN"),
+            "highs_not_run": sum(1 for c in cb if c["highs"] == "NOT-RUN"),
+            "open_cases": [c["rep"] for c in cb if c["cpsat"] != "INFEASIBLE"
+                           and c["highs"] != "INFEASIBLE"],
+            "found_sizes": sorted({f["size"] for f in found if f["bound"] == b}),
+        }
+    res["per_bound"] = per
+    if any(f["size"] <= 24 for f in found):
+        bugs.append("a verified Kakeya set of <= 24 points contradicts the proof of k_4 >= 25 (SD.md)")
+    p25, p26 = per.get("25"), per.get("26")
     if bugs:
         verdict = "BUG"
     elif found:
-        verdict = "K43-LE-26" if args.bound == 26 else f"FOUND-LE-{args.bound}"
-    elif all_cp and all_hi:
-        verdict = "K43-EQ-27" if args.bound == 26 else f"NONE-LE-{args.bound}"
-    elif all_cp:
-        verdict = "K43-EQ-27-CPSAT-ONLY" if args.bound == 26 else "CPSAT-ONLY"
+        verdict = "FOUND-" + str(min(f["size"] for f in found))
+    elif p26 and p26["cpsat_all_infeasible"] and p26["highs_all_infeasible"]:
+        verdict = "K4-EQ-27"
+    elif p26 and p26["cpsat_all_infeasible"]:
+        verdict = "K4-EQ-27-CPSAT-ONLY"
+    elif p25 and p25["cpsat_all_infeasible"] and p25["highs_all_infeasible"]:
+        verdict = "K4-GE-26"
+    elif p25 and p25["cpsat_all_infeasible"]:
+        verdict = "K4-GE-26-CPSAT-ONLY"
     else:
         verdict = "UNDECIDED"
     res["verdict"] = verdict
-    res["cases_total"] = len(cases)
-    res["not_run"] = sum(1 for c in cases if c["cpsat"] == "NOT-RUN")
-    res["open_cases"] = [c["rep"] for c in cases
-                         if c["cpsat"] != "INFEASIBLE" and c["highs"] != "INFEASIBLE"
-                         and not any(f["rep"] == c["rep"] for f in found)]
+    res["cases"], res["found"] = cases, found
     dump()
-    log(f"verdict {verdict}; cases {len(cases)}; found {len(found)}; bugs {bugs}")
+    log(f"verdict {verdict}; per bound {json.dumps(per)}; bugs {bugs}")
 
 
 if __name__ == "__main__":
