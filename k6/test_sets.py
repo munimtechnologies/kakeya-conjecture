@@ -6,8 +6,8 @@
 It shares no code with the search: it decodes each stored integer into a coordinate tuple
 of F_3^n and checks, for every direction d (nonzero, first nonzero entry 1), that some
 point x of the set has x + d and x + 2d in the set as well.  It also checks the numbers
-quoted in k6/results/records.json (sizes, the classical construction, the Bukh-Chao bound
-and the values of Lev's pattern)."""
+quoted in k6/results/records.json (sizes, layer sizes, the classical construction, the
+Bukh-Chao bound and the values of Lev's pattern)."""
 import itertools
 import json
 import math
@@ -16,7 +16,10 @@ import unittest
 from fractions import Fraction
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SETS = {6: ("kakeya6_106.json", 106), 7: ("kakeya7_213.json", 213)}
+# current records
+SETS = {6: ("kakeya6_105.json", 105), 7: ("kakeya7_213.json", 213)}
+# earlier, superseded sets that stay in the repository and are still checked
+EARLIER = [(6, "kakeya6_106.json", 106)]
 
 
 def load(name):
@@ -53,6 +56,20 @@ def classical(n):
     return S
 
 
+def check_file(tc, n, name, size):
+    data = load(name)
+    tc.assertEqual(data["n"], n)
+    tc.assertEqual(data["size"], size)
+    idx = data["points"]
+    tc.assertEqual(len(idx), size)
+    tc.assertEqual(len(set(idx)), size)
+    tc.assertTrue(all(0 <= i < 3 ** n for i in idx))
+    pts = [decode(n, i) for i in idx]
+    tc.assertEqual(len(set(pts)), size)
+    tc.assertEqual(uncovered_directions(n, pts), [], "%s n=%d" % (name, n))
+    return pts
+
+
 class RecordSets(unittest.TestCase):
     def test_checker_on_known_cases(self):
         # the classical set is Kakeya with 2^(n+1) - 1 points; dropping its origin is not
@@ -66,16 +83,11 @@ class RecordSets(unittest.TestCase):
 
     def test_record_sets(self):
         for n, (name, size) in SETS.items():
-            data = load(name)
-            self.assertEqual(data["n"], n)
-            self.assertEqual(data["size"], size)
-            idx = data["points"]
-            self.assertEqual(len(idx), size)
-            self.assertEqual(len(set(idx)), size)
-            self.assertTrue(all(0 <= i < 3 ** n for i in idx))
-            pts = [decode(n, i) for i in idx]
-            self.assertEqual(len(set(pts)), size)
-            self.assertEqual(uncovered_directions(n, pts), [], "n=%d" % n)
+            check_file(self, n, name, size)
+
+    def test_earlier_sets(self):
+        for n, name, size in EARLIER:
+            check_file(self, n, name, size)
 
     def test_quoted_numbers(self):
         with open(os.path.join(HERE, "results", "records.json"), encoding="utf-8") as f:
@@ -95,9 +107,20 @@ class RecordSets(unittest.TestCase):
             self.assertEqual(r["lev_pattern_value"], lev[n])
             self.assertEqual(r["bukh_chao_lower_bound"],
                              math.ceil(Fraction(3 ** n) / Fraction(5, 3) ** (n - 1)))
+            pts = [decode(n, i) for i in load(name)["points"]]
+            layers = [sum(1 for x in pts if x[0] == c) for c in range(3)]
+            self.assertEqual(r["layers_x0"], layers)
+        for n, name, size in EARLIER:
+            e = [x for x in R["earlier"] if x["set_file"] == "k6/sets/" + name]
+            self.assertEqual(len(e), 1)
+            self.assertEqual(e[0]["size"], size)
+            self.assertEqual(e[0]["n"], n)
         self.assertEqual(R["lev_pattern"]["values"], {str(n): lev[n] for n in range(1, 8)})
-        # the record in F_3^6 lies below the pattern's value 107
+        # the record in F_3^6 lies below the pattern's value 107 and below 2 * 53 = 106
         self.assertLess(SETS[6][1], lev[6])
+        self.assertEqual(SETS[6][1], 2 * lev[5] - 1)
+        # the recurrence on true values would ask k_7 <= k_6 + 2 k_5 <= 105 + 2 * 53 = 211
+        self.assertEqual(R["recurrence_on_true_values"]["k7_at_most"], SETS[6][1] + 2 * lev[5])
 
 
 if __name__ == "__main__":

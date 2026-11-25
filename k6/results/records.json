@@ -5,13 +5,16 @@
   "date": "2026-11-25",
   "definition": "K in F_3^n is a Kakeya set if for every nonzero direction d it contains a full line {a, a+d, a+2d}; k_n is the least size of a Kakeya set in F_3^n",
   "records": {
-    "6": {"size": 106, "set_file": "k6/sets/kakeya6_106.json", "directions": 364,
+    "6": {"size": 105, "set_file": "k6/sets/kakeya6_105.json", "directions": 364,
           "classical_construction": 127, "lev_pattern_value": 107,
-          "bukh_chao_lower_bound": 57},
+          "bukh_chao_lower_bound": 57, "layers_x0": [37, 31, 37]},
     "7": {"size": 213, "set_file": "k6/sets/kakeya7_213.json", "directions": 1093,
           "classical_construction": 255, "lev_pattern_value": 213,
-          "bukh_chao_lower_bound": 103}
+          "bukh_chao_lower_bound": 103, "layers_x0": [96, 63, 54]}
   },
+  "earlier": [
+    {"n": 6, "size": 106, "set_file": "k6/sets/kakeya6_106.json", "found": "2026-11-25 12:26 UTC", "note": "first set below the pattern value 107; superseded by the 105-point set the same day"}
+  ],
   "known_values": {
     "1": {"value": 3}, "2": {"value": 7},
     "3": {"value": 13, "source": "V. F. Lev, computer search, 2009 (blog comment)"},
@@ -19,28 +22,57 @@
     "5": {"lower": 45, "upper": 53, "source": "upper bound Chung, Du and Wesley arXiv:2608.23691; lower bound our k5/QUAD45.md, not human-checked"}
   },
   "classical_construction": "{0,1}^n u {0,2}^n, 2^(n+1) - 1 points",
+  "asymptotic_constructions": "Kopparty, Lev, Saraf and Sudan (arXiv:1003.3736, Theorem 8) give Kakeya sets in F_3^n of size (3 / 2^(2/3))^(n + O(sqrt n)), base about 1.8899, by a random construction; it gives no explicit sets for small n",
   "bukh_chao_bound": "|K| >= 3^n / (2 - 1/3)^(n-1) = 3^(2n-1) / 5^(n-1), rounded up",
   "lev_pattern": {
     "source": "V. F. Lev, comment 994 on T. Tao's blog, 14 March 2009: 'I am very curious to know whether k_5 = 53: notice the pattern in 3, 7, 13, 27, 53, ...'; Chung, Du and Wesley (arXiv:2608.23691) state it as the recurrence k_n = k_(n-1) + 2 k_(n-2) and say whether it continues remains open",
     "values": {"1": 3, "2": 7, "3": 13, "4": 27, "5": 53, "6": 107, "7": 213},
-    "consequence": "k_6 <= 106 < 107. Since k_2 = 7 and k_3 = 13, the recurrence cannot hold at all of n = 4, 5, 6: if it did, k_6 would be 107. With k_4 = 27 it fails at n = 5 or n = 6, i.e. k_5 <= 52 or k_6 < k_5 + 2 k_4."
+    "consequence": "k_6 <= 105 < 107. Since k_2 = 7 and k_3 = 13, the recurrence cannot hold at all of n = 4, 5, 6: if it did, k_6 would be 107. With k_4 = 27 it fails at n = 5 or n = 6: either k_5 <= 52, or k_5 = 53 and k_6 <= 105 = k_5 + 2 k_4 - 2."
+  },
+  "recurrence_on_true_values": {
+    "k7_at_most": 211,
+    "note": "if k_7 <= k_6 + 2 k_5 held, k_7 would be at most 105 + 2 * 53 = 211; our F_3^7 set has 213 points"
   },
   "search_log": {
-    "run": "publish-gate oracle of run 20261125T120548Z, 2026-11-25, 5 parallel workers of k6/fastwalk.py per dimension",
-    "6": [
-      {"label": "greedy", "seed": 1, "noise": 0.10, "start_size": null, "best": 124, "probe_seconds": 440, "steps": 187574, "first_reached": [[142, 0.1], [127, 1.4], [124, 306.4]]},
-      {"label": "layer53-frozen", "seed": 2, "noise": 0.10, "start_size": null, "best": 107, "probe_seconds": 440, "steps": 200269, "first_reached": [[148, 0.1], [110, 3.0], [107, 3.4]]},
-      {"label": "prod53x3", "seed": 3, "noise": 0.10, "start_size": 159, "best": 106, "probe_seconds": 440, "steps": 198520, "first_reached": [[122, 0.0], [109, 5.4], [108, 12.6], [107, 58.1], [106, 414.6]]},
-      {"label": "classical127", "seed": 4, "noise": 0.10, "start_size": 127, "best": 106, "probe_seconds": 440, "steps": 203344, "first_reached": [[127, 0.0], [110, 5.1], [108, 18.2], [107, 18.7], [106, 45.8]]},
-      {"label": "prod27x7", "seed": 5, "noise": 0.15, "start_size": 189, "best": 106, "probe_seconds": 440, "steps": 205881, "first_reached": [[127, 0.0], [110, 101.1], [108, 147.9], [107, 148.0], [106, 164.3]]}
-    ],
-    "7": [
-      {"label": "greedy", "seed": 1, "noise": 0.10, "start_size": null, "best": 280, "probe_seconds": 385, "steps": 52637, "first_reached": [[313, 0.7], [284, 12.0], [280, 33.6]]},
-      {"label": "classical255", "seed": 2, "noise": 0.10, "start_size": 255, "best": 213, "probe_seconds": 385, "steps": 55252, "first_reached": [[255, 0.1], [217, 271.6], [214, 272.0], [213, 307.1]]},
-      {"label": "prod53x7", "seed": 3, "noise": 0.10, "start_size": 371, "best": 214, "probe_seconds": 385, "steps": 55246, "first_reached": [[263, 0.1], [218, 22.8], [216, 80.0], [215, 108.6], [214, 268.3]]},
-      {"label": "prod27x13", "seed": 4, "noise": 0.10, "start_size": 351, "best": 267, "probe_seconds": 385, "steps": 54339, "first_reached": [[272, 0.1], [269, 35.8], [267, 238.7]]},
-      {"label": "greedy", "seed": 5, "noise": 0.20, "start_size": null, "best": 286, "probe_seconds": 385, "steps": 55284, "first_reached": [[324, 0.6], [290, 23.7], [286, 120.9]]}
-    ],
-    "note": "first_reached lists (size, seconds) when each size was first reached; intermediate entries omitted. Every final set was re-checked by k5.walk.is_kakeya in the run, and the two record sets are re-checked by k6/test_sets.py at every commit."
+    "round1": {
+      "run": "publish-gate oracle of run 20261125T120548Z, 2026-11-25 12:19-12:33 UTC, 5 parallel workers of k6/fastwalk.py per dimension",
+      "6": [
+        {"label": "greedy", "seed": 1, "noise": 0.10, "start_size": null, "best": 124, "probe_seconds": 440, "steps": 187574, "first_reached": [[142, 0.1], [127, 1.4], [124, 306.4]]},
+        {"label": "layer53-frozen", "seed": 2, "noise": 0.10, "start_size": null, "best": 107, "probe_seconds": 440, "steps": 200269, "first_reached": [[148, 0.1], [110, 3.0], [107, 3.4]]},
+        {"label": "prod53x3", "seed": 3, "noise": 0.10, "start_size": 159, "best": 106, "probe_seconds": 440, "steps": 198520, "first_reached": [[122, 0.0], [109, 5.4], [108, 12.6], [107, 58.1], [106, 414.6]]},
+        {"label": "classical127", "seed": 4, "noise": 0.10, "start_size": 127, "best": 106, "probe_seconds": 440, "steps": 203344, "first_reached": [[127, 0.0], [110, 5.1], [108, 18.2], [107, 18.7], [106, 45.8]]},
+        {"label": "prod27x7", "seed": 5, "noise": 0.15, "start_size": 189, "best": 106, "probe_seconds": 440, "steps": 205881, "first_reached": [[127, 0.0], [110, 101.1], [108, 147.9], [107, 148.0], [106, 164.3]]}
+      ],
+      "7": [
+        {"label": "greedy", "seed": 1, "noise": 0.10, "start_size": null, "best": 280, "probe_seconds": 385, "steps": 52637, "first_reached": [[313, 0.7], [284, 12.0], [280, 33.6]]},
+        {"label": "classical255", "seed": 2, "noise": 0.10, "start_size": 255, "best": 213, "probe_seconds": 385, "steps": 55252, "first_reached": [[255, 0.1], [217, 271.6], [214, 272.0], [213, 307.1]]},
+        {"label": "prod53x7", "seed": 3, "noise": 0.10, "start_size": 371, "best": 214, "probe_seconds": 385, "steps": 55246, "first_reached": [[263, 0.1], [218, 22.8], [216, 80.0], [215, 108.6], [214, 268.3]]},
+        {"label": "prod27x13", "seed": 4, "noise": 0.10, "start_size": 351, "best": 267, "probe_seconds": 385, "steps": 54339, "first_reached": [[272, 0.1], [269, 35.8], [267, 238.7]]},
+        {"label": "greedy", "seed": 5, "noise": 0.20, "start_size": null, "best": 286, "probe_seconds": 385, "steps": 55284, "first_reached": [[324, 0.6], [290, 23.7], [286, 120.9]]}
+      ]
+    },
+    "round2": {
+      "run": "publish-gate oracles k6/test_probe6b.py and k6/test_probe7b.py (k6/probe2.py) of run 20261125T142707Z, 2026-11-25 14:37-14:51 UTC, 5 parallel workers per dimension",
+      "6": [
+        {"label": "from106", "seed": 21, "noise": 0.10, "start_size": 106, "best": 106, "probe_seconds": 415, "steps": 166727, "first_reached": [[106, 0.0]]},
+        {"label": "from106", "seed": 22, "noise": 0.20, "start_size": 106, "best": 106, "probe_seconds": 415, "steps": 178103, "first_reached": [[106, 0.0]]},
+        {"label": "prod13x13", "seed": 23, "noise": 0.10, "start_size": 169, "best": 123, "probe_seconds": 415, "steps": 160694, "first_reached": [[135, 0.0], [127, 3.7], [124, 71.3], [123, 366.4]]},
+        {"label": "classical127", "seed": 24, "noise": 0.05, "start_size": 127, "best": 106, "probe_seconds": 415, "steps": 158481, "first_reached": [[127, 0.0], [110, 5.4], [108, 14.0], [107, 14.1], [106, 24.9]]},
+        {"label": "prod53x3", "seed": 25, "noise": 0.15, "start_size": 159, "best": 105, "probe_seconds": 415, "steps": 175573, "first_reached": [[114, 0.0], [109, 30.9], [108, 37.1], [107, 75.1], [106, 97.2], [105, 149.9]]}
+      ],
+      "7": [
+        {"label": "from213", "seed": 31, "noise": 0.10, "start_size": 213, "best": 213, "probe_seconds": 407, "steps": 54150, "first_reached": [[213, 0.1]]},
+        {"label": "from213", "seed": 32, "noise": 0.05, "start_size": 213, "best": 213, "probe_seconds": 407, "steps": 53866, "first_reached": [[213, 0.1]]},
+        {"label": "prod106x3", "seed": 33, "noise": 0.10, "start_size": 318, "best": 213, "probe_seconds": 407, "steps": 53808, "first_reached": [[233, 0.1], [217, 39.7], [216, 41.3], [215, 41.9], [214, 42.3], [213, 312.8]]},
+        {"label": "prod106x3", "seed": 34, "noise": 0.15, "start_size": 318, "best": 216, "probe_seconds": 407, "steps": 56479, "first_reached": [[235, 0.1], [220, 9.1], [217, 83.9], [216, 219.2]]},
+        {"label": "classical255", "seed": 35, "noise": 0.10, "start_size": 255, "best": 215, "probe_seconds": 407, "steps": 54916, "first_reached": [[255, 0.1], [219, 156.5], [216, 242.6], [215, 315.6]]}
+      ]
+    },
+    "structure": {
+      "kakeya6_106": {"lines": 391, "single_line_directions": 345, "removable_points": 0, "section_min": 22, "section_max": 50, "K_cap_minus_K": 21},
+      "kakeya6_105": {"lines": 437, "single_line_directions": 305, "removable_points": 0, "section_min": 23, "section_max": 53, "K_cap_minus_K": 10},
+      "kakeya7_213": {"lines": 1184, "single_line_directions": 1018, "removable_points": 0, "section_min": 49, "section_max": 100, "K_cap_minus_K": 47}
+    },
+    "note": "first_reached lists (size, seconds) when each size was first reached; intermediate entries omitted. Every final set was re-checked by k5.walk.is_kakeya in the run, and the record sets are re-checked by k6/test_sets.py at every commit. 'structure' numbers were printed by k6/probe2.py stats(): lines = number of full lines in the set, single_line_directions = directions covered by exactly one line, removable_points = points whose removal keeps the set Kakeya, section_min/max = smallest and largest of the 3 x 364 (or 3 x 1093) hyperplane sections, K_cap_minus_K = |K intersect -K|."
   }
 }
