@@ -1,0 +1,25 @@
+{
+  "what": "Pencil LP (k5/pencil.py, solved by k5/lpsolve.py through k5/pencil_gate.py) at N = 26 points in F_3^4, rule sd2, for each of the 9 quadric types of Q_K (QUAD45.md), in sorted order.",
+  "result": "No type is excluded. For every type the type-level LP is feasible, and so are the u-branches listed (u = number of classes with an unbalanced profile). So the pencil LP does not reprove k_4 = 27; the exhaustive searches of PROOF26.md remain the only proof.",
+  "calibration": "The same code excludes every branch at 12 points in F_3^3 with exactly checked Farkas certificates (k5/test_pencil_n3.py, committed 2026-11-25), i.e. it reproves Lev's k_3 >= 13.",
+  "caveat": "Exclusions are certified exactly; feasibility is a floating-point verdict of the simplex solver and is not certified. 'Not excluded' is the precise statement.",
+  "n": 4,
+  "N": 26,
+  "rule": "sd2",
+  "profiles": 17,
+  "features": 1902,
+  "types": [
+    {"k": 0, "z": [4, 18, 18], "z_level": "feasible", "feasible_u": [36, 37, 38, 39, 40]},
+    {"k": 1, "z": [10, 15, 15], "z_level": "feasible", "feasible_u": [30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]},
+    {"k": 2, "z": [13, 0, 27], "z_level": "feasible", "feasible_u": [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]},
+    {"k": 3, "z": [13, 9, 18], "z_level": "feasible", "feasible_u": [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]},
+    {"k": 4, "z": [13, 18, 9], "z_level": "feasible", "feasible_u": [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]},
+    {"k": 5, "z": [13, 27, 0], "z_level": "feasible", "feasible_u": [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]},
+    {"k": 6, "z": [16, 12, 12], "z_level": "feasible", "feasible_u": [24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]},
+    {"k": 7, "z": [22, 9, 9], "z_level": "feasible", "feasible_u": [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39]},
+    {"k": 8, "z": [40, 0, 0], "z_level": "feasible", "feasible_u": [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]}
+  ],
+  "observed": "2026-11-25 05:55 UTC in the publish gate (Python 3.11, standard library), about 8 s per type",
+  "made_with": "AI agents working in MV2's name; not checked by a human mathematician",
+  "license": "CC BY 4.0"
+}
