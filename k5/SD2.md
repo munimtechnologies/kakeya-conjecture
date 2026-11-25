@@ -1,7 +1,8 @@
-# SD2: a sharper sum-difference bound, and k_5 >= 45 reduced to one cut profile
+# SD2: a sharper sum-difference bound, and a second proof of k_5 >= 45
 
-MV2 of Munim, Inc. (mv2@munimtech.com), 2026-11-24. Made with AI agents working in MV2's name.
-**No human mathematician has checked this yet.** Text CC BY 4.0, code Apache-2.0.
+MV2 of Munim, Inc. (mv2@munimtech.com), 2026-11-24, result added 2026-11-25. Made with AI
+agents working in MV2's name. **No human mathematician has checked this yet.** Text CC BY 4.0,
+code Apache-2.0.
 
 ## Status in one paragraph
 
@@ -10,9 +11,11 @@ directions). Known: k_5 <= 53 (Chung, Du, Wesley, arXiv:2608.23691) and, from ou
 moment + sum-difference method, k_5 >= 44 (`moments/SD.md`). This note proves a sharper form
 of the sum-difference bound (SD2). With SD2 the moment linear program at N = 44 survives only
 through hyperplane cuts of profile (10, 11, 23), and only if at least 20 of the 121 cuts have
-that profile. So **k_5 >= 45 follows as soon as the cut (10, 11, 23) is ruled out**. The
-exhaustive search `k5cut.py` decides that one case. Its job (k5cut-v1) is queued. Until it
-reports, k_5 >= 45 is **not** claimed.
+that profile. The exhaustive search `k5cut.py` (compete job k5cut-v1, run 2026-11-25
+19:42-19:46 UTC, 108 seconds on 4 cores) found **no** (10, 11, 23) cut: verdict CLOSED
+(`results/k5cut-v1.json`). So **k_5 >= 45** follows by this route as well. It is a second
+proof of the bound proved by hand in `QUAD45.md` (quadric constraint on section pair counts);
+the two routes share only the section-counting identities.
 
 ## Setting
 
@@ -78,8 +81,8 @@ the only allowed profile with ratio >= 15, and that the LP is feasible with it a
 without it. Since every other allowed profile has ratio <= 14.9, k cuts of profile (10, 11, 23)
 give at most 782k + 14.9(1419 - 52k) in s3. This reaches 21285 only for **k >= 20**.
 
-**Theorem (conditional).** If no three sections of sizes (10, 11, 23) in F_3^4 satisfy (*),
-then k_5 >= 45. (Adding points keeps a set Kakeya, so excluding N = 44 excludes all N <= 44.)
+**Theorem.** No three sections of sizes (10, 11, 23) in F_3^4 satisfy (*) (search below), hence
+k_5 >= 45. (Adding points keeps a set Kakeya, so excluding N = 44 excludes all N <= 44.)
 
 ## Facts about a (10, 11, 23) cut, proved by hand
 
@@ -120,11 +123,28 @@ The controls are:
 - Lev's 27-point set gives a (6, 8, 13) cut that satisfies (*) and every pruning condition.
 - In F_3^3, 25 random instances satisfy every pruning condition at their exact minimum z.
 
+## Result (k5cut-v1, 2026-11-25)
+
+Unit tests (`test_sd2`, `test_k5cut_small`) passed inside the job before the search ran. The
+orbit-stabiliser checks passed on levels 1 to 5, and Lev's (6, 8, 13) cut passed every pruning
+condition (E = 110 >= 78, largest column 5 allowed, excess of I 2 allowed, minimum cover 13).
+
+| largest column k1 | allowed excess | orbit representatives I | completions X_A | kept (missing differences at most 10 times the size of Y) | pairs with B - A = F_3^4 | solutions |
+|---|---|---|---|---|---|---|
+| 8 | 11 | 75 | 197,100 | 129,367 | 0 | 0 |
+| 9 | 10 | 162 | 11,664 | 3,159 | 0 | 0 |
+| 10 | 10 | 20 | 20 | 20 | 0 | 0 |
+
+No pair (A, B) of the required kind even satisfies B - A = F_3^4, so the energy and set-cover
+stages were never reached. The k1 = 10 row re-derives fact 3 independently of its hand proof.
+
 ## Limits
 
-This is a conditional result until the search reports. The hand facts 1-4 are only used to
-prune the search, and the search re-derives k1 = 10 independently. All of this was carried
-out with AI agents and has not been checked by a human mathematician.
+The search relies on facts 1, 2 and 4 to restrict k1 to 8 and 9 (fact 3 is re-checked by the
+search), and on the SD2 lemma and the moment LP to reduce N = 44 to the (10, 11, 23) cut. All
+of these were proved and checked by AI agents working in MV2's name; none has been checked by
+a human mathematician. The hand proof in `QUAD45.md` reaches the same bound by a different
+route.
 
 ## Credits
 
