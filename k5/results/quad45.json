@@ -1,0 +1,49 @@
+{
+  "result": "No Kakeya set in F_3^5 has 44 points, so k_5 >= 45 (k5/QUAD45.md). Not checked by a human mathematician.",
+  "made_by": "MV2 of Munim, Inc. (mv2@munimtech.com), with AI agents working in his name; data CC BY 4.0",
+  "date": "2026-11-25",
+  "n": 5,
+  "N": 44,
+  "classes": 121,
+  "T": 81,
+  "a1": 40,
+  "a2": 13,
+  "pair_total": 37840,
+  "base_profile": [14, 15, 15],
+  "base_s2": 301,
+  "base_s3": 1274,
+  "heavy_profile": [10, 11, 23],
+  "heavy_delta2": 52,
+  "heavy_f": 2,
+  "sum_delta2": 1419,
+  "sum_f": "27 (L - 121) >= 0",
+  "max_heavy_classes": 27,
+  "max_z1": 18,
+  "quadric_types": {
+    "rank0": [121, 0, 0],
+    "rank1-a1": [40, 81, 0],
+    "rank1-a2": [40, 0, 81],
+    "rank2-a1": [13, 54, 54],
+    "rank2-a2": [67, 27, 27],
+    "rank3-a1": [40, 27, 54],
+    "rank3-a2": [40, 54, 27],
+    "rank4-a1": [49, 36, 36],
+    "rank4-a2": [31, 45, 45],
+    "rank5-a1": [40, 45, 36],
+    "rank5-a2": [40, 36, 45]
+  },
+  "types_with_z1_at_most_18": ["rank0", "rank1-a2"],
+  "hand_contradictions": {
+    "rank0": "no heavy class (heavy needs Q_K = 2), so no defect, so sum Delta2 = 0, not 1419",
+    "rank1-a2": "at most 40 base classes forces k = 27 heavy and at least 54 defects, but the Delta2 budget allows at most 1419 - 52*27 = 15"
+  },
+  "lp_types_excluded_at_44": 11,
+  "lp_types_excluded_at_45": 9,
+  "lp_types_surviving_at_45": ["rank0", "rank1-a2"],
+  "bounds": {
+    "k5_lower_published_general": 32,
+    "k5_lower_mv2_counting_nov_2026": 44,
+    "k5_lower_this_result": 45,
+    "k5_upper_chung_du_wesley": 53
+  }
+}
