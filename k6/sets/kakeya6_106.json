@@ -1,0 +1,11 @@
+{
+  "n": 6,
+  "q": 3,
+  "size": 106,
+  "encoding": "each point x = (x0, ..., x5) in F_3^6 is stored as the integer sum_k x_k * 3^(5-k) (x0 most significant digit, row-major base 3)",
+  "found_by": "k6/fastwalk.py local search (label prod53x3, seed 3, noise 0.10), started from the 159-point product F_3 x (53-point set of Chung, Du and Wesley); also reached 106 from the classical 127-point set (seed 4) and from a 189-point product start (seed 5). Run 2026-11-25 12:19-12:26 UTC in the publish-gate oracle of run 20261125T120548Z.",
+  "checked_by": "k6/test_sets.py (stand-alone; decodes the integers to coordinate tuples and checks every one of the 364 directions)",
+  "licence": "CC BY 4.0",
+  "note": "Made with AI agents working in MV2's name (MV2, Munim, Inc.). An upper bound only: nothing here says 106 is the minimum.",
+  "points": [0,6,7,17,28,32,59,64,75,78,87,88,90,105,106,109,117,124,139,141,146,148,155,157,165,168,188,191,195,200,209,212,217,224,225,249,253,273,278,294,297,302,304,308,318,324,327,330,340,349,352,360,364,366,386,389,400,402,409,426,428,431,434,435,439,440,458,469,474,486,514,518,521,528,535,537,540,544,547,552,553,556,557,563,564,570,572,576,583,591,592,608,609,627,654,671,678,681,682,683,691,698,710,712,725,728]
+}
