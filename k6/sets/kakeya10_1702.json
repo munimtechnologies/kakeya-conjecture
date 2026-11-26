@@ -1,0 +1,13 @@
+{
+  "n": 10,
+  "q": 3,
+  "size": 1702,
+  "encoding": "each point x = (x0, ..., x9) in F_3^10 is the integer sum_k x_k * 3^(9-k) (x0 most significant digit). The set is stored in two parts: layer0_file holds the 846 points with x0 = 0 (exactly the 846-point Kakeya set of F_3^9, itself stored in two parts; its integers are the same in F_3^10), and points_code holds the other 856 points as p = index - 19683 (so p < 19683 is the point (1, p) and p >= 19683 is the point (2, p - 19683)). points_code is the list exactly as the layered search printed it: sorted, each gap to the previous value (starting from -1) in base 32, high digits from 'ABCDEFGHIJKLMNOPQRSTUVWXYZ6789+/', the last digit from 'abcdefghijklmnopqrstuvwxyz012345'. k6/test_sets.py and k6/test_layers.py each decode it with their own decoder.",
+  "layer0_file": "k6/sets/kakeya9_846.json",
+  "offset": 19683,
+  "free_count": 856,
+  "points_code": "nbBjzk3rg1ceddmdfmtifrdjggdkdenusBcm3kpfg4Bfdrtkwg0bkgogwfbdCqDcIc5xelCyCeBhB2mhlkndbtBbDydBbCfcnpmodgjBegrkpdhrbldbBiBi0CgbusJqCksCcMxdihcdmt4BfuhnBnhm3kBpgdBiCk1BewBeCqChdI4vglE2CcOiCaBmGqinBbhdbdqBbDaB0cBmgwmodkBchgydriujpbob3ecfhd40ChwBicCargBtdrzhrsgqeGkyxtkwBaehgu2GvBVsCmRlCzJdLsBKqHfyGyQi9gbBagdzldBdbgg0bckblutipnecggcsnusBvdtBeyBldocblfdBag05gwgd3rdngfhgBgBwdBbkrDwdqBannnrbfeoecdbfpcrdhuobdgy0svdpBjiSk9oDyrDkDrDyErBxwBhrBwd2BaGdnrbjmgcjmfBmdobBbdxsvdBkwuhrBiEkrDwdqsBiB5buBrHuGuCsCmEyE5gBcctuibpbfmgnBgcbrfudoneigqebB0BndC5ywbqdkjcdiBaehgu2BulgydmdhrgfbBgokcbjoBfbmecohdCdyvdyBvdyBdcfhfydqgglhdryyxrdngfnj3Bri2fkjiDwdqummbcyrgegodbuccpdhoddobBb0BhdpBjiKwrhdE4ErBbY5BhDiyBfBanyDqCqdyiB4xhuyyBikggfw3oChyiE31yrgeudsfcBhgobBbdxBhd3BdCuJeCnDpdFmK4rkE4DwBbCefqodwuibpg5utbjoxoneC3yyyDvrwcdwgEbBjdwrbfBtdodgdo1lgdygdbdBxiycmBcfu2dftBkzldqgglcfdcgjyokHdQ1hlkfidbtBbDydBbCcdcggbgdgmodgjysrkpdhodmdbCq0uBbcpbuspJbC2CcIz1mCuddoddsnyg0nybnBumBhBpgdtdsgCecxcfulnyvCeEkBHsohBbkbtBbC3dDigqglbjfdkCkriufemdpbBdBnth03qBmFjBjrD5BqFxgJaS5JpydEkdBDpOpZfCmIeCkC1SddKxYvEr",
+  "found": "2026-11-26 13:44-13:52 UTC, publish-gate oracle k8/test_oracle_probe10.py (k8/probe10.py, k8/layer.py) of run 20261126T133622Z: first layered search in F_3^10 with the 846-point set fixed in the layer x0 = 0, started from L1 = L2 = the 846-point set (F_3 x K9, 2538 points), seed 42, noise 0.07; 856 free points (443 in the layer x0 = 1, 413 in the layer x0 = 2) reached after 224 s of a search that was still improving when its time ran out; re-checked in the run by k8/check.is_kakeya over all 29524 directions.",
+  "made_with": "AI agents working in MV2's name (MV2, Munim, Inc.); not checked by a human mathematician",
+  "licence": "CC BY 4.0"
+}

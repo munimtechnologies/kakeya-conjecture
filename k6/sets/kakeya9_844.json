@@ -1,0 +1,13 @@
+{
+  "n": 9,
+  "q": 3,
+  "size": 844,
+  "encoding": "each point x = (x0, ..., x8) in F_3^9 is the integer sum_k x_k * 3^(8-k) (x0 most significant digit). The set is stored in two parts: layer0_file holds the 422 points with x0 = 0 (exactly the 422-point Kakeya set of F_3^8, itself stored in two parts on top of the 211-point set of F_3^7; its integers are the same in F_3^9), and points_code holds the other 422 points as p = index - 6561 (so p < 6561 is the point (1, p) and p >= 6561 is the point (2, p - 6561)). points_code is the list exactly as the layered search printed it: sorted, each gap to the previous value (starting from -1) in base 32, high digits from 'ABCDEFGHIJKLMNOPQRSTUVWXYZ6789+/', the last digit from 'abcdefghijklmnopqrstuvwxyz012345'. k6/test_sets.py and k6/test_layers.py each decode it with their own decoder.",
+  "layer0_file": "k6/sets/kakeya8_422.json",
+  "offset": 6561,
+  "free_count": 422,
+  "points_code": "issgBbB5wBjByBkbjj1BytDcB0syvrnyDnq1CwhmsBz3nsCnBrscmnDaBtBnFeF0BeFljEqnCvwnBdBqE4eib5jBzBpoBboCwhgmuBoBzBqcBmfxmikrfchBeBuBkhBjBhDbrfBhntyNgqEqHzBl1iBtBoBytpBnrB2Bkhrbo4EcsBqBhxBifdgCffCeBmhtboenfgzBzuokvszCcgosgbdBcchpvokpxcdBdllokpdfmlqfcqnrtdyshxiBfmCeBokcscieegdtqifFny1xkidgqBmto1ydBnr5BhtrbfBifnBasbodBorfgmBtHuC2j5FhCcBsnld5uBwEaBvutkoBgnsfgDkDxrfryqspB1DvDroBgn3qfC1EdBm0BqsfdyrqcpkrrbdbvbqtofwokjBhr1ej4tudvbsikcckikfdkbo4trfgBhn2gemyglDw0zw2ssbj5xen1DnikpjfkrCtrlgBldlFlzxsiBfnbxBmitC0tgjBawYmBqxwwqcB11fBglBxiBqBiCfBtozim",
+  "found": "2026-11-26 13:44-13:52 UTC, publish-gate oracle k8/test_oracle_probe10.py (k8/probe10.py, k8/layer.py) of run 20261126T133622Z: layered search with the 422-point set fixed in the layer x0 = 0, started from L1 = K8 + t, L2 = K8 - t for a random t (the 'shift' start, 1266 points or fewer), seed 35, noise 0.07; 422 free points (207 in the layer x0 = 1, 215 in the layer x0 = 2) reached after 253 s; re-checked in the run by k8/check.is_kakeya over all 9841 directions. A second run of the same probe (seed 36, product start F_3 x K8, noise 0.13) also reached 422 free points, with a different split (220 + 202).",
+  "made_with": "AI agents working in MV2's name (MV2, Munim, Inc.); not checked by a human mathematician",
+  "licence": "CC BY 4.0"
+}
