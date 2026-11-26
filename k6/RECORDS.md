@@ -1,4 +1,4 @@
-# Kakeya sets in F_3^6 with 105 points, in F_3^7 with 211 and in F_3^8 with 427
+# Kakeya sets in F_3^6 with 105 points, in F_3^7 with 211 and in F_3^8 with 422
 
 MV2, Munim, Inc. (mv2@munimtech.com), 2026-11-26. Made with AI agents working in MV2's name.
 **No human mathematician has checked this yet.** Text CC BY 4.0, code Apache-2.0.
@@ -10,25 +10,32 @@ direction d. Let k_n be the least size of a Kakeya set in F_3^n.
 
 * `k6/sets/kakeya6_105.json` is a Kakeya set in F_3^6 with **105 points**, so **k_6 <= 105**.
 * `k6/sets/kakeya7_211.json` is a Kakeya set in F_3^7 with **211 points**, so **k_7 <= 211**.
-* `k6/sets/kakeya8_427.json` is a Kakeya set in F_3^8 with **427 points**, so **k_8 <= 427**
+* `k6/sets/kakeya8_422.json` is a Kakeya set in F_3^8 with **422 points**, so **k_8 <= 422**
   (classical construction: 511; Lev's pattern value: 427).
-* Earlier sets, kept and still checked: `kakeya6_106.json` (106 points) and
-  `kakeya7_213.json` (213 points), both found on 2026-11-25.
+* Earlier sets, kept and still checked: `kakeya6_106.json` (106 points),
+  `kakeya7_213.json` (213 points), both found on 2026-11-25, and `kakeya8_427.json`
+  (427 points, found on 2026-11-26).
 
 All sets are checked at every commit by `k6/test_sets.py`, a stand-alone checker that
 shares no code with the search: it decodes each integer i = sum_k x_k 3^(n-1-k) to the
 point (x_0, ..., x_(n-1)) and checks all 364 (n = 6), 1093 (n = 7) or 3280 (n = 8)
 directions. It also checks that no single point of the 105- or 211-point set can be deleted.
 
-The 211- and 427-point sets have a second, independent proof in `k6/test_layers.py`. The
-layer x_0 = 0 of the 211-point set is exactly the 105-point set of F_3^6, which covers every
-direction (0, d). A direction (1, v), v in F_3^6, is covered iff some x in that layer has
-x + v in the layer x_0 = 1 and x + 2v in the layer x_0 = 2; the test checks all 729 vectors
-v. The other two layers have 56 and 50 points, together **106 = 2 x 53**, and no point of
-either can be removed. In the same way the layer x_0 = 0 of the 427-point set is exactly the
-211-point set of F_3^7, and the test checks all 2187 vectors v of F_3^7; the other two layers
-have 114 and 102 points, together **216 = 2 x 105 + 6**. So the chain 105 -> 211 -> 427 has
-a proof that uses only the direct check of the 105-point set in F_3^6.
+The 422-point file is stored in two parts: its layer x_0 = 0 is the file
+`kakeya7_211.json`, and its other 211 points are listed as `free_points` p, standing for
+the integer 2187 + p. The file also keeps the compact code the search printed
+(`points_code`); `k6/test_sets.py` decodes it with its own decoder and checks that it gives
+the same list.
+
+The 211-, 422- and 427-point sets have a second, independent proof in `k6/test_layers.py`.
+The layer x_0 = 0 of the 211-point set is exactly the 105-point set of F_3^6, which covers
+every direction (0, d). A direction (1, v), v in F_3^6, is covered iff some x in that layer
+has x + v in the layer x_0 = 1 and x + 2v in the layer x_0 = 2; the test checks all 729
+vectors v. The other two layers have 56 and 50 points, together **106 = 2 x 53**, and no
+point of either can be removed. In the same way the layer x_0 = 0 of the 422-point set is
+exactly the 211-point set of F_3^7, and the test checks all 2187 vectors v of F_3^7; the
+other two layers have 96 and 115 points, together **211**. So the chain 105 -> 211 -> 422
+has a proof that uses only the direct check of the 105-point set in F_3^6.
 
 ## Why it matters
 
@@ -46,32 +53,33 @@ In 2009 Lev ([comment 994](https://terrytao.wordpress.com/2009/03/04/dhj3-900-99
 computed k_3 = 13 and k_4 <= 27 and wrote "I am very curious to know whether k_5 = 53:
 notice the pattern in 3, 7, 13, 27, 53, ...". Chung, Du and Wesley state this as the guess
 that the recurrence k_n = k_(n-1) + 2 k_(n-2) continues and say that whether it continues
-remains open. The pattern continues 107, 213, 427.
+remains open. The pattern continues 107, 213, 427, 853.
 
-**Consequence.** k_6 <= 105 < 107 and k_7 <= 211 < 213. Since k_2 = 7 and k_3 = 13, the
-recurrence cannot hold at all of n = 4, 5 and 6 (otherwise k_6 = 107). With k_4 = 27 (Lev's
-set and our computer proof `PROOF26.md`, not human-checked) it fails at n = 5 or at n = 6:
-either k_5 <= 52, or k_5 = 53 and k_6 <= 105 = k_5 + 2 k_4 - 2. We do not know which.
-In F_3^8 our set reaches the pattern's value 427 but does not go below it.
+**Consequence.** k_6 <= 105 < 107, k_7 <= 211 < 213 and k_8 <= 422 < 427: our sets are
+below the pattern in all three dimensions. Since k_2 = 7 and k_3 = 13, the recurrence
+cannot hold at all of n = 4, 5 and 6 (otherwise k_6 = 107). With k_4 = 27 (Lev's set and
+our computer proof `PROOF26.md`, not human-checked) it fails at n = 5 or at n = 6: either
+k_5 <= 52, or k_5 = 53 and k_6 <= 105 = k_5 + 2 k_4 - 2. We do not know which.
 
-**The layer observation.** 211 = 105 + 2 x 53 is exactly what the recurrence gives when it
-is applied to the best values known now (k_6 <= 105, k_5 <= 53), and the set is built that
-way: a record set of F_3^6 in one layer plus 2 x 53 points. Searches that froze a record
-F_3^5 set (53 points) in one layer of F_3^6 stopped at 107 = 53 + 2 x 27. In F_3^8 the same
-reading predicts 211 + 2 x 105 = 421; one search of about seven minutes reached
-211 + 216 = 427, six points above it, and a second one with more noise stopped at
-211 + 390. So the extra cost of about 2 k_(n-2) is an observation from stalled searches,
-not a theorem. It is also false in F_3^3: a layered Kakeya set of F_3^3 needs at least 14
-points (`k8/CENSUS.md`, proved by hand and checked exhaustively), while k_3 = 13.
+**The layer observation.** Each record is built on the previous one: a record set of
+F_3^(n-1) in one layer plus a search over the two other layers. The extra cost was
+54 on the 53-point layer in F_3^6 (total 107), 106 on the 105-point layer in F_3^7 (211)
+and 211 on the 211-point layer in F_3^8 (422; six other runs of about seven minutes gave
+216, 216, 216, 220, 227 and 390). So far the extra cost is about the size of the layer
+itself, which would make the sizes roughly double from one dimension to the next. This is
+an observation from stalled searches, not a theorem, and it says nothing about large n,
+where the random construction of Kopparty, Lev, Saraf and Sudan grows more slowly. It is
+also false in F_3^3: a layered Kakeya set of F_3^3 needs at least 14 points
+(`k8/CENSUS.md`, proved by hand and checked exhaustively), while k_3 = 13.
 
 Lower bounds: the general bound of Bukh and Chao, 3^n / (5/3)^(n-1), gives 57 (n = 6),
 103 (n = 7) and 184 (n = 8). Nothing here is a lower bound, and nothing says 105, 211 or
-427 is optimal.
+422 is optimal.
 
 ## How the sets were found
 
 `k6/fastwalk.py` (WalkSAT-style local search with incremental per-point costs) ran five
-workers per dimension for about seven minutes each, in three rounds; round 4 used
+workers per dimension for about seven minutes each, in three rounds; rounds 4 and 5 used
 `k8/layer.py`, which keeps a record set fixed in the layer x_0 = 0 and searches only the
 two other layers (full log in `k6/results/records.json`):
 
@@ -101,16 +109,26 @@ two other layers (full log in `k6/results/records.json`):
 | 3 | 7 | F_3 x (105-point set), 315 points | 214 | 195 s |
 | 3 | 7 | the 213-point set | 213 | - |
 | 4 | 7 | 105-point layer, k8/layer.py | 211 | 156 s |
-| 4 | 8 | 211-point layer, k8/layer.py, noise 0.10 | **427** | - |
+| 4 | 8 | 211-point layer, k8/layer.py, noise 0.10 | 427 | - |
 | 4 | 8 | 211-point layer, k8/layer.py, noise 0.20 | 601 | 339 s |
+| 5 | 8 | 211-point layer, from the 427-point set, noise 0.05 and 0.10 | 427, 427 | - |
+| 5 | 8 | 211-point layer, fresh, noise 0.10 (seed 13) | 438 | 250 s |
+| 5 | 8 | 211-point layer, fresh, noise 0.07 (seed 14) | 431 | 364 s |
+| 5 | 8 | 211-point layer, fresh, noise 0.10 (seed 15) | **422** | 212 s |
+| 5 | 9 | 427-point layer, fresh / classical start | 1321 / 1281 | - |
+
+The searches in F_3^9 ran only about five minutes and stayed above the classical 1023.
 
 The 105-point set has layers of 37, 31 and 37 points in x_0, 437 full lines, 305 of
 its 364 directions covered by exactly one line, no point that can be deleted, and
 |K cap -K| = 10. The 211-point set has 1316 full lines, 913 of its 1093 directions
-covered by exactly one line, no point that can be deleted, and |K cap -K| = 12.
+covered by exactly one line, no point that can be deleted, and |K cap -K| = 12. The
+427-point set has 4096 full lines, 2608 of its 3280 directions covered by exactly one
+line, and no point that can be deleted.
 
 ## Next
 
-`k8/probe8.py` asks whether the 427-point set has a deletable point, pushes the layered
-search in F_3^8 below 427 (toward 421) from the 427-point set and from fresh starts, and
-builds a first set in F_3^9 on top of the 427-point layer (classical 1023, pattern 853).
+`k8/probe9.py` asks whether the 422-point set has a deletable point, compares its two
+free layers with the 211-point set, runs more layered searches in F_3^8, and starts sets
+in F_3^9 on top of the 422-point layer from the product F_3 x (422-point set)
+(classical 1023, pattern 853).

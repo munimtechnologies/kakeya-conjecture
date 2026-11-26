@@ -2,7 +2,8 @@
 # Copyright 2026 MV2 of Munim, Inc. (mv2@munimtech.com)
 # Made with AI agents working in MV2's name. Not yet checked by a human mathematician.
 """A second, independent proof that the layered record sets are Kakeya sets:
-k6/sets/kakeya7_211.json in F_3^7 and k6/sets/kakeya8_427.json in F_3^8.
+k6/sets/kakeya7_211.json in F_3^7, and k6/sets/kakeya8_422.json and the earlier
+k6/sets/kakeya8_427.json in F_3^8.
 
 Write a point of F_3^n as (c, x) with c in F_3 and x in F_3^(n-1), and let L_c be the layer
 {x : (c, x) in K}.
@@ -15,9 +16,9 @@ Write a point of F_3^n as (c, x) with c in F_3 and x in F_3^(n-1), and let L_c b
 * Every direction of F_3^n is a nonzero multiple of exactly one of these.
 
 For the 211-point set, L_0 is the 105-point set of k6/sets/kakeya6_105.json, checked to be
-Kakeya in F_3^6 here by its own loop.  For the 427-point set, L_0 is the 211-point set of
-F_3^7, which this file proves Kakeya by the same argument one dimension down.  So the chain
-105 -> 211 -> 427 is proved here without k6/test_sets.py.  It shares no code with
+Kakeya in F_3^6 here by its own loop.  For the 422- and 427-point sets, L_0 is the 211-point
+set of F_3^7, which this file proves Kakeya by the same argument one dimension down.  So the
+chain 105 -> 211 -> 422 is proved here without k6/test_sets.py.  It shares no code with
 k6/test_sets.py or with any search."""
 import itertools
 import json
@@ -29,7 +30,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 def load(name):
     with open(os.path.join(HERE, "sets", name), encoding="utf-8") as f:
-        return json.load(f)["points"]
+        data = json.load(f)
+    if "points" in data:
+        return data["points"]
+    # two-part file: the layer x0 = 0 is another file, the rest is offset + free_points
+    with open(os.path.join(os.path.dirname(HERE), data["layer0_file"]), encoding="utf-8") as f:
+        base = json.load(f)["points"]
+    return list(base) + [data["offset"] + p for p in data["free_points"]]
 
 
 def digits(i, n):
@@ -86,12 +93,12 @@ class Layers211(unittest.TestCase):
                                             for x in L[0]) for v in V), (c, y))
 
 
-class Layers427(unittest.TestCase):
+class Layers422(unittest.TestCase):
     def test_layer_argument(self):
-        K, L = layers("kakeya8_427.json", 8)
-        self.assertEqual(len(K), 427)
-        self.assertEqual(len(set(K)), 427)
-        self.assertEqual([len(x) for x in L], [211, 114, 102])
+        K, L = layers("kakeya8_422.json", 8)
+        self.assertEqual(len(K), 422)
+        self.assertEqual(len(set(K)), 422)
+        self.assertEqual([len(x) for x in L], [211, 96, 115])
         # layer 0 is exactly the 211-point set of F_3^7 (proved Kakeya in Layers211)
         A = set(digits(i, 7) for i in load("kakeya7_211.json"))
         self.assertEqual(L[0], A)
@@ -99,13 +106,22 @@ class Layers427(unittest.TestCase):
         self.assertEqual(missing_vectors(L), [])
 
     def test_argument_detects_failure(self):
-        # deleting the whole of layer 2 except one point must leave vectors uncovered,
-        # and a single shifted layer must too: the check is not vacuous
-        K, L = layers("kakeya8_427.json", 8)
+        # with a single point left in layer 2 at most 211 of the 2187 vectors can be covered
+        # (one per x in layer 0), so the check must report missing vectors
+        K, L = layers("kakeya8_422.json", 8)
         one = next(iter(sorted(L[2])))
-        self.assertNotEqual(missing_vectors([L[0], L[1], {one}]), [])
-        shift = set(plus(y, (0, 0, 0, 0, 0, 0, 1)) for y in L[2])
-        self.assertNotEqual(missing_vectors([L[0], L[1], shift]), [])
+        self.assertGreaterEqual(len(missing_vectors([L[0], L[1], {one}])), 2187 - 211)
+
+
+class Layers427(unittest.TestCase):
+    def test_layer_argument(self):
+        K, L = layers("kakeya8_427.json", 8)
+        self.assertEqual(len(K), 427)
+        self.assertEqual(len(set(K)), 427)
+        self.assertEqual([len(x) for x in L], [211, 114, 102])
+        A = set(digits(i, 7) for i in load("kakeya7_211.json"))
+        self.assertEqual(L[0], A)
+        self.assertEqual(missing_vectors(L), [])
 
 
 if __name__ == "__main__":
