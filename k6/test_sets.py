@@ -13,12 +13,12 @@ It also checks the numbers quoted in k6/results/records.json (sizes, layer sizes
 classical construction, the Bukh-Chao bound and the values of Lev's pattern).
 
 Most files list their points directly ("points").  kakeya8_422.json, kakeya9_846.json,
-kakeya9_844.json, kakeya10_1702.json and kakeya10_1695.json are stored in two parts: their
-layer x0 = 0 is the file named in "layer0_file" (itself two-part for the 846-, 844-, 1702-
-and 1695-point sets), the rest is offset + the free points.  points_of() rebuilds them.
-kakeya8_422.json lists its free points and also keeps the compact "points_code" printed by
-the search (checked to decode to the same list); the other two-part files keep only the
-code, decoded here."""
+kakeya9_844.json, kakeya10_1702.json, kakeya10_1695.json and kakeya10_1693.json are stored
+in two parts: their layer x0 = 0 is the file named in "layer0_file" (itself two-part for the
+846-, 844-, 1702-, 1695- and 1693-point sets), the rest is offset + the free points.
+points_of() rebuilds them.  kakeya8_422.json lists its free points and also keeps the
+compact "points_code" printed by the search (checked to decode to the same list); the other
+two-part files keep only the code, decoded here."""
 import itertools
 import json
 import math
@@ -31,13 +31,13 @@ ROOT = os.path.dirname(HERE)
 # current records
 SETS = {6: ("kakeya6_105.json", 105), 7: ("kakeya7_211.json", 211),
         8: ("kakeya8_422.json", 422), 9: ("kakeya9_844.json", 844),
-        10: ("kakeya10_1695.json", 1695)}
+        10: ("kakeya10_1693.json", 1693)}
 # records that are also checked to be minimal under deleting one point
 MINIMAL = (6, 7)
 # earlier, superseded sets that stay in the repository and are still checked
 EARLIER = [(6, "kakeya6_106.json", 106), (7, "kakeya7_213.json", 213),
            (8, "kakeya8_427.json", 427), (9, "kakeya9_846.json", 846),
-           (10, "kakeya10_1702.json", 1702)]
+           (10, "kakeya10_1702.json", 1702), (10, "kakeya10_1695.json", 1695)]
 
 T32 = "abcdefghijklmnopqrstuvwxyz012345"
 C32 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ6789+/"
@@ -256,16 +256,27 @@ class RecordSets(unittest.TestCase):
         # the earlier 846-point set was 2 * 422 + 2
         self.assertEqual(846, 2 * SETS[8][1] + 2)
         # the record in F_3^10 lies below the classical 2047 and the pattern's value 1707;
-        # it is the 844-point record of F_3^9 plus 851 more points (844 + 7)
+        # it is the 844-point record of F_3^9 plus 849 more points (2 * 844 + 5)
         self.assertLess(SETS[10][1], 2 ** 11 - 1)
         self.assertLess(SETS[10][1], lev[10])
-        self.assertEqual(lev[10] - SETS[10][1], 12)
-        self.assertEqual(SETS[10][1], 2 * SETS[9][1] + 7)
+        self.assertEqual(lev[10] - SETS[10][1], 14)
+        self.assertEqual(SETS[10][1], 2 * SETS[9][1] + 5)
         self.assertEqual(R["records"]["10"]["layers_x0"][0], SETS[9][1])
         self.assertEqual(R["recurrence_on_true_values"]["k10_if_recurrence_bound"],
                          SETS[9][1] + 2 * SETS[8][1])
-        # the earlier 1702-point set was the 846-point set plus 856 points (2 * 846 + 10)
+        self.assertEqual(SETS[10][1], R["recurrence_on_true_values"]["k10_if_recurrence_bound"] + 5)
+        # the earlier sets of F_3^10: 1702 = 2 * 846 + 10 and 1695 = 2 * 844 + 7
         self.assertEqual(1702, 2 * 846 + 10)
+        self.assertEqual(1695, 2 * SETS[9][1] + 7)
+        # the split-restricted searches logged in split_structure
+        S = R["split_structure"]["restricted_searches"]
+        for key, layer0 in (("S7", 105), ("S8", 211), ("S9", 422), ("S10", 844)):
+            self.assertEqual(S[key]["layer0"], layer0)
+            self.assertEqual(S[key]["total"], layer0 + sum(S[key]["free"]))
+        O = R["split_structure"]["translate_overlaps"]
+        for key, n in (("211", 7), ("422", 8), ("844", 9)):
+            self.assertEqual(O[key]["layers"], R["records"][str(n)]["layers_x0"])
+        self.assertEqual(O["1695"]["layers"], [844, 398, 453])
 
 
 if __name__ == "__main__":

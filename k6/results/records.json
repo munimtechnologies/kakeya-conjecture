@@ -20,17 +20,18 @@
           "classical_construction": 1023, "lev_pattern_value": 853,
           "bukh_chao_lower_bound": 331, "layers_x0": [422, 207, 215],
           "structure": "the layer x0 = 0 is exactly the 422-point set of F_3^8; layers x0 = 1 and 2 add 207 + 215 = 422 points, so the set has 2 * 422 points. A second 844-point set with the same layer and a 220 + 202 split was found in the same probe (seed 36) and is not stored"},
-    "10": {"size": 1695, "set_file": "k6/sets/kakeya10_1695.json", "directions": 29524,
+    "10": {"size": 1693, "set_file": "k6/sets/kakeya10_1693.json", "directions": 29524,
           "classical_construction": 2047, "lev_pattern_value": 1707,
-          "bukh_chao_lower_bound": 596, "layers_x0": [844, 398, 453],
-          "structure": "the layer x0 = 0 is exactly the 844-point set of F_3^9; layers x0 = 1 and 2 add 398 + 453 = 851 points, so the set has 2 * 844 + 7 points. It comes from layered searches of about 330 s in F_3^10 that were still improving when their time ran out"}
+          "bukh_chao_lower_bound": 596, "layers_x0": [844, 430, 419],
+          "structure": "the layer x0 = 0 is exactly the 844-point set of F_3^9; layers x0 = 1 and 2 add 430 + 419 = 849 points, so the set has 2 * 844 + 5 points. Two layered searches of about 455 s in F_3^10 (seeds 73 and 74, product start) reached 1693; both had stopped improving about 130 s before their time ran out"}
   },
   "earlier": [
     {"n": 6, "size": 106, "set_file": "k6/sets/kakeya6_106.json", "found": "2026-11-25 12:26 UTC", "note": "first set below the pattern value 107; superseded by the 105-point set the same day"},
     {"n": 7, "size": 213, "set_file": "k6/sets/kakeya7_213.json", "found": "2026-11-25, search round 1", "note": "first set below the classical 255, equal to the pattern value 213; superseded by the 211-point set the same day"},
     {"n": 8, "size": 427, "set_file": "k6/sets/kakeya8_427.json", "found": "2026-11-26 01:45 UTC, search round 4", "note": "first set below the classical 511, equal to the pattern value 427; superseded by the 422-point set the same day"},
     {"n": 9, "size": 846, "set_file": "k6/sets/kakeya9_846.json", "found": "2026-11-26 10:25 UTC, search round 6", "layers_x0": [422, 204, 220], "note": "first set below the classical 1023 and the pattern value 853; superseded by the 844-point set the same day; it is the layer x0 = 0 of the 1702-point set of F_3^10"},
-    {"n": 10, "size": 1702, "set_file": "k6/sets/kakeya10_1702.json", "found": "2026-11-26 13:52 UTC, search round 7", "layers_x0": [846, 443, 413], "note": "first set below the classical 2047 and the pattern value 1707; superseded by the 1695-point set the same day"}
+    {"n": 10, "size": 1702, "set_file": "k6/sets/kakeya10_1702.json", "found": "2026-11-26 13:52 UTC, search round 7", "layers_x0": [846, 443, 413], "note": "first set below the classical 2047 and the pattern value 1707; superseded by the 1695-point set the same day"},
+    {"n": 10, "size": 1695, "set_file": "k6/sets/kakeya10_1695.json", "found": "2026-11-26 14:46 UTC, search round 8", "layers_x0": [844, 398, 453], "note": "superseded by the 1693-point set the same day"}
   ],
   "known_values": {
     "1": {"value": 3}, "2": {"value": 7},
@@ -44,17 +45,36 @@
   "lev_pattern": {
     "source": "V. F. Lev, comment 994 on T. Tao's blog, 14 March 2009: 'I am very curious to know whether k_5 = 53: notice the pattern in 3, 7, 13, 27, 53, ...'; Chung, Du and Wesley (arXiv:2608.23691) state it as the recurrence k_n = k_(n-1) + 2 k_(n-2) and say whether it continues remains open",
     "values": {"1": 3, "2": 7, "3": 13, "4": 27, "5": 53, "6": 107, "7": 213, "8": 427, "9": 853, "10": 1707},
-    "consequence": "k_6 <= 105 < 107, k_7 <= 211 < 213, k_8 <= 422 < 427, k_9 <= 844 < 853 and k_10 <= 1695 < 1707: our sets lie below the pattern in all five dimensions, by 2, 2, 5, 9 and 12 points. Since k_2 = 7 and k_3 = 13, the recurrence cannot hold at all of n = 4, 5, 6: if it did, k_6 would be 107. With k_4 = 27 it fails at n = 5 or n = 6: either k_5 <= 52, or k_5 = 53 and k_6 <= 105 = k_5 + 2 k_4 - 2."
+    "consequence": "k_6 <= 105 < 107, k_7 <= 211 < 213, k_8 <= 422 < 427, k_9 <= 844 < 853 and k_10 <= 1693 < 1707: our sets lie below the pattern in all five dimensions, by 2, 2, 5, 9 and 14 points. Since k_2 = 7 and k_3 = 13, the recurrence cannot hold at all of n = 4, 5, 6: if it did, k_6 would be 107. With k_4 = 27 it fails at n = 5 or n = 6: either k_5 <= 52, or k_5 = 53 and k_6 <= 105 = k_5 + 2 k_4 - 2."
   },
   "recurrence_on_true_values": {
     "k7_at_most": 211,
     "k8_if_recurrence_bound": 421,
     "k9_if_recurrence_bound": 844,
     "k10_if_recurrence_bound": 1688,
-    "note": "if k_7 <= k_6 + 2 k_5 held, k_7 would be at most 105 + 2 * 53 = 211; the 211-point set reaches exactly this value, as a 105-point layer plus 106 = 2 * 53 points in the other two layers. The same reading in F_3^8 gives 211 + 2 * 105 = 421, in F_3^9 422 + 2 * 211 = 844 and in F_3^10 844 + 2 * 422 = 1688. The 422-point set has a 211-point layer plus 211 points (one more than 421); the 844-point set has a 422-point layer plus 422 points (exactly 844); the 1695-point set has an 844-point layer plus 851 points (7 more than 1688); the earlier 1702-point set had an 846-point layer plus 856 points."
+    "note": "if k_7 <= k_6 + 2 k_5 held, k_7 would be at most 105 + 2 * 53 = 211; the 211-point set reaches exactly this value, as a 105-point layer plus 106 = 2 * 53 points in the other two layers. The same reading in F_3^8 gives 211 + 2 * 105 = 421, in F_3^9 422 + 2 * 211 = 844 and in F_3^10 844 + 2 * 422 = 1688. The 422-point set has a 211-point layer plus 211 points (one more than 421); the 844-point set has a 422-point layer plus 422 points (exactly 844); the 1693-point set has an 844-point layer plus 849 points (5 more than 1688); the earlier 1695- and 1702-point sets had 851 and 856 points outside their layers."
   },
   "layer_observation": {
-    "note": "A search that keeps a record Kakeya set A of F_3^(n-1) fixed in one layer needed |L1| + |L2| of: 27 in F_3^5 (on a 27-point layer), 54 in F_3^6 (on the 53-point layer), 106 in F_3^7 (on the 105-point layer), 211 in F_3^8 (on the 211-point layer; 10 runs of about 400 s not started from the 422-point set gave 211, 212, 212, 216, 216, 216, 220, 224, 227 and 390), 422 in F_3^9 (on the 422-point layer; the seven runs from the product or shifted starts logged in rounds 6 to 8 gave 422, 422, 423, 423, 423, 424 and 424), 856 in F_3^10 on the 846-point layer (four runs of about 300 s gave 856, 898, 901 and 910) and 851 in F_3^10 on the 844-point layer (six runs of about 330 s gave 851, 852, 853, 855, 855 and 906, all still improving). So the extra cost was about the size of the layer itself, k_(n-1) to k_(n-1) + 2 where the searches had time to settle, which is also about 2 k_(n-2). This is an observation from stalled searches, not a theorem. The census of k8/CENSUS.md (F_3^5, 331 different 27- to 32-point layers) never went below 27 + 27 = 54, and in F_3^3 layered sets need at least 14 points (k8/CENSUS.md) while k_3 = 13."
+    "note": "A search that keeps a record Kakeya set A of F_3^(n-1) fixed in one layer needed |L1| + |L2| of: 27 in F_3^5 (on a 27-point layer), 54 in F_3^6 (on the 53-point layer), 106 in F_3^7 (on the 105-point layer), 211 in F_3^8 (on the 211-point layer; 10 runs of about 400 s not started from the 422-point set gave 211, 212, 212, 216, 216, 216, 220, 224, 227 and 390), 422 in F_3^9 (on the 422-point layer; the seven runs from the product or shifted starts logged in rounds 6 to 8 gave 422, 422, 423, 423, 423, 424 and 424), 856 in F_3^10 on the 846-point layer (four runs of about 300 s gave 856, 898, 901 and 910) and 849 in F_3^10 on the 844-point layer (rounds 8 and 9: eleven runs gave 849, 849, 850, 850, 851, 852, 853, 855, 855, 857 and 906). So the extra cost was about the size of the layer itself, k_(n-1) to k_(n-1) + 5, which is also about 2 k_(n-2). This is an observation from stalled searches, not a theorem. The census of k8/CENSUS.md (F_3^5, 331 different 27- to 32-point layers) never went below 27 + 27 = 54, and in F_3^3 layered sets need at least 14 points (k8/CENSUS.md) while k_3 = 13."
+  },
+  "split_structure": {
+    "run": "publish-gate oracle k8/test_oracle_probe12.py (k8/probe12.py) of run 20261126T152519Z, 2026-11-26 15:43-15:52 UTC",
+    "translate_overlaps": {
+      "note": "for each layered set with layers L0, L1, L2 of F_3^(n-1): t1 maximises |L1 cap (L0 + t1)| (value max1), t2 maximises |L2 cap (L0 + t2)| (value max2); in every case t2 = -t1 (t1 = 0 for the sets found from the product start). So most points of the free layers lie in one translate pair L0 + t, L0 - t.",
+      "211": {"layers": [105, 56, 50], "max1": 56, "max2": 48},
+      "422": {"layers": [211, 96, 115], "max1": 89, "max2": 108},
+      "844": {"layers": [422, 207, 215], "max1": 188, "max2": 202},
+      "846": {"layers": [422, 204, 220], "max1": 189, "max2": 207, "t": 0},
+      "1702": {"layers": [846, 443, 413], "max1": 414, "max2": 393, "t": 0},
+      "1695": {"layers": [844, 398, 453], "max1": 376, "max2": 418, "t": 0}
+    },
+    "restricted_searches": {
+      "note": "the layered search allowed to use only points of L1 = L0, L2 = L0 (the free layers are subsets of the fixed record layer L0): best |L1| + |L2| and total. Unrestricted records for comparison: 211, 422, 844, 1693.",
+      "S7": {"layer0": 105, "seed": 81, "noise": 0.10, "free": [52, 54], "total": 211},
+      "S8": {"layer0": 211, "seed": 82, "noise": 0.10, "free": [98, 114], "total": 423},
+      "S9": {"layer0": 422, "seed": 77, "noise": 0.07, "free": [198, 225], "total": 845},
+      "S10": {"layer0": 844, "seed": 76, "noise": 0.07, "free": [424, 428], "total": 1696}
+    }
   },
   "search_log": {
     "round1": {
@@ -190,6 +210,16 @@
         {"label": "n10-L844-prod", "seed": 66, "noise": 0.07, "best_extra": 855, "total": 1699, "split": [449, 406], "steps": 21373, "first_reached": [[856, 246.6], [855, 299.6]], "setup_s": 89.1, "verified": true}
       ],
       "844_structure": {"layers_x0": [422, 207, 215], "full_lines": 11552, "single_line_directions": 8647, "uncovered_directions": 0, "removable_points": 0}
+    },
+    "round9": {
+      "run": "publish-gate oracle k8/test_oracle_probe12.py (k8/probe12.py, k8/layer.py) of run 20261126T152519Z, 2026-11-26 15:43-15:52 UTC, 8 parallel workers, 526 s in all. n = 10: the 844-point set fixed in the layer x0 = 0, searches of about 455 s. Starts: 'own' = the free layers of the 1695-point set, 'prod' and 'shift' as in round 7. 'split' = (|L1|, |L2|); 'kept' = free points of the start still in the result; first_reached lists the last two (extra, seconds) entries. 'verified' is k8.check.is_kakeya on the full set. The split-restricted searches of the same oracle are in split_structure.",
+      "10": [
+        {"label": "n10-L844-own", "seed": 71, "noise": 0.05, "best_extra": 850, "total": 1694, "split": [398, 452], "kept": 826, "steps": 23251, "first_reached": [[851, 1.5], [850, 28.3]], "verified": true},
+        {"label": "n10-L844-own", "seed": 72, "noise": 0.07, "best_extra": 850, "total": 1694, "split": [395, 455], "kept": 842, "steps": 22620, "first_reached": [[851, 1.1], [850, 179.3]], "verified": true},
+        {"label": "n10-L844-prod", "seed": 73, "noise": 0.07, "best_extra": 849, "total": 1693, "split": [430, 419], "kept": 771, "steps": 22091, "first_reached": [[850, 323.7], [849, 325.3]], "verified": true, "note": "the set k6/sets/kakeya10_1693.json"},
+        {"label": "n10-L844-prod", "seed": 74, "noise": 0.06, "best_extra": 849, "total": 1693, "split": [430, 419], "kept": 796, "steps": 23192, "first_reached": [[850, 319.1], [849, 340.9]], "verified": true},
+        {"label": "n10-L844-shift", "seed": 75, "noise": 0.07, "best_extra": 857, "total": 1701, "split": [389, 468], "kept": 791, "steps": 23642, "first_reached": [[858, 277.8], [857, 277.8]], "verified": true}
+      ]
     },
     "structure": {
       "kakeya6_106": {"lines": 391, "single_line_directions": 345, "removable_points": 0, "section_min": 22, "section_max": 50, "K_cap_minus_K": 21},

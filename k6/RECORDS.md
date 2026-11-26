@@ -1,4 +1,4 @@
-# Kakeya sets in F_3^6 with 105 points, in F_3^7 with 211, in F_3^8 with 422, in F_3^9 with 844 and in F_3^10 with 1695
+# Kakeya sets in F_3^6 with 105 points, in F_3^7 with 211, in F_3^8 with 422, in F_3^9 with 844 and in F_3^10 with 1693
 
 MV2, Munim, Inc. (mv2@munimtech.com), 2026-11-26. Made with AI agents working in MV2's name.
 **No human mathematician has checked this yet.** Text CC BY 4.0, code Apache-2.0.
@@ -14,12 +14,12 @@ direction d. Let k_n be the least size of a Kakeya set in F_3^n.
   (classical construction: 511; Lev's pattern value: 427).
 * `k6/sets/kakeya9_844.json` is a Kakeya set in F_3^9 with **844 points**, so **k_9 <= 844**
   (classical construction: 1023; Lev's pattern value: 853).
-* `k6/sets/kakeya10_1695.json` is a Kakeya set in F_3^10 with **1695 points**, so
-  **k_10 <= 1695** (classical construction: 2047; Lev's pattern value: 1707).
+* `k6/sets/kakeya10_1693.json` is a Kakeya set in F_3^10 with **1693 points**, so
+  **k_10 <= 1693** (classical construction: 2047; Lev's pattern value: 1707).
 * Earlier sets, kept and still checked: `kakeya6_106.json` (106 points),
   `kakeya7_213.json` (213 points), both found on 2026-11-25, and `kakeya8_427.json`
-  (427 points), `kakeya9_846.json` (846 points) and `kakeya10_1702.json` (1702 points),
-  found on 2026-11-26.
+  (427 points), `kakeya9_846.json` (846 points), `kakeya10_1702.json` (1702 points) and
+  `kakeya10_1695.json` (1695 points), found on 2026-11-26.
 
 All sets are checked at every commit by `k6/test_sets.py`, a stand-alone checker that
 shares no code with the search: it decodes each integer i = sum_k x_k 3^(n-1-k) to the
@@ -29,15 +29,16 @@ pairs of points instead (three distinct points of F_3^n are collinear iff they s
 and checks that all 29524 directions appear; the two methods are compared on small cases.
 It also checks that no single point of the 105- or 211-point set can be deleted.
 
-The 422-, 846-, 844-, 1702- and 1695-point files are stored in two parts. The layer x_0 = 0
-of the 422-point set is the file `kakeya7_211.json`, and its other 211 points are listed as
-`free_points` p, standing for the integer 2187 + p (the file also keeps the compact code the
-search printed, `points_code`, and the checker verifies that it decodes to the same list).
-The layer x_0 = 0 of the 846- and 844-point sets is the file `kakeya8_422.json`, and their
-other points are stored only as the search's compact code (`points_code`: sorted values,
-gaps in base 32, see the file), standing for 6561 + p. The layer x_0 = 0 of the 1695-point
-set is the 844-point set (of the earlier 1702-point set, the 846-point set), and its other
-851 points stand for 19683 + p. Both checkers decode the codes with their own decoders.
+The 422-, 846-, 844-, 1702-, 1695- and 1693-point files are stored in two parts. The layer
+x_0 = 0 of the 422-point set is the file `kakeya7_211.json`, and its other 211 points are
+listed as `free_points` p, standing for the integer 2187 + p (the file also keeps the
+compact code the search printed, `points_code`, and the checker verifies that it decodes to
+the same list). The layer x_0 = 0 of the 846- and 844-point sets is the file
+`kakeya8_422.json`, and their other points are stored only as the search's compact code
+(`points_code`: sorted values, gaps in base 32, see the file), standing for 6561 + p. The
+layer x_0 = 0 of the 1693- and 1695-point sets is the 844-point set (of the earlier
+1702-point set, the 846-point set), and their other points stand for 19683 + p. Both
+checkers decode the codes with their own decoders.
 
 The layered sets have a second, independent proof in `k6/test_layers.py`. The layer
 x_0 = 0 of the 211-point set is exactly the 105-point set of F_3^6, which covers every
@@ -53,11 +54,12 @@ point of either can be removed. In the same way:
 | 846 in F_3^9 | 422-point set of F_3^8 | 204 + 220 = 424 | 6561 |
 | **844** in F_3^9 | 422-point set of F_3^8 | 207 + 215 = **422** | 6561 |
 | 1702 in F_3^10 | 846-point set of F_3^9 | 443 + 413 = 856 | 19683 |
-| **1695** in F_3^10 | 844-point set of F_3^9 | 398 + 453 = **851** | 19683 |
+| 1695 in F_3^10 | 844-point set of F_3^9 | 398 + 453 = 851 | 19683 |
+| **1693** in F_3^10 | 844-point set of F_3^9 | 430 + 419 = **849** | 19683 |
 
-So the chains 105 -> 211 -> 422 -> 844 -> 1695 and 105 -> 211 -> 422 -> 846 -> 1702 have a
-proof that uses only the direct check of the 105-point set in F_3^6. For the sets in F_3^10
-the covered vectors are collected as {y - x : x in L_0, y in L_1, -(x + y) in L_2}.
+So the chain 105 -> 211 -> 422 -> 844 -> 1693 has a proof that uses only the direct check of
+the 105-point set in F_3^6. For the sets in F_3^10 the covered vectors are collected as
+{y - x : x in L_0, y in L_1, -(x + y) in L_2}.
 
 ## Why it matters
 
@@ -80,8 +82,8 @@ that the recurrence k_n = k_(n-1) + 2 k_(n-2) continues and say that whether it 
 remains open. The pattern continues 107, 213, 427, 853, 1707.
 
 **Consequence.** k_6 <= 105 < 107, k_7 <= 211 < 213, k_8 <= 422 < 427,
-k_9 <= 844 < 853 and k_10 <= 1695 < 1707: our sets are below the pattern in all five
-dimensions (by 2, 2, 5, 9 and 12 points). Since k_2 = 7 and k_3 = 13, the recurrence cannot
+k_9 <= 844 < 853 and k_10 <= 1693 < 1707: our sets are below the pattern in all five
+dimensions (by 2, 2, 5, 9 and 14 points). Since k_2 = 7 and k_3 = 13, the recurrence cannot
 hold at all of n = 4, 5 and 6 (otherwise k_6 = 107). With k_4 = 27 (Lev's set and our
 computer proof `PROOF26.md`, not human-checked) it fails at n = 5 or at n = 6: either
 k_5 <= 52, or k_5 = 53 and k_6 <= 105 = k_5 + 2 k_4 - 2. We do not know which.
@@ -90,32 +92,35 @@ k_5 <= 52, or k_5 = 53 and k_6 <= 105 = k_5 + 2 k_4 - 2. We do not know which.
 F_3^(n-1) in one layer plus a search over the two other layers. The extra cost was
 54 on the 53-point layer in F_3^6 (total 107), 106 on the 105-point layer in F_3^7 (211),
 211 on the 211-point layer in F_3^8 (422), 422 on the 422-point layer in F_3^9 (844; the
-other logged runs gave 422, 423, 423, 423, 424, 424) and 851 on the 844-point layer in
-F_3^10 (1695; the other runs gave 852, 853, 855, 855 and 906, all from searches of about
-five and a half minutes that were still improving). Where the searches had time to settle,
-the extra cost is the size of the layer itself plus 0 to 1 points, so the sizes double from
-one dimension to the next: 211 = 2 x 105 + 1, 422 = 2 x 211, 844 = 2 x 422; in F_3^10 the
-best so far is 1695 = 2 x 844 + 7. In ratio to 2^n this is 844 / 512, about 1.648, against
-5/3 for the pattern and 2 for the classical construction. This is an observation from
-stalled searches, not a theorem; if a proof of k_(n+1) <= 2 k_n existed it would give
-k_n <= 1.649 x 2^n for all n >= 9, which is still base 2 and says nothing about large n,
-where the random construction of Kopparty, Lev, Saraf and Sudan grows more slowly. The
-observation is also false in F_3^3: a layered Kakeya set of F_3^3 needs at least 14 points
-(`k8/CENSUS.md`, proved by hand and checked exhaustively), while k_3 = 13.
+other logged runs gave 422, 423, 423, 423, 424, 424) and 849 on the 844-point layer in
+F_3^10 (1693, twice; the other runs gave 850, 850, 851, 852, 853, 855, 855, 857 and 906).
+Where the searches had time to settle, the extra cost is the size of the layer itself plus
+0 to 5 points, so the sizes double from one dimension to the next: 211 = 2 x 105 + 1,
+422 = 2 x 211, 844 = 2 x 422, 1693 = 2 x 844 + 5. In ratio to 2^n this is 844 / 512, about
+1.648, against 5/3 for the pattern and 2 for the classical construction. The observation
+is false in F_3^3: a layered Kakeya set of F_3^3 needs at least 14 points (`k8/CENSUS.md`,
+proved by hand and checked exhaustively), while k_3 = 13.
 
-The free layers do not copy the fixed one in any simple way: for the 422-point set the
-union of its free layers (96 + 115 points) is not a Kakeya set of F_3^7, the two free
-layers meet the 211-point layer in only 7 and 9 points, and the best translate of the 211-point set covers 111 of its
-211 points (`k8/probe9.py`, logged in `k6/results/records.json`, round 6).
+**Split structure (search round 9).** Most points of the free layers lie in one translate
+pair of the fixed layer L_0: for the 211-point set, all 56 points of L_1 lie in L_0 + t and
+48 of the 50 points of L_2 in L_0 - t (one t); for the 422-point set 89 of 96 and 108 of
+115; for the 844-point set 188 of 207 and 202 of 215 (for the sets found from the product
+start, t = 0). A layered search that may only use points of L_0 itself in the free layers
+reached 211 on the 105-point layer (the record), 423 on the 211-point layer (record 422),
+845 on the 422-point layer (record 844) and 1696 on the 844-point layer (record 1693). Full
+numbers: `k6/results/records.json`, `split_structure`. This led to the doubling lemma of
+`k9/SPLIT.md`: a Kakeya set K with a "split" (A, B) of excess e gives Kakeya sets of
+2^j (|K| + e) - e points in every higher dimension, and a split of one layer lifts to every
+layered set built on it.
 
 Lower bounds: the general bound of Bukh and Chao, 3^n / (5/3)^(n-1), gives 57 (n = 6),
 103 (n = 7), 184 (n = 8), 331 (n = 9) and 596 (n = 10). Nothing here is a lower bound,
-and nothing says 105, 211, 422, 844 or 1695 is optimal.
+and nothing says 105, 211, 422, 844 or 1693 is optimal.
 
 ## How the sets were found
 
 `k6/fastwalk.py` (WalkSAT-style local search with incremental per-point costs) ran five
-workers per dimension for about seven minutes each, in three rounds; rounds 4 to 8 used
+workers per dimension for about seven minutes each, in three rounds; rounds 4 to 9 used
 `k8/layer.py`, which keeps a record set fixed in the layer x_0 = 0 and searches only the
 two other layers (full log in `k6/results/records.json`):
 
@@ -163,9 +168,13 @@ two other layers (full log in `k6/results/records.json`):
 | 7 | 10 | 846-point layer, start F_3 x K9, noise 0.10 | 1756 | 277 s |
 | 7 | 10 | 846-point layer, start K9 + t, K9 - t, noise 0.10 / 0.13 | 1747 / 1744 | 291 / 296 s |
 | 8 | 9 | 422-point layer, start K8 + t, K8 - t / F_3 x K8 | 845 / 845 | 53 / 310 s |
-| 8 | 10 | 844-point layer, start F_3 x K9 (2532 points), noise 0.07 (seed 61) | **1695** | 309 s |
+| 8 | 10 | 844-point layer, start F_3 x K9 (2532 points), noise 0.07 (seed 61) | 1695 | 309 s |
 | 8 | 10 | 844-point layer, start F_3 x K9, noise 0.05 / 0.07 / 0.10 | 1696 / 1699 / 1750 | 317 / 300 / 327 s |
 | 8 | 10 | 844-point layer, start K9 + t, K9 - t, noise 0.07 / 0.05 | 1697 / 1699 | 341 / 314 s |
+| 9 | 10 | 844-point layer, from the 1695-point set's free layers, noise 0.05 / 0.07 | 1694 / 1694 | 28 / 179 s |
+| 9 | 10 | 844-point layer, start F_3 x K9, noise 0.07 (seed 73) | **1693** | 325 s |
+| 9 | 10 | 844-point layer, start F_3 x K9, noise 0.06 (seed 74) | 1693 | 341 s |
+| 9 | 10 | 844-point layer, start K9 + t, K9 - t, noise 0.07 | 1701 | 278 s |
 
 The lift start puts F_3 x A and F_3 x B in the two free layers, where A and B are the free
 layers of the 422-point set; it is a Kakeya set by construction, but the search could not
@@ -187,7 +196,6 @@ its 9841 directions covered by exactly one line, and no point that can be delete
 
 ## Next
 
-`k8/probe12.py` asks whether the doubling is a split: are the free layers of each layered
-record parts of one translate pair L_0 + t, L_0 - t, and how small can the free layers get
-when the search may only use points of such a pair? It also continues the F_3^10 search
-from the 1695-point set and runs more fresh F_3^10 searches on the 844-point layer.
+`k9/probe13.py` searches splits of the records directly, lifts the best one through the
+chain 105 -> 211 -> 422 -> 844 -> 1693 (Lemma 2 of `k9/SPLIT.md`), and doubles the
+844-point set into F_3^10 and onwards (Lemma 1), verifying every split from the definition.
