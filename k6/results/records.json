@@ -20,16 +20,17 @@
           "classical_construction": 1023, "lev_pattern_value": 853,
           "bukh_chao_lower_bound": 331, "layers_x0": [422, 207, 215],
           "structure": "the layer x0 = 0 is exactly the 422-point set of F_3^8; layers x0 = 1 and 2 add 207 + 215 = 422 points, so the set has 2 * 422 points. A second 844-point set with the same layer and a 220 + 202 split was found in the same probe (seed 36) and is not stored"},
-    "10": {"size": 1702, "set_file": "k6/sets/kakeya10_1702.json", "directions": 29524,
+    "10": {"size": 1695, "set_file": "k6/sets/kakeya10_1695.json", "directions": 29524,
           "classical_construction": 2047, "lev_pattern_value": 1707,
-          "bukh_chao_lower_bound": 596, "layers_x0": [846, 443, 413],
-          "structure": "the layer x0 = 0 is exactly the earlier 846-point set of F_3^9; layers x0 = 1 and 2 add 443 + 413 = 856 points, so the set has 2 * 846 + 10 points. It comes from the first layered searches in F_3^10, which were still improving when their time ran out"}
+          "bukh_chao_lower_bound": 596, "layers_x0": [844, 398, 453],
+          "structure": "the layer x0 = 0 is exactly the 844-point set of F_3^9; layers x0 = 1 and 2 add 398 + 453 = 851 points, so the set has 2 * 844 + 7 points. It comes from layered searches of about 330 s in F_3^10 that were still improving when their time ran out"}
   },
   "earlier": [
     {"n": 6, "size": 106, "set_file": "k6/sets/kakeya6_106.json", "found": "2026-11-25 12:26 UTC", "note": "first set below the pattern value 107; superseded by the 105-point set the same day"},
     {"n": 7, "size": 213, "set_file": "k6/sets/kakeya7_213.json", "found": "2026-11-25, search round 1", "note": "first set below the classical 255, equal to the pattern value 213; superseded by the 211-point set the same day"},
     {"n": 8, "size": 427, "set_file": "k6/sets/kakeya8_427.json", "found": "2026-11-26 01:45 UTC, search round 4", "note": "first set below the classical 511, equal to the pattern value 427; superseded by the 422-point set the same day"},
-    {"n": 9, "size": 846, "set_file": "k6/sets/kakeya9_846.json", "found": "2026-11-26 10:25 UTC, search round 6", "layers_x0": [422, 204, 220], "note": "first set below the classical 1023 and the pattern value 853; superseded by the 844-point set the same day; it is the layer x0 = 0 of the 1702-point set of F_3^10"}
+    {"n": 9, "size": 846, "set_file": "k6/sets/kakeya9_846.json", "found": "2026-11-26 10:25 UTC, search round 6", "layers_x0": [422, 204, 220], "note": "first set below the classical 1023 and the pattern value 853; superseded by the 844-point set the same day; it is the layer x0 = 0 of the 1702-point set of F_3^10"},
+    {"n": 10, "size": 1702, "set_file": "k6/sets/kakeya10_1702.json", "found": "2026-11-26 13:52 UTC, search round 7", "layers_x0": [846, 443, 413], "note": "first set below the classical 2047 and the pattern value 1707; superseded by the 1695-point set the same day"}
   ],
   "known_values": {
     "1": {"value": 3}, "2": {"value": 7},
@@ -43,17 +44,17 @@
   "lev_pattern": {
     "source": "V. F. Lev, comment 994 on T. Tao's blog, 14 March 2009: 'I am very curious to know whether k_5 = 53: notice the pattern in 3, 7, 13, 27, 53, ...'; Chung, Du and Wesley (arXiv:2608.23691) state it as the recurrence k_n = k_(n-1) + 2 k_(n-2) and say whether it continues remains open",
     "values": {"1": 3, "2": 7, "3": 13, "4": 27, "5": 53, "6": 107, "7": 213, "8": 427, "9": 853, "10": 1707},
-    "consequence": "k_6 <= 105 < 107, k_7 <= 211 < 213, k_8 <= 422 < 427, k_9 <= 844 < 853 and k_10 <= 1702 < 1707: our sets lie below the pattern in all five dimensions, by 2, 2, 5, 9 and 5 points. Since k_2 = 7 and k_3 = 13, the recurrence cannot hold at all of n = 4, 5, 6: if it did, k_6 would be 107. With k_4 = 27 it fails at n = 5 or n = 6: either k_5 <= 52, or k_5 = 53 and k_6 <= 105 = k_5 + 2 k_4 - 2."
+    "consequence": "k_6 <= 105 < 107, k_7 <= 211 < 213, k_8 <= 422 < 427, k_9 <= 844 < 853 and k_10 <= 1695 < 1707: our sets lie below the pattern in all five dimensions, by 2, 2, 5, 9 and 12 points. Since k_2 = 7 and k_3 = 13, the recurrence cannot hold at all of n = 4, 5, 6: if it did, k_6 would be 107. With k_4 = 27 it fails at n = 5 or n = 6: either k_5 <= 52, or k_5 = 53 and k_6 <= 105 = k_5 + 2 k_4 - 2."
   },
   "recurrence_on_true_values": {
     "k7_at_most": 211,
     "k8_if_recurrence_bound": 421,
     "k9_if_recurrence_bound": 844,
     "k10_if_recurrence_bound": 1688,
-    "note": "if k_7 <= k_6 + 2 k_5 held, k_7 would be at most 105 + 2 * 53 = 211; the 211-point set reaches exactly this value, as a 105-point layer plus 106 = 2 * 53 points in the other two layers. The same reading in F_3^8 gives 211 + 2 * 105 = 421, in F_3^9 422 + 2 * 211 = 844 and in F_3^10 844 + 2 * 422 = 1688. The 422-point set has a 211-point layer plus 211 points (one more than 421); the 844-point set has a 422-point layer plus 422 points (exactly 844); the 1702-point set has an 846-point layer plus 856 points (14 more than 1688)."
+    "note": "if k_7 <= k_6 + 2 k_5 held, k_7 would be at most 105 + 2 * 53 = 211; the 211-point set reaches exactly this value, as a 105-point layer plus 106 = 2 * 53 points in the other two layers. The same reading in F_3^8 gives 211 + 2 * 105 = 421, in F_3^9 422 + 2 * 211 = 844 and in F_3^10 844 + 2 * 422 = 1688. The 422-point set has a 211-point layer plus 211 points (one more than 421); the 844-point set has a 422-point layer plus 422 points (exactly 844); the 1695-point set has an 844-point layer plus 851 points (7 more than 1688); the earlier 1702-point set had an 846-point layer plus 856 points."
   },
   "layer_observation": {
-    "note": "A search that keeps a record Kakeya set A of F_3^(n-1) fixed in one layer needed |L1| + |L2| of: 27 in F_3^5 (on a 27-point layer), 54 in F_3^6 (on the 53-point layer), 106 in F_3^7 (on the 105-point layer), 211 in F_3^8 (on the 211-point layer; 10 runs of about 400 s not started from the 422-point set gave 211, 212, 212, 216, 216, 216, 220, 224, 227 and 390), 422 in F_3^9 (on the 422-point layer; six runs from the product or shifted starts gave 422, 422, 423, 424, 424 and 424) and 856 in F_3^10 (on the 846-point layer; four runs of about 300 s gave 856, 898, 901 and 910, all still improving). So the extra cost was about the size of the layer itself, k_(n-1) to k_(n-1) + 2 where the searches had time to settle, which is also about 2 k_(n-2). This is an observation from stalled searches, not a theorem. The census of k8/CENSUS.md (F_3^5, 331 different 27- to 32-point layers) never went below 27 + 27 = 54, and in F_3^3 layered sets need at least 14 points (k8/CENSUS.md) while k_3 = 13."
+    "note": "A search that keeps a record Kakeya set A of F_3^(n-1) fixed in one layer needed |L1| + |L2| of: 27 in F_3^5 (on a 27-point layer), 54 in F_3^6 (on the 53-point layer), 106 in F_3^7 (on the 105-point layer), 211 in F_3^8 (on the 211-point layer; 10 runs of about 400 s not started from the 422-point set gave 211, 212, 212, 216, 216, 216, 220, 224, 227 and 390), 422 in F_3^9 (on the 422-point layer; the seven runs from the product or shifted starts logged in rounds 6 to 8 gave 422, 422, 423, 423, 423, 424 and 424), 856 in F_3^10 on the 846-point layer (four runs of about 300 s gave 856, 898, 901 and 910) and 851 in F_3^10 on the 844-point layer (six runs of about 330 s gave 851, 852, 853, 855, 855 and 906, all still improving). So the extra cost was about the size of the layer itself, k_(n-1) to k_(n-1) + 2 where the searches had time to settle, which is also about 2 k_(n-2). This is an observation from stalled searches, not a theorem. The census of k8/CENSUS.md (F_3^5, 331 different 27- to 32-point layers) never went below 27 + 27 = 54, and in F_3^3 layered sets need at least 14 points (k8/CENSUS.md) while k_3 = 13."
   },
   "search_log": {
     "round1": {
@@ -174,6 +175,22 @@
       ],
       "846_structure": {"layers_x0": [422, 204, 220], "full_lines": 11689, "single_line_directions": 8503, "uncovered_directions": 0, "removable_points": 0}
     },
+    "round8": {
+      "run": "publish-gate oracle k8/test_oracle_probe11.py (k8/probe11.py, k8/layer.py) of run 20261126T141722Z, 2026-11-26 14:38-14:46 UTC, 8 parallel workers, 498 s in all. n = 9: the 422-point set fixed in the layer x0 = 0; n = 10: the 844-point set fixed in the layer x0 = 0 (setup about 80 s per worker, then about 330 s of search). Starts as in round 7. 'split' = (|L1|, |L2|); first_reached lists the last two (extra, seconds) entries; 'setup_s' = seconds to build the layer tables. 'verified' is k8.check.is_kakeya on the full set.",
+      "9": [
+        {"label": "n9-L422-shift", "seed": 51, "noise": 0.07, "best_extra": 423, "total": 845, "split": [212, 211], "steps": 64152, "first_reached": [[424, 53.2], [423, 53.2]], "setup_s": 10.2, "verified": true},
+        {"label": "n9-L422-prod", "seed": 50, "noise": 0.10, "best_extra": 423, "total": 845, "split": [211, 212], "steps": 57531, "first_reached": [[424, 78.4], [423, 310.1]], "setup_s": 16.5, "verified": true}
+      ],
+      "10": [
+        {"label": "n10-L844-prod", "seed": 61, "noise": 0.07, "best_extra": 851, "total": 1695, "split": [398, 453], "steps": 21393, "first_reached": [[852, 308.5], [851, 308.5]], "setup_s": 85.1, "verified": true, "note": "the set k6/sets/kakeya10_1695.json"},
+        {"label": "n10-L844-prod", "seed": 62, "noise": 0.05, "best_extra": 852, "total": 1696, "split": [402, 450], "steps": 20260, "first_reached": [[853, 245.9], [852, 316.7]], "setup_s": 79.1, "verified": true},
+        {"label": "n10-L844-shift", "seed": 63, "noise": 0.07, "best_extra": 853, "total": 1697, "split": [422, 431], "steps": 21528, "first_reached": [[854, 324.1], [853, 340.5]], "setup_s": 79.5, "verified": true},
+        {"label": "n10-L844-prod", "seed": 64, "noise": 0.10, "best_extra": 906, "total": 1750, "split": [408, 498], "steps": 21704, "first_reached": [[907, 326.6], [906, 327.2]], "setup_s": 76.1, "verified": true},
+        {"label": "n10-L844-shift", "seed": 65, "noise": 0.05, "best_extra": 855, "total": 1699, "split": [429, 426], "steps": 20651, "first_reached": [[856, 298.3], [855, 314.0]], "setup_s": 80.8, "verified": true},
+        {"label": "n10-L844-prod", "seed": 66, "noise": 0.07, "best_extra": 855, "total": 1699, "split": [449, 406], "steps": 21373, "first_reached": [[856, 246.6], [855, 299.6]], "setup_s": 89.1, "verified": true}
+      ],
+      "844_structure": {"layers_x0": [422, 207, 215], "full_lines": 11552, "single_line_directions": 8647, "uncovered_directions": 0, "removable_points": 0}
+    },
     "structure": {
       "kakeya6_106": {"lines": 391, "single_line_directions": 345, "removable_points": 0, "section_min": 22, "section_max": 50, "K_cap_minus_K": 21},
       "kakeya6_105": {"lines": 437, "single_line_directions": 305, "removable_points": 0, "section_min": 23, "section_max": 53, "K_cap_minus_K": 10},
@@ -181,7 +198,8 @@
       "kakeya7_211": {"lines": 1316, "single_line_directions": 913, "removable_points": 0, "section_min": 46, "section_max": 107, "K_cap_minus_K": 12},
       "kakeya8_427": {"lines": 4096, "single_line_directions": 2608, "removable_points": 0},
       "kakeya8_422": {"lines": 3888, "single_line_directions": 2854, "removable_points": 0},
-      "kakeya9_846": {"lines": 11689, "single_line_directions": 8503, "removable_points": 0}
+      "kakeya9_846": {"lines": 11689, "single_line_directions": 8503, "removable_points": 0},
+      "kakeya9_844": {"lines": 11552, "single_line_directions": 8647, "removable_points": 0}
     },
     "note": "first_reached lists (size, seconds) when each size was first reached; intermediate entries omitted. Every final set was re-checked by k5.walk.is_kakeya or k8.check.is_kakeya in the run, and the record sets are re-checked by k6/test_sets.py and k6/test_layers.py at every commit. 'structure' numbers were printed by k6/probe2.py stats() or k8/probe8.py line_stats(): lines = number of full lines in the set, single_line_directions = directions covered by exactly one line, removable_points = points whose removal keeps the set Kakeya, section_min/max = smallest and largest of the 3 x 364 (or 3 x 1093) hyperplane sections, K_cap_minus_K = |K intersect -K|."
   }

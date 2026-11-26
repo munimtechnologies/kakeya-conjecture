@@ -4,7 +4,8 @@
 """A second, independent proof that the layered record sets are Kakeya sets:
 k6/sets/kakeya7_211.json in F_3^7, k6/sets/kakeya8_422.json and the earlier
 k6/sets/kakeya8_427.json in F_3^8, k6/sets/kakeya9_844.json and the earlier
-k6/sets/kakeya9_846.json in F_3^9, and k6/sets/kakeya10_1702.json in F_3^10.
+k6/sets/kakeya9_846.json in F_3^9, and k6/sets/kakeya10_1695.json and the earlier
+k6/sets/kakeya10_1702.json in F_3^10.
 
 Write a point of F_3^n as (c, x) with c in F_3 and x in F_3^(n-1), and let L_c be the layer
 {x : (c, x) in K}.
@@ -20,10 +21,11 @@ For the 211-point set, L_0 is the 105-point set of k6/sets/kakeya6_105.json, che
 Kakeya in F_3^6 here by its own loop.  For the 422- and 427-point sets, L_0 is the 211-point
 set of F_3^7, which this file proves Kakeya by the same argument one dimension down; for
 the 846- and 844-point sets, L_0 is the 422-point set of F_3^8; for the 1702-point set it is
-the 846-point set of F_3^9.  So the chains 105 -> 211 -> 422 -> 844 and
-105 -> 211 -> 422 -> 846 -> 1702 are proved here without k6/test_sets.py.
+the 846-point set of F_3^9 and for the 1695-point set the 844-point set.  So the chains
+105 -> 211 -> 422 -> 844 -> 1695 and 105 -> 211 -> 422 -> 846 -> 1702 are proved here
+without k6/test_sets.py.
 
-For the 1702-point set the vectors v are collected from pairs instead of tested one by one:
+For the sets in F_3^10 the vectors v are collected from pairs instead of tested one by one:
 with y = x + v in L_1, the third point x + 2v = 2y - x = -(x + y), so the covered vectors are
 exactly {y - x : x in L_0, y in L_1, -(x + y) in L_2}; the test checks that these are all
 3^9 = 19683 vectors.  Both methods are compared on the 422-point set.  The file shares no
@@ -153,7 +155,7 @@ class Layers422(unittest.TestCase):
         self.assertGreaterEqual(len(missing_vectors([L[0], L[1], {one}])), 2187 - 211)
 
     def test_pair_method_agrees(self):
-        # the pair method used for the 1702-point set gives the same answer here, also
+        # the pair method used for the sets in F_3^10 gives the same answer here, also
         # after one point of layer 1 is removed
         K, L = layers("kakeya8_422.json", 8)
         allv = set(itertools.product(range(3), repeat=7))
@@ -217,6 +219,22 @@ class Layers1702(unittest.TestCase):
         self.assertGreaterEqual(len(L[1]) * len(L[2]), 19683)
         # layer 0 is exactly the 846-point set of F_3^9 (proved Kakeya in Layers846)
         A = set(digits(i, 9) for i in load("kakeya9_846.json"))
+        self.assertEqual(L[0], A)
+        # all 19683 vectors v of F_3^9 have a line
+        cov = covered_vectors(L)
+        self.assertEqual(len(cov), 3 ** 9)
+        self.assertEqual(cov, set(itertools.product(range(3), repeat=9)))
+
+
+class Layers1695(unittest.TestCase):
+    def test_layer_argument(self):
+        K, L = layers("kakeya10_1695.json", 10)
+        self.assertEqual(len(K), 1695)
+        self.assertEqual(len(set(K)), 1695)
+        self.assertEqual([len(x) for x in L], [844, 398, 453])
+        self.assertGreaterEqual(len(L[1]) * len(L[2]), 19683)
+        # layer 0 is exactly the 844-point set of F_3^9 (proved Kakeya in Layers844)
+        A = set(digits(i, 9) for i in load("kakeya9_844.json"))
         self.assertEqual(L[0], A)
         # all 19683 vectors v of F_3^9 have a line
         cov = covered_vectors(L)

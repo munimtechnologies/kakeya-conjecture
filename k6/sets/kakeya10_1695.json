@@ -1,0 +1,13 @@
+{
+  "n": 10,
+  "q": 3,
+  "size": 1695,
+  "encoding": "each point x = (x0, ..., x9) in F_3^10 is the integer sum_k x_k * 3^(9-k) (x0 most significant digit). The set is stored in two parts: layer0_file holds the 844 points with x0 = 0 (exactly the 844-point Kakeya set of F_3^9, itself stored in two parts; its integers are the same in F_3^10), and points_code holds the other 851 points as p = index - 19683 (so p < 19683 is the point (1, p) and p >= 19683 is the point (2, p - 19683)). points_code is the list exactly as the layered search printed it: sorted, each gap to the previous value (starting from -1) in base 32, high digits from 'ABCDEFGHIJKLMNOPQRSTUVWXYZ6789+/', the last digit from 'abcdefghijklmnopqrstuvwxyz012345'. k6/test_sets.py and k6/test_layers.py each decode it with their own decoder.",
+  "layer0_file": "k6/sets/kakeya9_844.json",
+  "offset": 19683,
+  "free_count": 851,
+  "points_code": "ovlgdvelk2bBgbcegnkoo4gecybdrBoBghd3BtBktrBjcgglbgd2njgdgBygsC25fFeumBhmfgkBicpdBtDzBdxskquE2BbCcdobgdgBdBngBkdhsleBiCcuBbBgsJqC2CcIzBhC0obcBc4BhsgbCnBcfCldC2cxh5njpvBdgBnzBi5BaE3BtrbfqBccBkdBtC4BdLyCnJjvBluF3CcglbjB1gBuujmepBiBith0CjqoectuiCjtkoxor4B5BqC55prw1gmCbzssgBbB5wBjDcbjjIcsyBtEvEeClBksD4scL3F0BeFlFgCuBeBdBqFkBaCcBpB3CwhgFzBrxmBkhCyBrCqDb45BaN4DtKrEeClpBnDxhJjB5igCffCeBmhtpenfCyuBnszCcgo2BcjpvBhzdBdwokpiBo3rtdBr5BrC44cskeegw3HxBlB5BjFs2BiCapBqUfDwBnCkEaCj3CbIuBzspB1HgCbBnGjFhB2cpBrvBeBjCdDpuBtmck0lB5CgkBsygFuCmBsbxrJfrB2dlGeBrBsbxBmiGfYxB2B2cC1FnDaBtozDzdB5pybfmgBeekbcbfm1fkbjjggcbglBbsBacBjfzg4tvodtkldiBbkgjfBbBbrdyhp3BzBljiDwdB2bclBioecdbfp3rdmcbBb0svdpBjtBqfeBuHdg4eodpB1kBhdpCrDbNaPlxmgBfBanBgBnhBjBzgBlgiCxzCykrwmrDnGaBtscdgmBoubBb0svdBkFoCgrDwBfBiCauBodmFatBoheBuDaB0BogBqdkCkrBup4gpD5wBhBtpbfmgnBgcbrzhrgmguCtBqB3BztkldiBehguJwFdDcEkEsEbHhCrnEtBnRwGmBgwH4nyEgE4uywBzBqhBhBqkrfBnzBtCcEzfBuPbEqHzCgiBtDgDaB2Ccbo4EcsDoBnG4E4kFigbBhBzkBghBmBvrlqfsCms4BnCqBfjBazBdB5D1yB2idgB2BbBtdBnr5BhBebfBisBaspdCegmBtHuC2jFbBfCcBsyBwGhBeB5Bg5fgC1pCuBdrwyJ2BeBgBkvCgEgB4ewBqsBarBlrglb0qBbfBekjBhr1ej4Bkvbsjjwkfnp4BefgBhBjgeBvDw0Bp2ssbjB0BiDnikpjfkrDpgGk0BqsBnBuByC0tgjBa1B2Vr0BqBnwBq31BllBxiBqBiFhm",
+  "found": "2026-11-26 14:38-14:46 UTC, publish-gate oracle k8/test_oracle_probe11.py (k8/probe11.py, k8/layer.py) of run 20261126T141722Z: layered search in F_3^10 with the 844-point set of F_3^9 fixed in the layer x0 = 0, started from L1 = L2 = the 844-point set (F_3 x K9), seed 61, noise 0.07; 851 free points (398 in the layer x0 = 1, 453 in the layer x0 = 2) first reached after 308.5 s of a search that was still improving when its time ran out; re-checked in the run by k8/check.is_kakeya.",
+  "made_with": "AI agents working in MV2's name (MV2, Munim, Inc.); not checked by a human mathematician",
+  "licence": "CC BY 4.0"
+}
