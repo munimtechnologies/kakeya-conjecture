@@ -1,21 +1,24 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2026 MV2 of Munim, Inc. (mv2@munimtech.com)
 # Made with AI agents working in MV2's name. Not yet checked by a human mathematician.
-"""A second, independent proof that k6/sets/kakeya7_211.json is a Kakeya set in F_3^7.
+"""A second, independent proof that the layered record sets are Kakeya sets:
+k6/sets/kakeya7_211.json in F_3^7 and k6/sets/kakeya8_427.json in F_3^8.
 
-Write a point of F_3^7 as (c, x) with c in F_3 and x in F_3^6, and let L_c be the layer
+Write a point of F_3^n as (c, x) with c in F_3 and x in F_3^(n-1), and let L_c be the layer
 {x : (c, x) in K}.
 
 * A direction (0, d) with d != 0 is covered if L_0 contains a full line in direction d,
-  i.e. if L_0 is a Kakeya set of F_3^6.
-* A direction (1, v), v in F_3^6 (all 729 of them, v = 0 included), is covered iff some
-  line {(0, x), (1, x + v), (2, x + 2v)} lies in K, i.e. iff some x in L_0 has x + v in L_1
-  and x + 2v in L_2.  (Every line in such a direction meets each layer exactly once.)
-* Every direction of F_3^7 is a nonzero multiple of exactly one of these.
+  i.e. if L_0 is a Kakeya set of F_3^(n-1).
+* A direction (1, v), v in F_3^(n-1) (all 3^(n-1) of them, v = 0 included), is covered iff
+  some line {(0, x), (1, x + v), (2, x + 2v)} lies in K, i.e. iff some x in L_0 has x + v in
+  L_1 and x + 2v in L_2.  (Every line in such a direction meets each layer exactly once.)
+* Every direction of F_3^n is a nonzero multiple of exactly one of these.
 
-The test checks that L_0 is exactly the 105-point set of k6/sets/kakeya6_105.json, that this
-set is Kakeya in F_3^6 (directly, by its own loop), and the 729 conditions on L_1 and L_2.
-It shares no code with k6/test_sets.py or with any search."""
+For the 211-point set, L_0 is the 105-point set of k6/sets/kakeya6_105.json, checked to be
+Kakeya in F_3^6 here by its own loop.  For the 427-point set, L_0 is the 211-point set of
+F_3^7, which this file proves Kakeya by the same argument one dimension down.  So the chain
+105 -> 211 -> 427 is proved here without k6/test_sets.py.  It shares no code with
+k6/test_sets.py or with any search."""
 import itertools
 import json
 import os
@@ -50,23 +53,30 @@ def kakeya_6(S):
     return True
 
 
+def layers(name, n):
+    K = [digits(i, n) for i in load(name)]
+    return K, [set(p[1:] for p in K if p[0] == c) for c in range(3)]
+
+
+def missing_vectors(L):
+    m = len(next(iter(L[0])))
+    return [v for v in itertools.product(range(3), repeat=m)
+            if not any(plus(x, v) in L[1] and plus(x, v, 2) in L[2] for x in L[0])]
+
+
 class Layers211(unittest.TestCase):
     def test_layer_argument(self):
-        K = [digits(i, 7) for i in load("kakeya7_211.json")]
+        K, L = layers("kakeya7_211.json", 7)
         self.assertEqual(len(set(K)), 211)
-        L = [set(p[1:] for p in K if p[0] == c) for c in range(3)]
         self.assertEqual([len(x) for x in L], [105, 56, 50])
         A = set(digits(i, 6) for i in load("kakeya6_105.json"))
         self.assertEqual(L[0], A)
         self.assertTrue(kakeya_6(L[0]))
-        missing = [v for v in itertools.product(range(3), repeat=6)
-                   if not any(plus(x, v) in L[1] and plus(x, v, 2) in L[2] for x in L[0])]
-        self.assertEqual(missing, [])
+        self.assertEqual(missing_vectors(L), [])
 
     def test_argument_detects_failure(self):
         # removing any one point of layer 1 or 2 breaks some condition (both layers are tight)
-        K = [digits(i, 7) for i in load("kakeya7_211.json")]
-        L = [set(p[1:] for p in K if p[0] == c) for c in range(3)]
+        K, L = layers("kakeya7_211.json", 7)
         V = list(itertools.product(range(3), repeat=6))
         for c in (1, 2):
             for y in sorted(L[c]):
@@ -74,6 +84,28 @@ class Layers211(unittest.TestCase):
                 L2 = L[2] - {y} if c == 2 else L[2]
                 self.assertTrue(any(not any(plus(x, v) in L1 and plus(x, v, 2) in L2
                                             for x in L[0]) for v in V), (c, y))
+
+
+class Layers427(unittest.TestCase):
+    def test_layer_argument(self):
+        K, L = layers("kakeya8_427.json", 8)
+        self.assertEqual(len(K), 427)
+        self.assertEqual(len(set(K)), 427)
+        self.assertEqual([len(x) for x in L], [211, 114, 102])
+        # layer 0 is exactly the 211-point set of F_3^7 (proved Kakeya in Layers211)
+        A = set(digits(i, 7) for i in load("kakeya7_211.json"))
+        self.assertEqual(L[0], A)
+        # all 2187 vectors v of F_3^7
+        self.assertEqual(missing_vectors(L), [])
+
+    def test_argument_detects_failure(self):
+        # deleting the whole of layer 2 except one point must leave vectors uncovered,
+        # and a single shifted layer must too: the check is not vacuous
+        K, L = layers("kakeya8_427.json", 8)
+        one = next(iter(sorted(L[2])))
+        self.assertNotEqual(missing_vectors([L[0], L[1], {one}]), [])
+        shift = set(plus(y, (0, 0, 0, 0, 0, 0, 1)) for y in L[2])
+        self.assertNotEqual(missing_vectors([L[0], L[1], shift]), [])
 
 
 if __name__ == "__main__":

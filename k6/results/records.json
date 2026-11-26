@@ -1,5 +1,5 @@
 {
-  "title": "Small Kakeya sets in F_3^6 and F_3^7",
+  "title": "Small Kakeya sets in F_3^6, F_3^7 and F_3^8",
   "made_with": "AI agents working in MV2's name (MV2, Munim, Inc.); not checked by a human mathematician",
   "licence": "CC BY 4.0",
   "date": "2026-11-26",
@@ -11,7 +11,11 @@
     "7": {"size": 211, "set_file": "k6/sets/kakeya7_211.json", "directions": 1093,
           "classical_construction": 255, "lev_pattern_value": 213,
           "bukh_chao_lower_bound": 103, "layers_x0": [105, 56, 50],
-          "structure": "the layer x0 = 0 is exactly the 105-point set of F_3^6; layers x0 = 1 and 2 add 56 + 50 = 106 points, which is 2 * 53"}
+          "structure": "the layer x0 = 0 is exactly the 105-point set of F_3^6; layers x0 = 1 and 2 add 56 + 50 = 106 points, which is 2 * 53"},
+    "8": {"size": 427, "set_file": "k6/sets/kakeya8_427.json", "directions": 3280,
+          "classical_construction": 511, "lev_pattern_value": 427,
+          "bukh_chao_lower_bound": 184, "layers_x0": [211, 114, 102],
+          "structure": "the layer x0 = 0 is exactly the 211-point set of F_3^7; layers x0 = 1 and 2 add 114 + 102 = 216 points, which is 2 * 105 + 6"}
   },
   "earlier": [
     {"n": 6, "size": 106, "set_file": "k6/sets/kakeya6_106.json", "found": "2026-11-25 12:26 UTC", "note": "first set below the pattern value 107; superseded by the 105-point set the same day"},
@@ -28,15 +32,16 @@
   "bukh_chao_bound": "|K| >= 3^n / (2 - 1/3)^(n-1) = 3^(2n-1) / 5^(n-1), rounded up",
   "lev_pattern": {
     "source": "V. F. Lev, comment 994 on T. Tao's blog, 14 March 2009: 'I am very curious to know whether k_5 = 53: notice the pattern in 3, 7, 13, 27, 53, ...'; Chung, Du and Wesley (arXiv:2608.23691) state it as the recurrence k_n = k_(n-1) + 2 k_(n-2) and say whether it continues remains open",
-    "values": {"1": 3, "2": 7, "3": 13, "4": 27, "5": 53, "6": 107, "7": 213},
-    "consequence": "k_6 <= 105 < 107 and k_7 <= 211 < 213. Since k_2 = 7 and k_3 = 13, the recurrence cannot hold at all of n = 4, 5, 6: if it did, k_6 would be 107. With k_4 = 27 it fails at n = 5 or n = 6: either k_5 <= 52, or k_5 = 53 and k_6 <= 105 = k_5 + 2 k_4 - 2."
+    "values": {"1": 3, "2": 7, "3": 13, "4": 27, "5": 53, "6": 107, "7": 213, "8": 427},
+    "consequence": "k_6 <= 105 < 107 and k_7 <= 211 < 213. Since k_2 = 7 and k_3 = 13, the recurrence cannot hold at all of n = 4, 5, 6: if it did, k_6 would be 107. With k_4 = 27 it fails at n = 5 or n = 6: either k_5 <= 52, or k_5 = 53 and k_6 <= 105 = k_5 + 2 k_4 - 2. In F_3^8 our set has 427 points, equal to the pattern value, not below it."
   },
   "recurrence_on_true_values": {
     "k7_at_most": 211,
-    "note": "if k_7 <= k_6 + 2 k_5 held, k_7 would be at most 105 + 2 * 53 = 211; the 211-point set reaches exactly this value, as a 105-point layer plus 106 = 2 * 53 points in the other two layers"
+    "k8_if_recurrence_bound": 421,
+    "note": "if k_7 <= k_6 + 2 k_5 held, k_7 would be at most 105 + 2 * 53 = 211; the 211-point set reaches exactly this value, as a 105-point layer plus 106 = 2 * 53 points in the other two layers. The same reading in F_3^8 gives 211 + 2 * 105 = 421; the 427-point set has a 211-point layer plus 216 = 2 * 105 + 6 points, so it does not reach 421."
   },
   "layer_observation": {
-    "note": "In every dimension we tried, a search that keeps a record Kakeya set A of F_3^(n-1) fixed in one layer needed about 2 k_(n-2) more points in the other two layers: 53 + 54 = 107 in F_3^6 (round 1, best of one run), 105 + 106 = 211 and 106 + 107 = 213 in F_3^7 (round 3). This is an observation from stalled searches, not a theorem; k8/layer.py tests it directly."
+    "note": "In every dimension we tried, a search that keeps a record Kakeya set A of F_3^(n-1) fixed in one layer needed about 2 k_(n-2) more points in the other two layers: 53 + 54 = 107 in F_3^6, 105 + 106 = 211 and 106 + 107 = 213 in F_3^7, 211 + 216 = 427 in F_3^8 (one run of about 410 s; a second run with higher noise stopped at 211 + 390). The census of k8/CENSUS.md (F_3^5, 331 different 27- to 32-point layers) never went below 27 + 27 = 54. This is an observation from stalled searches, not a theorem, and it fails in F_3^3, where layered sets need at least 14 points (k8/CENSUS.md) while k_3 = 13."
   },
   "search_log": {
     "round1": {
@@ -90,12 +95,28 @@
         {"label": "from213", "seed": 55, "noise": 0.20, "start_size": 213, "best": 213, "probe_seconds": 406, "steps": 55671, "first_reached": [[213, 0.1]]}
       ]
     },
+    "round4": {
+      "run": "publish-gate oracle k8/test_oracle_layer.py (k8/layer.py) of run 20261126T012514Z, 2026-11-26 01:38-01:45 UTC, 5 parallel workers, about 410 s each. Only the layers x0 = 1 and 2 are searched; 'extra' = |L1| + |L2|; first_reached lists (extra, seconds), intermediate entries omitted. The extra-size trajectory of the seed-1 run in F_3^8 was cut from the start of the report and is not recorded (the report lists results in task order: seed 1, seed 2, then n = 7, 6, 5).",
+      "8": [
+        {"label": "n8-L211", "seed": 1, "noise": 0.10, "layer0": 211, "best_extra": 216, "total": 427, "note": "the set k6/sets/kakeya8_427.json"},
+        {"label": "n8-L211", "seed": 2, "noise": 0.20, "layer0": 211, "best_extra": 390, "total": 601, "steps": 130309, "restarts": 20, "first_reached": [[448, 0.3], [447, 0.3], [393, 222.1], [392, 326.0], [391, 326.0], [390, 338.6]]}
+      ],
+      "7": [
+        {"label": "n7-L105", "seed": 3, "noise": 0.10, "layer0": 105, "best_extra": 106, "total": 211, "steps": 265322, "restarts": 40, "first_reached": [[196, 0.1], [195, 0.1], [109, 6.7], [108, 6.7], [107, 146.2], [106, 156.3]]}
+      ],
+      "6": [
+        {"label": "n6-L53", "seed": 4, "noise": 0.10, "layer0": 53, "best_extra": 54, "total": 107, "steps": 509495, "restarts": 72, "first_reached": [[90, 0.0], [89, 0.0], [57, 2.1], [56, 2.1], [55, 2.2], [54, 4.2]]}
+      ],
+      "5": [
+        {"label": "n5-L27", "seed": 5, "noise": 0.10, "layer0": 27, "best_extra": 27, "total": 54, "steps": 922144, "restarts": 174, "first_reached": [[36, 0.0], [35, 0.0], [30, 0.1], [29, 0.1], [28, 1.0], [27, 11.6]]}
+      ]
+    },
     "structure": {
       "kakeya6_106": {"lines": 391, "single_line_directions": 345, "removable_points": 0, "section_min": 22, "section_max": 50, "K_cap_minus_K": 21},
       "kakeya6_105": {"lines": 437, "single_line_directions": 305, "removable_points": 0, "section_min": 23, "section_max": 53, "K_cap_minus_K": 10},
       "kakeya7_213": {"lines": 1184, "single_line_directions": 1018, "removable_points": 0, "section_min": 49, "section_max": 100, "K_cap_minus_K": 47},
       "kakeya7_211": {"lines": 1316, "single_line_directions": 913, "removable_points": 0, "section_min": 46, "section_max": 107, "K_cap_minus_K": 12}
     },
-    "note": "first_reached lists (size, seconds) when each size was first reached; intermediate entries omitted. Every final set was re-checked by k5.walk.is_kakeya in the run, and the record sets are re-checked by k6/test_sets.py (and the 211-point set also by k6/test_layers.py) at every commit. 'structure' numbers were printed by k6/probe2.py stats(): lines = number of full lines in the set, single_line_directions = directions covered by exactly one line, removable_points = points whose removal keeps the set Kakeya, section_min/max = smallest and largest of the 3 x 364 (or 3 x 1093) hyperplane sections, K_cap_minus_K = |K intersect -K|."
+    "note": "first_reached lists (size, seconds) when each size was first reached; intermediate entries omitted. Every final set was re-checked by k5.walk.is_kakeya or k8.check.is_kakeya in the run, and the record sets are re-checked by k6/test_sets.py and k6/test_layers.py at every commit. 'structure' numbers were printed by k6/probe2.py stats(): lines = number of full lines in the set, single_line_directions = directions covered by exactly one line, removable_points = points whose removal keeps the set Kakeya, section_min/max = smallest and largest of the 3 x 364 (or 3 x 1093) hyperplane sections, K_cap_minus_K = |K intersect -K|."
   }
 }

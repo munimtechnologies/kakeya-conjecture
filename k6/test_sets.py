@@ -17,7 +17,10 @@ from fractions import Fraction
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 # current records
-SETS = {6: ("kakeya6_105.json", 105), 7: ("kakeya7_211.json", 211)}
+SETS = {6: ("kakeya6_105.json", 105), 7: ("kakeya7_211.json", 211),
+        8: ("kakeya8_427.json", 427)}
+# records that are also checked to be minimal under deleting one point
+MINIMAL = (6, 7)
 # earlier, superseded sets that stay in the repository and are still checked
 EARLIER = [(6, "kakeya6_106.json", 106), (7, "kakeya7_213.json", 213)]
 
@@ -80,6 +83,7 @@ class RecordSets(unittest.TestCase):
             self.assertNotEqual(uncovered_directions(n, C - {(0,) * n}), [])
         self.assertEqual(sum(1 for _ in directions(6)), 364)
         self.assertEqual(sum(1 for _ in directions(7)), 1093)
+        self.assertEqual(sum(1 for _ in directions(8)), 3280)
 
     def test_record_sets(self):
         for n, (name, size) in SETS.items():
@@ -87,7 +91,8 @@ class RecordSets(unittest.TestCase):
 
     def test_record_sets_are_minimal_under_deletion(self):
         # no single point of a record set can be deleted (it would be a smaller record)
-        for n, (name, size) in SETS.items():
+        for n in MINIMAL:
+            name, size = SETS[n]
             pts = [decode(n, i) for i in load(name)["points"]]
             S = set(pts)
             dirs = list(directions(n))
@@ -135,7 +140,7 @@ class RecordSets(unittest.TestCase):
             self.assertEqual(len(e), 1)
             self.assertEqual(e[0]["size"], size)
             self.assertEqual(e[0]["n"], n)
-        self.assertEqual(R["lev_pattern"]["values"], {str(n): lev[n] for n in range(1, 8)})
+        self.assertEqual(R["lev_pattern"]["values"], {str(n): lev[n] for n in range(1, 9)})
         # the record in F_3^6 lies below the pattern's value 107 and below 2 * 53 = 106
         self.assertLess(SETS[6][1], lev[6])
         self.assertEqual(SETS[6][1], 2 * lev[5] - 1)
@@ -143,6 +148,13 @@ class RecordSets(unittest.TestCase):
         self.assertLess(SETS[7][1], lev[7])
         self.assertEqual(R["recurrence_on_true_values"]["k7_at_most"], SETS[6][1] + 2 * lev[5])
         self.assertEqual(SETS[7][1], SETS[6][1] + 2 * lev[5])
+        # the set in F_3^8 lies below the classical 511 and equals the pattern's value 427;
+        # it is the 211-point record plus 216 points, 6 more than 2 * 105
+        self.assertLess(SETS[8][1], 2 ** 9 - 1)
+        self.assertEqual(SETS[8][1], lev[8])
+        self.assertEqual(R["recurrence_on_true_values"]["k8_if_recurrence_bound"],
+                         SETS[7][1] + 2 * SETS[6][1])
+        self.assertEqual(SETS[8][1] - SETS[7][1], 2 * SETS[6][1] + 6)
 
 
 if __name__ == "__main__":
