@@ -17,9 +17,9 @@ from fractions import Fraction
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 # current records
-SETS = {6: ("kakeya6_105.json", 105), 7: ("kakeya7_213.json", 213)}
+SETS = {6: ("kakeya6_105.json", 105), 7: ("kakeya7_211.json", 211)}
 # earlier, superseded sets that stay in the repository and are still checked
-EARLIER = [(6, "kakeya6_106.json", 106)]
+EARLIER = [(6, "kakeya6_106.json", 106), (7, "kakeya7_213.json", 213)]
 
 
 def load(name):
@@ -85,6 +85,26 @@ class RecordSets(unittest.TestCase):
         for n, (name, size) in SETS.items():
             check_file(self, n, name, size)
 
+    def test_record_sets_are_minimal_under_deletion(self):
+        # no single point of a record set can be deleted (it would be a smaller record)
+        for n, (name, size) in SETS.items():
+            pts = [decode(n, i) for i in load(name)["points"]]
+            S = set(pts)
+            dirs = list(directions(n))
+            for p in pts:
+                T = S - {p}
+                # directions whose lines in S pass through p are the only candidates
+                cand = [d for d in dirs
+                        if any(tuple((a - k * b) % 3 for a, b in zip(p, d)) in S and
+                               tuple((a + (1 - k) * b) % 3 for a, b in zip(p, d)) in S and
+                               tuple((a + (2 - k) * b) % 3 for a, b in zip(p, d)) in S
+                               for k in (0, 1, 2))]
+                lost = [d for d in cand
+                        if not any(tuple((a + b) % 3 for a, b in zip(x, d)) in T and
+                                   tuple((a + 2 * b) % 3 for a, b in zip(x, d)) in T
+                                   for x in T)]
+                self.assertNotEqual(lost, [], (name, p))
+
     def test_earlier_sets(self):
         for n, name, size in EARLIER:
             check_file(self, n, name, size)
@@ -93,10 +113,10 @@ class RecordSets(unittest.TestCase):
         with open(os.path.join(HERE, "results", "records.json"), encoding="utf-8") as f:
             R = json.load(f)
         lev = {1: 3, 2: 7}
-        for n in range(3, 8):
+        for n in range(3, 9):
             lev[n] = lev[n - 1] + 2 * lev[n - 2]
-        self.assertEqual([lev[n] for n in range(1, 8)], [3, 7, 13, 27, 53, 107, 213])
-        for n in range(1, 8):  # the same values as Lev's 'pattern' 2k+1, 2k-1 alternately
+        self.assertEqual([lev[n] for n in range(1, 9)], [3, 7, 13, 27, 53, 107, 213, 427])
+        for n in range(1, 9):  # the same values as Lev's 'pattern' 2k+1, 2k-1 alternately
             self.assertEqual(lev[n], (5 * 2 ** n + (-1) ** n) // 3)
         for n, (name, size) in SETS.items():
             r = R["records"][str(n)]
@@ -119,8 +139,10 @@ class RecordSets(unittest.TestCase):
         # the record in F_3^6 lies below the pattern's value 107 and below 2 * 53 = 106
         self.assertLess(SETS[6][1], lev[6])
         self.assertEqual(SETS[6][1], 2 * lev[5] - 1)
-        # the recurrence on true values would ask k_7 <= k_6 + 2 k_5 <= 105 + 2 * 53 = 211
+        # the record in F_3^7 lies below the pattern's value 213 and equals 105 + 2 * 53
+        self.assertLess(SETS[7][1], lev[7])
         self.assertEqual(R["recurrence_on_true_values"]["k7_at_most"], SETS[6][1] + 2 * lev[5])
+        self.assertEqual(SETS[7][1], SETS[6][1] + 2 * lev[5])
 
 
 if __name__ == "__main__":

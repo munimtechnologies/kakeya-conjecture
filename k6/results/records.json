@@ -2,24 +2,26 @@
   "title": "Small Kakeya sets in F_3^6 and F_3^7",
   "made_with": "AI agents working in MV2's name (MV2, Munim, Inc.); not checked by a human mathematician",
   "licence": "CC BY 4.0",
-  "date": "2026-11-25",
+  "date": "2026-11-26",
   "definition": "K in F_3^n is a Kakeya set if for every nonzero direction d it contains a full line {a, a+d, a+2d}; k_n is the least size of a Kakeya set in F_3^n",
   "records": {
     "6": {"size": 105, "set_file": "k6/sets/kakeya6_105.json", "directions": 364,
           "classical_construction": 127, "lev_pattern_value": 107,
           "bukh_chao_lower_bound": 57, "layers_x0": [37, 31, 37]},
-    "7": {"size": 213, "set_file": "k6/sets/kakeya7_213.json", "directions": 1093,
+    "7": {"size": 211, "set_file": "k6/sets/kakeya7_211.json", "directions": 1093,
           "classical_construction": 255, "lev_pattern_value": 213,
-          "bukh_chao_lower_bound": 103, "layers_x0": [96, 63, 54]}
+          "bukh_chao_lower_bound": 103, "layers_x0": [105, 56, 50],
+          "structure": "the layer x0 = 0 is exactly the 105-point set of F_3^6; layers x0 = 1 and 2 add 56 + 50 = 106 points, which is 2 * 53"}
   },
   "earlier": [
-    {"n": 6, "size": 106, "set_file": "k6/sets/kakeya6_106.json", "found": "2026-11-25 12:26 UTC", "note": "first set below the pattern value 107; superseded by the 105-point set the same day"}
+    {"n": 6, "size": 106, "set_file": "k6/sets/kakeya6_106.json", "found": "2026-11-25 12:26 UTC", "note": "first set below the pattern value 107; superseded by the 105-point set the same day"},
+    {"n": 7, "size": 213, "set_file": "k6/sets/kakeya7_213.json", "found": "2026-11-25, search round 1", "note": "first set below the classical 255, equal to the pattern value 213; superseded by the 211-point set the same day"}
   ],
   "known_values": {
     "1": {"value": 3}, "2": {"value": 7},
     "3": {"value": 13, "source": "V. F. Lev, computer search, 2009 (blog comment)"},
     "4": {"value": 27, "source": "upper bound Lev 2009; lower bound by our computer proof PROOF26.md, not human-checked"},
-    "5": {"lower": 45, "upper": 53, "source": "upper bound Chung, Du and Wesley arXiv:2608.23691; lower bound our k5/QUAD45.md, not human-checked"}
+    "5": {"lower": 45, "upper": 53, "source": "upper bound Chung, Du and Wesley arXiv:2608.23691; lower bound our k5/QUAD45.md and k5/SD2.md, not human-checked"}
   },
   "classical_construction": "{0,1}^n u {0,2}^n, 2^(n+1) - 1 points",
   "asymptotic_constructions": "Kopparty, Lev, Saraf and Sudan (arXiv:1003.3736, Theorem 8) give Kakeya sets in F_3^n of size (3 / 2^(2/3))^(n + O(sqrt n)), base about 1.8899, by a random construction; it gives no explicit sets for small n",
@@ -27,11 +29,14 @@
   "lev_pattern": {
     "source": "V. F. Lev, comment 994 on T. Tao's blog, 14 March 2009: 'I am very curious to know whether k_5 = 53: notice the pattern in 3, 7, 13, 27, 53, ...'; Chung, Du and Wesley (arXiv:2608.23691) state it as the recurrence k_n = k_(n-1) + 2 k_(n-2) and say whether it continues remains open",
     "values": {"1": 3, "2": 7, "3": 13, "4": 27, "5": 53, "6": 107, "7": 213},
-    "consequence": "k_6 <= 105 < 107. Since k_2 = 7 and k_3 = 13, the recurrence cannot hold at all of n = 4, 5, 6: if it did, k_6 would be 107. With k_4 = 27 it fails at n = 5 or n = 6: either k_5 <= 52, or k_5 = 53 and k_6 <= 105 = k_5 + 2 k_4 - 2."
+    "consequence": "k_6 <= 105 < 107 and k_7 <= 211 < 213. Since k_2 = 7 and k_3 = 13, the recurrence cannot hold at all of n = 4, 5, 6: if it did, k_6 would be 107. With k_4 = 27 it fails at n = 5 or n = 6: either k_5 <= 52, or k_5 = 53 and k_6 <= 105 = k_5 + 2 k_4 - 2."
   },
   "recurrence_on_true_values": {
     "k7_at_most": 211,
-    "note": "if k_7 <= k_6 + 2 k_5 held, k_7 would be at most 105 + 2 * 53 = 211; our F_3^7 set has 213 points"
+    "note": "if k_7 <= k_6 + 2 k_5 held, k_7 would be at most 105 + 2 * 53 = 211; the 211-point set reaches exactly this value, as a 105-point layer plus 106 = 2 * 53 points in the other two layers"
+  },
+  "layer_observation": {
+    "note": "In every dimension we tried, a search that keeps a record Kakeya set A of F_3^(n-1) fixed in one layer needed about 2 k_(n-2) more points in the other two layers: 53 + 54 = 107 in F_3^6 (round 1, best of one run), 105 + 106 = 211 and 106 + 107 = 213 in F_3^7 (round 3). This is an observation from stalled searches, not a theorem; k8/layer.py tests it directly."
   },
   "search_log": {
     "round1": {
@@ -68,11 +73,29 @@
         {"label": "classical255", "seed": 35, "noise": 0.10, "start_size": 255, "best": 215, "probe_seconds": 407, "steps": 54916, "first_reached": [[255, 0.1], [219, 156.5], [216, 242.6], [215, 315.6]]}
       ]
     },
+    "round3": {
+      "run": "publish-gate oracles k6/test_probe6c.py and k6/test_probe7c.py (k6/probe3.py) of run 20261125T190531Z, 2026-11-25 19:13-19:27 UTC, 5 parallel workers per dimension. 'phase1' = the search with the given F_3^6 set frozen in the layer x0 = 0 (60% of the time), [best, last sizes reached as (size, seconds), steps]; phase 2 frees the layer.",
+      "6": [
+        {"label": "from105", "seed": 41, "noise": 0.15, "start_size": 105, "best": 105, "probe_seconds": 415, "steps": 209408, "first_reached": [[105, 0.0]]},
+        {"label": "from105", "seed": 42, "noise": 0.25, "start_size": 105, "best": 105, "probe_seconds": 415, "steps": 224265, "first_reached": [[105, 0.0]]},
+        {"label": "prod53x3", "seed": 43, "noise": 0.15, "start_size": 159, "best": 106, "probe_seconds": 415, "steps": 207254, "first_reached": [[114, 0.0], [113, 5.3], [110, 5.8], [109, 6.1], [108, 6.6], [107, 11.7], [106, 12.8]]},
+        {"label": "prod53x3", "seed": 44, "noise": 0.18, "start_size": 159, "best": 106, "probe_seconds": 415, "steps": 210060, "first_reached": [[117, 0.0], [116, 0.0], [110, 85.5], [109, 85.5], [108, 85.5], [107, 90.1], [106, 191.6]]},
+        {"label": "prod53x3", "seed": 45, "noise": 0.12, "start_size": 159, "best": 106, "probe_seconds": 415, "steps": 199884, "first_reached": [[112, 0.0], [111, 0.2], [110, 0.5], [109, 4.6], [108, 7.5], [107, 8.0], [106, 400.2]]}
+      ],
+      "7": [
+        {"label": "layer105-frozen", "seed": 51, "noise": 0.10, "start_size": null, "phase1": [211, [[214, 50.8], [213, 56.5], [212, 57.3], [211, 93.9]], 27875], "best": 211, "probe_seconds": 406, "steps": 22655},
+        {"label": "layer105-frozen", "seed": 52, "noise": 0.15, "start_size": null, "phase1": [216, [[219, 89.5], [218, 104.9], [217, 121.7], [216, 222.4]], 29723], "best": 214, "probe_seconds": 406, "steps": 23215},
+        {"label": "layer106-frozen", "seed": 53, "noise": 0.10, "start_size": null, "phase1": [215, [[218, 83.9], [217, 84.1], [216, 85.5], [215, 85.6]], 29239], "best": 213, "probe_seconds": 406, "steps": 23178},
+        {"label": "prod105x3", "seed": 54, "noise": 0.12, "start_size": 315, "best": 214, "probe_seconds": 406, "steps": 51184, "first_reached": [[235, 0.2], [234, 0.2], [218, 41.3], [217, 45.8], [216, 84.9], [215, 102.5], [214, 194.5]]},
+        {"label": "from213", "seed": 55, "noise": 0.20, "start_size": 213, "best": 213, "probe_seconds": 406, "steps": 55671, "first_reached": [[213, 0.1]]}
+      ]
+    },
     "structure": {
       "kakeya6_106": {"lines": 391, "single_line_directions": 345, "removable_points": 0, "section_min": 22, "section_max": 50, "K_cap_minus_K": 21},
       "kakeya6_105": {"lines": 437, "single_line_directions": 305, "removable_points": 0, "section_min": 23, "section_max": 53, "K_cap_minus_K": 10},
-      "kakeya7_213": {"lines": 1184, "single_line_directions": 1018, "removable_points": 0, "section_min": 49, "section_max": 100, "K_cap_minus_K": 47}
+      "kakeya7_213": {"lines": 1184, "single_line_directions": 1018, "removable_points": 0, "section_min": 49, "section_max": 100, "K_cap_minus_K": 47},
+      "kakeya7_211": {"lines": 1316, "single_line_directions": 913, "removable_points": 0, "section_min": 46, "section_max": 107, "K_cap_minus_K": 12}
     },
-    "note": "first_reached lists (size, seconds) when each size was first reached; intermediate entries omitted. Every final set was re-checked by k5.walk.is_kakeya in the run, and the record sets are re-checked by k6/test_sets.py at every commit. 'structure' numbers were printed by k6/probe2.py stats(): lines = number of full lines in the set, single_line_directions = directions covered by exactly one line, removable_points = points whose removal keeps the set Kakeya, section_min/max = smallest and largest of the 3 x 364 (or 3 x 1093) hyperplane sections, K_cap_minus_K = |K intersect -K|."
+    "note": "first_reached lists (size, seconds) when each size was first reached; intermediate entries omitted. Every final set was re-checked by k5.walk.is_kakeya in the run, and the record sets are re-checked by k6/test_sets.py (and the 211-point set also by k6/test_layers.py) at every commit. 'structure' numbers were printed by k6/probe2.py stats(): lines = number of full lines in the set, single_line_directions = directions covered by exactly one line, removable_points = points whose removal keeps the set Kakeya, section_min/max = smallest and largest of the 3 x 364 (or 3 x 1093) hyperplane sections, K_cap_minus_K = |K intersect -K|."
   }
 }

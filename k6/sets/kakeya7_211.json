@@ -1,0 +1,11 @@
+{
+  "n": 7,
+  "q": 3,
+  "size": 211,
+  "encoding": "each point x = (x0, ..., x6) in F_3^7 is stored as the integer sum_k x_k * 3^(6-k) (x0 most significant digit, row-major base 3)",
+  "found_by": "k6/probe3.py local search (label layer105-frozen, seed 51, noise 0.10): the 105-point set of k6/sets/kakeya6_105.json was kept fixed in the layer x0 = 0 while the search filled the layers x0 = 1 and 2 (phase 1, 211 points reached after 94 s); a free phase 2 found nothing smaller. Run 2026-11-25 19:20-19:27 UTC in the publish-gate oracle k6/test_probe7c.py of run 20261125T190531Z.",
+  "checked_by": "k6/test_sets.py (stand-alone; decodes the integers to coordinate tuples and checks every one of the 1093 directions) and k6/test_layers.py (a second, layer-by-layer argument: the layer x0 = 0 is the 105-point Kakeya set of F_3^6, and for every v in F_3^6 some x in that layer has x + v in layer 1 and x + 2v in layer 2)",
+  "licence": "CC BY 4.0",
+  "note": "Made with AI agents working in MV2's name (MV2, Munim, Inc.). An upper bound only: nothing here says 211 is the minimum. Layers x0 = 0, 1, 2 have 105, 56 and 50 points; the layer x0 = 0 is exactly the 105-point set of F_3^6.",
+  "points": [12,13,34,45,51,54,75,78,79,90,93,100,117,118,123,128,129,135,141,167,168,170,174,177,180,181,191,192,193,194,195,200,203,212,217,231,239,244,254,255,261,264,267,271,273,279,285,287,288,294,297,298,301,305,318,338,356,364,388,390,402,409,412,431,436,441,461,467,489,492,497,516,534,537,551,553,554,558,565,570,573,583,594,597,605,611,613,619,625,636,637,638,643,646,648,654,663,668,674,687,696,701,702,705,711,734,751,754,767,773,778,785,791,800,829,883,886,914,919,929,938,946,1064,1067,1083,1115,1127,1128,1130,1141,1154,1171,1177,1181,1187,1195,1199,1201,1204,1205,1210,1225,1227,1244,1247,1254,1268,1271,1274,1288,1289,1292,1298,1322,1348,1366,1387,1390,1405,1446,1454,1477,1484,1495,1505,1510,1518,1521,1522,1541,1574,1694,1697,1730,1796,1799,1801,1807,1813,1814,1820,1823,1829,1837,1841,1855,1858,1864,1873,1909,1915,1932,1942,1957,1960,1967,1981,1984,1985,1996,1999,2000,2040,2080,2086,2106,2112,2126,2159,2176,2177]
+}
