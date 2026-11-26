@@ -9,10 +9,12 @@ point x of the set has x + d and x + 2d in the set as well.  It also checks the 
 quoted in k6/results/records.json (sizes, layer sizes, the classical construction, the
 Bukh-Chao bound and the values of Lev's pattern).
 
-Most files list their points directly ("points").  kakeya8_422.json is stored in two parts
-(its layer x0 = 0 is the file named in "layer0_file", the rest is "free_points" + offset);
-points_of() rebuilds it and also checks that the compact "points_code" printed by the
-search decodes to the same list."""
+Most files list their points directly ("points").  kakeya8_422.json and kakeya9_846.json
+are stored in two parts: their layer x0 = 0 is the file named in "layer0_file" (for the
+846-point set that file is itself two-part), the rest is offset + the free points.
+points_of() rebuilds them.  kakeya8_422.json lists its free points and also keeps the
+compact "points_code" printed by the search (checked to decode to the same list);
+kakeya9_846.json keeps only the code, which is decoded here."""
 import itertools
 import json
 import math
@@ -24,7 +26,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 # current records
 SETS = {6: ("kakeya6_105.json", 105), 7: ("kakeya7_211.json", 211),
-        8: ("kakeya8_422.json", 422)}
+        8: ("kakeya8_422.json", 422), 9: ("kakeya9_846.json", 846)}
 # records that are also checked to be minimal under deleting one point
 MINIMAL = (6, 7)
 # earlier, superseded sets that stay in the repository and are still checked
@@ -58,12 +60,16 @@ def points_of(data):
     if "points" in data:
         return list(data["points"])
     with open(os.path.join(ROOT, data["layer0_file"]), encoding="utf-8") as f:
-        base = json.load(f)["points"]
-    free = data["free_points"]
-    assert decode_code(data["points_code"]) == free, "points_code != free_points"
+        base = points_of(json.load(f))      # the layer file may be two-part itself
+    free = decode_code(data["points_code"])
+    if "free_points" in data:
+        assert free == data["free_points"], "points_code != free_points"
+    if "free_count" in data:
+        assert len(free) == data["free_count"], "free_count"
     off = data["offset"]
     assert off == 3 ** (data["n"] - 1)
     assert all(0 <= b < off for b in base)
+    assert all(0 <= p < 2 * off for p in free)
     return sorted(list(base) + [off + p for p in free])
 
 
@@ -121,6 +127,7 @@ class RecordSets(unittest.TestCase):
         self.assertEqual(sum(1 for _ in directions(6)), 364)
         self.assertEqual(sum(1 for _ in directions(7)), 1093)
         self.assertEqual(sum(1 for _ in directions(8)), 3280)
+        self.assertEqual(sum(1 for _ in directions(9)), 9841)
         # the decoder on a hand-made example: gaps 11, 18, 6*32+24 = 216
         self.assertEqual(decode_code("lsGy"), [10, 28, 244])
 
@@ -174,7 +181,11 @@ class RecordSets(unittest.TestCase):
                              math.ceil(Fraction(3 ** n) / Fraction(5, 3) ** (n - 1)))
             pts = [decode(n, i) for i in points_of(load(name))]
             layers = [sum(1 for x in pts if x[0] == c) for c in range(3)]
-            self.assertEqual(r["layers_x0"], layers)
+            if "layers_x0" in r:
+                self.assertEqual(r["layers_x0"], layers)
+            else:   # only the layer x0 = 0 and the total of the other two are quoted
+                self.assertEqual(r["layer0_x0"], layers[0])
+                self.assertEqual(r["free_layers_total"], layers[1] + layers[2])
         for n, name, size in EARLIER:
             e = [x for x in R["earlier"] if x["set_file"] == "k6/sets/" + name]
             self.assertEqual(len(e), 1)
@@ -198,6 +209,16 @@ class RecordSets(unittest.TestCase):
         self.assertEqual(SETS[8][1], R["recurrence_on_true_values"]["k8_if_recurrence_bound"] + 1)
         # the earlier 427-point set had 216 points outside its 211-point layer
         self.assertEqual(427 - SETS[7][1], 2 * SETS[6][1] + 6)
+        # the record in F_3^9 lies below the classical 1023 and the pattern's value 853;
+        # it is the 422-point record plus 424 more points: 2 * 422 + 2, while
+        # 422 + 2 * 211 = 844 is what the recurrence on our records would give
+        self.assertLess(SETS[9][1], 2 ** 10 - 1)
+        self.assertLess(SETS[9][1], lev[9])
+        self.assertEqual(lev[9] - SETS[9][1], 7)
+        self.assertEqual(SETS[9][1], 2 * SETS[8][1] + 2)
+        self.assertEqual(R["recurrence_on_true_values"]["k9_if_recurrence_bound"],
+                         SETS[8][1] + 2 * SETS[7][1])
+        self.assertEqual(SETS[9][1], R["recurrence_on_true_values"]["k9_if_recurrence_bound"] + 2)
 
 
 if __name__ == "__main__":

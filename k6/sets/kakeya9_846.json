@@ -1,0 +1,13 @@
+{
+  "n": 9,
+  "q": 3,
+  "size": 846,
+  "encoding": "each point x = (x0, ..., x8) in F_3^9 is the integer sum_k x_k * 3^(8-k) (x0 most significant digit). The set is stored in two parts: layer0_file holds the 422 points with x0 = 0 (exactly the 422-point Kakeya set of F_3^8, itself stored in two parts on top of the 211-point set of F_3^7; its integers are the same in F_3^9), and points_code holds the other 424 points as p = index - 6561 (so p < 6561 is the point (1, p) and p >= 6561 is the point (2, p - 6561)). points_code is the list exactly as the layered search printed it: sorted, each gap to the previous value (starting from -1) in base 32, high digits from 'ABCDEFGHIJKLMNOPQRSTUVWXYZ6789+/', the last digit from 'abcdefghijklmnopqrstuvwxyz012345'. k6/test_sets.py and k6/test_layers.py each decode it with their own decoder.",
+  "layer0_file": "k6/sets/kakeya8_422.json",
+  "offset": 6561,
+  "free_count": 424,
+  "points_code": "BdBjdbvrbfBtdodbfdo1lgdygdbdCxcm5dfugwdftCdldqgglcfdcgjyokX4hlkfidbtBbDydBbCcdcggbgdgieodgjymgrkpdhodbldbBiBi0uBbcpbusGhDjCkcqsBqHhBmg1Daddobcdsnyg0nybnBnbgmBhBpgdtdsgCecxcfulnyvCeEkZfH3GqighBbkbtBbDaB2BmgqglbjfdkBp1riujmdbobBdBntcf0BnBmGsrD5BqFxgDlbBagdBedBdbgg0bckblbttipnecggcsnusiBndtCpydocblfdBagzb5gwgd3rdngfhgj3BwdBbkjiDwdqummbclnrgeoecdbfpcrdhoddobdgy0svdpBjiBQhD0DkDrDyErBxqgBhroBid2BaE31yrbfemijmfcBhddobBbdxsvdBkwuhrBiEkEhdqrbBiB0fbuBrFmCiQkE5g4ectuibpbfmgnBgbbbijfudoneigqeB1BndC5BobqdkjcdiBaehgu2",
+  "found": "2026-11-26 10:22-10:29 UTC, publish-gate oracle k8/test_oracle_probe9.py (k8/probe9.py, k8/layer.py) of run 20261126T100827Z: layered search with the 422-point set fixed in the layer x0 = 0, started from L1 = L2 = the 422-point set (F_3 x K8, 1266 points), seed 33, noise 0.10; 424 free points reached after 160 s; re-checked in the run by k8/check.is_kakeya over all 9841 directions",
+  "made_with": "AI agents working in MV2's name (MV2, Munim, Inc.); not checked by a human mathematician",
+  "licence": "CC BY 4.0"
+}

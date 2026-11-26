@@ -2,8 +2,8 @@
 # Copyright 2026 MV2 of Munim, Inc. (mv2@munimtech.com)
 # Made with AI agents working in MV2's name. Not yet checked by a human mathematician.
 """A second, independent proof that the layered record sets are Kakeya sets:
-k6/sets/kakeya7_211.json in F_3^7, and k6/sets/kakeya8_422.json and the earlier
-k6/sets/kakeya8_427.json in F_3^8.
+k6/sets/kakeya7_211.json in F_3^7, k6/sets/kakeya8_422.json and the earlier
+k6/sets/kakeya8_427.json in F_3^8, and k6/sets/kakeya9_846.json in F_3^9.
 
 Write a point of F_3^n as (c, x) with c in F_3 and x in F_3^(n-1), and let L_c be the layer
 {x : (c, x) in K}.
@@ -17,26 +17,48 @@ Write a point of F_3^n as (c, x) with c in F_3 and x in F_3^(n-1), and let L_c b
 
 For the 211-point set, L_0 is the 105-point set of k6/sets/kakeya6_105.json, checked to be
 Kakeya in F_3^6 here by its own loop.  For the 422- and 427-point sets, L_0 is the 211-point
-set of F_3^7, which this file proves Kakeya by the same argument one dimension down.  So the
-chain 105 -> 211 -> 422 is proved here without k6/test_sets.py.  It shares no code with
-k6/test_sets.py or with any search."""
+set of F_3^7, which this file proves Kakeya by the same argument one dimension down; for
+the 846-point set, L_0 is the 422-point set of F_3^8.  So the chain
+105 -> 211 -> 422 -> 846 is proved here without k6/test_sets.py.  It shares no code with
+k6/test_sets.py or with any search (the compact point code is decoded by its own loop)."""
 import itertools
 import json
 import os
 import unittest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+_HI = "ABCDEFGHIJKLMNOPQRSTUVWXYZ6789+/"   # leading base-32 digits of a gap
+_LO = "abcdefghijklmnopqrstuvwxyz012345"   # last base-32 digit of a gap
+
+
+def unpack(code):
+    """Sorted integers from the gap code (first gap counted from -1)."""
+    vals, cur, acc = [], -1, 0
+    for ch in code:
+        k = _LO.find(ch)
+        if k < 0:
+            acc = 32 * acc + _HI.index(ch)
+        else:
+            cur += 32 * acc + k
+            vals.append(cur)
+            acc = 0
+    return vals
+
+
+def read(path):
+    with open(path, encoding="utf-8") as f:
+        data = json.load(f)
+    if "points" in data:
+        return list(data["points"])
+    # two-part file: the layer x0 = 0 is another file (possibly two-part itself),
+    # the rest is offset + the free points
+    base = read(os.path.join(os.path.dirname(HERE), data["layer0_file"]))
+    free = data["free_points"] if "free_points" in data else unpack(data["points_code"])
+    return list(base) + [data["offset"] + p for p in free]
 
 
 def load(name):
-    with open(os.path.join(HERE, "sets", name), encoding="utf-8") as f:
-        data = json.load(f)
-    if "points" in data:
-        return data["points"]
-    # two-part file: the layer x0 = 0 is another file, the rest is offset + free_points
-    with open(os.path.join(os.path.dirname(HERE), data["layer0_file"]), encoding="utf-8") as f:
-        base = json.load(f)["points"]
-    return list(base) + [data["offset"] + p for p in data["free_points"]]
+    return read(os.path.join(HERE, "sets", name))
 
 
 def digits(i, n):
@@ -122,6 +144,26 @@ class Layers427(unittest.TestCase):
         A = set(digits(i, 7) for i in load("kakeya7_211.json"))
         self.assertEqual(L[0], A)
         self.assertEqual(missing_vectors(L), [])
+
+
+class Layers846(unittest.TestCase):
+    def test_layer_argument(self):
+        K, L = layers("kakeya9_846.json", 9)
+        self.assertEqual(len(K), 846)
+        self.assertEqual(len(set(K)), 846)
+        self.assertEqual(len(L[0]), 422)
+        self.assertEqual(len(L[1]) + len(L[2]), 424)
+        # |L1| |L2| >= 3^8 is necessary (each pair (y, z) serves one v at most)
+        self.assertGreaterEqual(len(L[1]) * len(L[2]), 6561)
+        # layer 0 is exactly the 422-point set of F_3^8 (proved Kakeya in Layers422)
+        A = set(digits(i, 8) for i in load("kakeya8_422.json"))
+        self.assertEqual(L[0], A)
+        # all 6561 vectors v of F_3^8
+        self.assertEqual(missing_vectors(L), [])
+
+    def test_decoder(self):
+        # gaps 11, 18, 6*32+24 = 216, written by hand
+        self.assertEqual(unpack("lsGy"), [10, 28, 244])
 
 
 if __name__ == "__main__":
