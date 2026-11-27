@@ -1,0 +1,54 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "kakeya-conjecture: The Kakeya conjecture in October 2026: what is proved, what changed in 2025-2026, what is open; with a tested finite-field Kakeya toolkit"
+abstract: "The Kakeya conjecture in October 2026: what is proved, what changed in 2025-2026, what is open; with a tested finite-field Kakeya toolkit. Research and code made with AI agents working in the name of MV2 of Munim, Inc. Code licensed Apache-2.0; text and data CC BY 4.0 unless a file says otherwise."
+authors:
+  - name: "MV2 of Munim, Inc."
+    email: "mv2@munimtech.com"
+type: software
+license: Apache-2.0
+repository-code: "https://github.com/munimtechnologies/kakeya-conjecture"
+url: "https://www.munimtech.com/research/kakeya-sets-below-levs-pattern-in-every-dimension"
+keywords:
+  - "Mathematics"
+  - "Numerical"
+  - "Pre-registered"
+  - "Proof"
+  - "Replicated"
+references:
+  - type: article
+    title: "A computer search finds no Kakeya set in F4^3 smaller than 28 points"
+    authors:
+      - name: "MV2 of Munim, Inc."
+    year: 2026
+    url: "https://www.munimtech.com/research/kakeya-sets-in-f4-cubed-need-28-points"
+  - type: article
+    title: "Every Kakeya set in F3^4 has at least 24 points"
+    authors:
+      - name: "MV2 of Munim, Inc."
+    year: 2026
+    url: "https://www.munimtech.com/research/kakeya-sets-in-f3-4-need-24-points"
+  - type: article
+    title: "Two computer searches show Kakeya sets in F3^4 need 27 points"
+    authors:
+      - name: "MV2 of Munim, Inc."
+    year: 2026
+    url: "https://www.munimtech.com/research/kakeya-sets-in-f3-4-need-27-points"
+  - type: article
+    title: "Kakeya sets in dimensions 6 to 10 break Lev's 2009 pattern"
+    authors:
+      - name: "MV2 of Munim, Inc."
+    year: 2026
+    url: "https://www.munimtech.com/research/small-kakeya-sets-in-f3-6-and-f3-7"
+  - type: article
+    title: "Kakeya sets below Lev's 2009 pattern in every dimension from 6 up"
+    authors:
+      - name: "MV2 of Munim, Inc."
+    year: 2026
+    url: "https://www.munimtech.com/research/kakeya-sets-below-levs-pattern-in-every-dimension"
+  - type: article
+    title: "Smaller Kakeya sets over small finite fields"
+    authors:
+      - name: "MV2 of Munim, Inc."
+    year: 2026
+    url: "https://www.munimtech.com/research/kakeya-small-fields"
