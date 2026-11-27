@@ -1,0 +1,42 @@
+{
+  "title": "Split Kakeya sets over F_3 and explicit Kakeya sets below Lev's 2009 pattern in every dimension n >= 6",
+  "made_with": "AI agents working in MV2's name (MV2, Munim, Inc.); not checked by a human mathematician",
+  "licence": "CC BY 4.0",
+  "date": "2026-11-27",
+  "definitions": "K in F_3^m is a Kakeya set if it contains a full line {a, a+d, a+2d} in every direction d. A split of K is a pair (A, B) with A u B = K and C(A, B) = {b - a : a in A, b in B, -(a + b) in K} = F_3^m; its excess is e = |A n B| >= 1. See k9/SPLIT.md.",
+  "lemmas": {
+    "lemma_1": "If (A, B) is a split of K with excess e, then {0} x K u {1} x A u {2} x B is a Kakeya set of F_3^(m+1) with 2|K| + e points, and it has a split with excess e again (Corollary).",
+    "lemma_2": "If K' is any Kakeya set of F_3^(m+1) whose layer x0 = 0 is K, a split of K lifts to a split of K' with the same excess.",
+    "status": "proved by hand in k9/SPLIT.md; not checked by a human mathematician; every instance used below is also verified by computer"
+  },
+  "splits": {
+    "6": {"set_file": "k6/sets/kakeya6_105.json", "split_file": "k9/splits/kakeya6_105_split.json", "size": 105, "excess": 1},
+    "7": {"set_file": "k6/sets/kakeya7_211.json", "split_file": "k9/splits/kakeya7_211_split.json", "size": 211, "excess": 1, "note": "a second split found directly; the split lifted from the 105-point set also has excess 1"}
+  },
+  "lifted_splits": {
+    "note": "the split of the 105-point set lifted by Lemma 2 through the layered records, each verified from the definition of C(A, B) in k9/test_splits.py",
+    "sets": ["k6/sets/kakeya7_211.json", "k6/sets/kakeya8_422.json", "k6/sets/kakeya9_844.json", "k6/sets/kakeya10_1693.json"],
+    "excess": 1
+  },
+  "family": {
+    "formula": "845 * 2^(n-9) - 1 points in F_3^n for every n >= 9",
+    "base_set": "k6/sets/kakeya9_844.json",
+    "base_size": 844,
+    "excess": 1,
+    "ratio_numerator": 845,
+    "ratio_denominator": 512,
+    "note": "Lemma 1 applied n - 9 times to the 844-point set with its excess-1 split. Size / 2^n tends to 845/512 = 1.6504, against 5/3 = 1.6667 for Lev's pattern and 2 for the classical construction. The gap to the pattern is 25 * 2^n / 1536 + 1 + (-1)^n / 3 points, which grows without bound."
+  },
+  "table": {
+    "6": {"ours": 105, "how": "k6/sets/kakeya6_105.json (layered-search record)", "checked": "k6/test_sets.py, all 364 directions", "lev_pattern_value": 107, "below_lev_by": 2, "classical_construction": 127, "directions": 364, "bukh_chao_lower_bound": 57},
+    "7": {"ours": 211, "how": "k6/sets/kakeya7_211.json; Lemma 1 on the 105-point set gives another 211-point set", "checked": "k6/test_sets.py and k6/test_layers.py; the doubled set by k9/test_splits.py, all 1093 directions", "lev_pattern_value": 213, "below_lev_by": 2, "classical_construction": 255, "directions": 1093, "bukh_chao_lower_bound": 103},
+    "8": {"ours": 422, "how": "k6/sets/kakeya8_422.json (layered-search record)", "checked": "k6/test_sets.py and k6/test_layers.py", "lev_pattern_value": 427, "below_lev_by": 5, "classical_construction": 511, "directions": 3280, "bukh_chao_lower_bound": 184},
+    "9": {"ours": 844, "how": "k6/sets/kakeya9_844.json (layered-search record)", "checked": "k6/test_sets.py and k6/test_layers.py", "lev_pattern_value": 853, "below_lev_by": 9, "classical_construction": 1023, "directions": 9841, "bukh_chao_lower_bound": 331},
+    "10": {"ours": 1689, "previous_record": 1693, "how": "Lemma 1 on the 844-point set with its excess-1 split", "checked": "k9/test_splits.py, all 29524 directions by pairs (no use of the lemmas)", "lev_pattern_value": 1707, "below_lev_by": 18, "classical_construction": 2047, "directions": 29524, "bukh_chao_lower_bound": 596},
+    "11": {"ours": 3379, "how": "Lemma 1 on the 1689-point set", "checked": "k9/test_doubled_big.py, all 88573 directions by pairs (no use of the lemmas)", "lev_pattern_value": 3413, "below_lev_by": 34, "classical_construction": 4095, "directions": 88573, "bukh_chao_lower_bound": 1072},
+    "12": {"ours": 6759, "how": "Lemma 1 on the 3379-point set", "checked": "k9/test_doubled_big.py, layer criterion over all 177147 vectors with the 3379-point set as layer x0 = 0 (no use of the lemmas)", "lev_pattern_value": 6827, "below_lev_by": 68, "classical_construction": 8191, "directions": 265720, "bukh_chao_lower_bound": 1929},
+    "13": {"ours": 13519, "how": "Lemma 1 on the 6759-point set", "checked": "Lemma 1 (hand proof) plus k9/test_doubled_big.py, which verifies the excess-1 split of the 6759-point set over all 531441 vectors", "lev_pattern_value": 13653, "below_lev_by": 134, "classical_construction": 16383, "directions": 797161, "bukh_chao_lower_bound": 3471}
+  },
+  "found": "The excess-1 splits were found on 2026-11-26 (22:00-22:02 UTC) by the publish-gate oracle k9/test_oracle_probe13.py (k9/probe13.py) of run 20261126T213251Z: direct split searches on the 105-, 211-, 422- and 844-point records all reached excess 1 (seeds 11 to 18), and the chain 105 -> 211 -> 422 -> 844 -> 1693 lifted with excess 1 at every step. The same report doubled the 844-point set up to F_3^13 (1689, 3379, 6759, 13519) with every split verified.",
+  "limits": "Upper bounds only; nothing here says any of these sizes is optimal. For large n the random construction of Kopparty, Lev, Saraf and Sudan (arXiv:1003.3736) has growth base about 1.8899 < 2, so it is far smaller than any c * 2^n family; this family is about explicit sets in moderate dimension."
+}

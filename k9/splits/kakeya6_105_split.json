@@ -1,0 +1,11 @@
+{
+  "n": 6,
+  "set_file": "k6/sets/kakeya6_105.json",
+  "size": 105,
+  "excess": 1,
+  "states_code": "pqVpVlqlqZZmmZqqVWqVVlZVrpqWpVlVaap",
+  "encoding": "A split (A, B) of the Kakeya set K (k9/SPLIT.md) given by one state per point of sorted(K), the points being the integers of set_file in increasing order: state 1 = the point is in A only, 2 = in B only, 3 = in both A and B. Three states s0, s1, s2 per character, the character ALPHA[16 s0 + 4 s1 + s2] with ALPHA = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_'; a last, incomplete group would be padded with state 0. Decoded by k9/split.py decode_split and, independently, by k9/test_splits.py.",
+  "found": "2026-11-26 22:00-22:02 UTC, publish-gate oracle k9/test_oracle_probe13.py (k9/probe13.py, find_split) of run 20261126T213251Z: three local searches on the 105-point set (seeds 11, 12, 13) each found a split of excess 1 within seconds; this is the code the report printed (CODE105). The gate test k9/test_split.py of the same run found a split of excess at most 4 with its own search.",
+  "made_with": "AI agents working in MV2's name (MV2, Munim, Inc.); not checked by a human mathematician",
+  "licence": "CC BY 4.0"
+}

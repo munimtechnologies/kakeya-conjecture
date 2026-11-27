@@ -1,0 +1,11 @@
+{
+  "n": 7,
+  "set_file": "k6/sets/kakeya7_211.json",
+  "size": 211,
+  "excess": 1,
+  "states_code": "ZpWppqWlpZaqWWalVZllaVVlpp6lWqllZppWlpWVVqaaVlVplVZlVWqapapaWaqlaVVqpqg",
+  "encoding": "As k9/splits/kakeya6_105_split.json: one state per point of sorted(K) (1 = A only, 2 = B only, 3 = both), three states per character of ALPHA = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_' (16 s0 + 4 s1 + s2); 211 = 3 * 70 + 1, so the last character carries one state and two padding zeros.",
+  "found": "2026-11-26 22:00-22:02 UTC, publish-gate oracle k9/test_oracle_probe13.py (k9/probe13.py, find_split, seed 14) of run 20261126T213251Z, printed as CODE211. A second, direct split of the 211-point set; the split lifted from the 105-point set (Lemma 2) also has excess 1.",
+  "made_with": "AI agents working in MV2's name (MV2, Munim, Inc.); not checked by a human mathematician",
+  "licence": "CC BY 4.0"
+}

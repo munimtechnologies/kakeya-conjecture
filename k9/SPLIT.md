@@ -1,7 +1,33 @@
 # Splits of Kakeya sets in F_3^m and a doubling lemma
 
-MV2, Munim, Inc. (mv2@munimtech.com), 2026-11-26. Made with AI agents working in MV2's name.
+MV2, Munim, Inc. (mv2@munimtech.com), 2026-11-26 (lemmas), 2026-11-27 (result).
+Made with AI agents working in MV2's name.
 **No human mathematician has checked this yet.** Text CC BY 4.0, code Apache-2.0.
+
+## Result
+
+The 105-point Kakeya set of F_3^6 (`k6/sets/kakeya6_105.json`) has a split with
+**excess 1** (`k9/splits/kakeya6_105_split.json`). By Lemma 2 it lifts to splits with
+excess 1 of the layered records 211, 422, 844 and 1693, and Lemma 1 on the 844-point set
+of F_3^9 then gives explicit Kakeya sets of
+
+    845 · 2^(n−9) − 1   points in F_3^n,  for every n ≥ 9:
+
+1689 in F_3^10 (previous record 1693), 3379 in F_3^11, 6759 in F_3^12, 13519 in F_3^13, ...
+Together with the records 105, 211, 422 and 844 in dimensions 6 to 9, **every dimension
+n ≥ 6 has an explicit Kakeya set below Lev's 2009 pattern** (5 · 2^n + (−1)^n)/3, and the gap
+
+    (5 · 2^n + (−1)^n)/3 − (845 · 2^(n−9) − 1) = 25 · 2^n / 1536 + 1 + (−1)^n / 3
+
+grows without bound (18 points in F_3^10, 34 in F_3^11, 68 in F_3^12, 134 in F_3^13).
+In ratio to 2^n the family tends to 845/512 ≈ 1.6504, against 5/3 for the pattern and 2
+for the classical construction. Table: `k9/results/doubling.json`.
+
+What is checked by computer, without the lemmas: the 1689-point set (all 29524 directions,
+`k9/test_splits.py`), the 3379-point set (all 88573 directions) and the 6759-point set
+(layer criterion over all 177147 vectors on the 3379-point layer, `k9/test_doubled_big.py`).
+From F_3^13 on the sets rest on Lemma 1, whose proof is below; the split it needs is
+verified for the 6759-point set.
 
 ## Definitions
 
@@ -55,12 +81,16 @@ excess e gives Kakeya sets of
 
 By Lemma 2 a split of one layer is enough for a whole tower of layered sets: our records
 105 → 211 → 422 → 844 → 1693 (`k6/RECORDS.md`) each have the previous record as their layer
-x₀ = 0. So **a split of the 105-point set of F_3^6 with excess e gives splits of all of
-them with excess e**, and Lemma 1 then gives Kakeya sets of 2·844 + e points in F_3^10 and
-2^j (844 + e) − e points in F_3^(9+j) for all j.
+x₀ = 0. So a split of the 105-point set of F_3^6 with excess e gives splits of all of
+them with excess e. Moreover **every** Kakeya set of F_3^(m+1) that a layered search builds
+on one of these layers inherits a split of excess 1, so any future layered record on this
+chain doubles in the same way: a layered set of s points in F_3^n gives 2^j (s + 1) − 1 in
+F_3^(n+j).
 
 Starting from K = F_3 with A = {0, 1}, B = {0, 2} (excess 1) the lemmas give 2^(n+1) − 1
-points in F_3^n, the size of the classical construction {0,1}^n ∪ {0,2}^n.
+points in F_3^n, exactly the classical construction {0,1}^n ∪ {0,2}^n. Our earlier sticky
+family 31 · 2^(n−4) − 1 (repository kakeya-small-fields) has the same shape, from a 30-point
+sticky set of F_3^4.
 
 ## Code and checks
 
@@ -68,17 +98,18 @@ points in F_3^n, the size of the classical construction {0,1}^n ∪ {0,2}^n.
   the definition, with coordinate tuples), `double` (Lemma 1 and the split of the
   Corollary), `lift` (Lemma 2), and `find_split`, a WalkSAT-style local search over the
   colourings "A only / B only / both" of K that lowers the excess step by step.
+* `k9/splits/kakeya6_105_split.json`, `k9/splits/kakeya7_211_split.json`: the stored splits
+  (one state per point, encoding in the files).
 * `k9/test_split.py`: rebuilds the classical sizes 7, 15, 31, 63 with the lemmas and checks
-  each set by directions; searches a split of `k6/sets/kakeya6_105.json` (seeds 1 to 5);
-  checks it with `verify_split`; checks the doubled set in F_3^7 by directions; lifts the
-  split through the 211-, 422- and 844-point records, verifying each lifted split; doubles
-  the 844-point set into F_3^10 and checks the result with its own pair checker (no code
-  shared with `k9/split.py`); and verifies the split of that set, which proves the next
-  doubling into F_3^11. The test requires excess at most 4, so that the set in F_3^10 has
-  at most 1692 points (record before this: 1693).
-
-The excess the search finds, and the sets it gives, are recorded in `k6/RECORDS.md` once
-they are stored in the repository.
+  each set by directions; searches a split of the 105-point set with its own seeds and
+  requires excess at most 4.
+* `k9/test_splits.py`: decodes the stored splits twice, verifies them from the definition,
+  checks the doubled sets 211 (F_3^7) and 423 (F_3^8), lifts the 105-point split through
+  211 → 422 → 844 → 1693 with excess 1 at every step, and checks the 1689-point set of F_3^10
+  over all 29524 directions with its own pair checker (no code shared with `k9/split.py`).
+* `k9/test_doubled_big.py`: checks the 3379-point set of F_3^11 over all 88573 directions,
+  the 6759-point set of F_3^12 by the layer criterion over all 177147 vectors, the split of
+  the 6759-point set over all 531441 vectors, and every number in `k9/results/doubling.json`.
 
 ## Prior work
 
